@@ -188,6 +188,7 @@
       font-weight: 500;
       padding: 12px 24px;
       border-radius: var(--radius-sm);
+      text-decoration: none;
       transition: background-color var(--transition-fast), transform var(--transition-fast);
       min-height: 44px;
       border: 1px solid var(--accent);
@@ -456,12 +457,13 @@
       padding: 12px 24px;
       background-color: transparent;
       color: var(--fg);
-      font-size: 0.82rem;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+      font-size: 0.8125rem;
       font-weight: 500;
-      border: 1px solid var(--border);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border: 1px solid var(--border-subtle);
       border-radius: var(--radius-sm);
+      text-decoration: none;
       transition: all var(--transition-fast);
       min-height: 44px;
     }
@@ -883,7 +885,7 @@
     <span>Atelier en C/ de Goya, 69, Salamanca, Madrid</span>
     <span class="breadcrumb-sep">·</span>
     <span>Confección a medida bajo cita previa</span>
-    <a href="#pedir-cita" onclick="openAppointmentModal('Cita general'); return false;">Reservar encuentro</a>
+    <a href="cita.html">Reservar encuentro</a>
   </aside>
 
   <!-- CABECERA PRINCIPAL -->
@@ -909,9 +911,9 @@
       </nav>
 
       <div class="header-actions">
-        <button type="button" class="btn-cta" data-od-id="btn-header-cita" onclick="openAppointmentModal('Colecciones nupciales')">
+        <a href="cita.html" class="btn-cta" data-od-id="btn-header-cita">
           Pedir Cita
-        </button>
+        </a>
       </div>
     </div>
   </header>
@@ -989,18 +991,16 @@
 
           <!-- ACCIONES -->
           <div class="collection-actions">
-            <button 
-              type="button" 
+            <a 
+              href="cita.html?coleccion=siluetas" 
               class="btn-secondary" 
               data-od-id="btn-cita-siluetas"
-              onclick="openAppointmentModal('Colección Siluetas Puras')"
             >
               Probar esta línea en el Atelier
-            </button>
+            </a>
             <a 
-              href="#pedir-cita" 
+              href="cita.html?coleccion=siluetas" 
               class="btn-inline-link"
-              onclick="openAppointmentModal('Colección Siluetas Puras'); return false;"
             >
               Consultar detalles de confección &rarr;
             </a>
@@ -1062,18 +1062,16 @@
 
           <!-- ACCIONES -->
           <div class="collection-actions">
-            <button 
-              type="button" 
+            <a 
+              href="cita.html?coleccion=botanica" 
               class="btn-secondary" 
               data-od-id="btn-cita-botanica"
-              onclick="openAppointmentModal('Colección Botánica & Bordados')"
             >
               Probar esta línea en el Atelier
-            </button>
+            </a>
             <a 
-              href="#pedir-cita" 
+              href="cita.html?coleccion=botanica" 
               class="btn-inline-link"
-              onclick="openAppointmentModal('Colección Botánica & Bordados'); return false;"
             >
               Consultar detalles de confección &rarr;
             </a>
@@ -1094,9 +1092,9 @@
         </p>
       </div>
       <div class="banner-action-area">
-        <button type="button" class="btn-cta" onclick="openAppointmentModal('Creación a medida exclusiva')">
+        <a href="cita.html" class="btn-cta">
           Concertar cita con María Diezma
-        </button>
+        </a>
         <span class="atelier-address-tag">Calle de Goya, 69 · Barrio de Salamanca, Madrid</span>
       </div>
     </section>
@@ -1123,7 +1121,7 @@
           <li><a href="conoceme.html">Conóceme</a></li>
           <li><a href="colecciones.html" style="color: var(--fg); font-weight: 500;">Colecciones</a></li>
           <li><a href="proceso.html">Nuestro Proceso</a></li>
-          <li><a href="#pedir-cita" onclick="openAppointmentModal('Cita general'); return false;">Pedir Cita</a></li>
+          <li><a href="cita.html">Pedir Cita</a></li>
         </ul>
       </div>
 
@@ -1230,27 +1228,10 @@
   <script>
     function openAppointmentModal(collectionName) {
       const modal = document.getElementById('appointment-modal');
-      const formView = document.getElementById('modal-form-view');
-      const confirmView = document.getElementById('modal-confirmation-view');
-      const selectElem = document.getElementById('input-collection');
-
-      if (formView && confirmView) {
-        formView.style.display = 'block';
-        confirmView.style.display = 'none';
-      }
-
-      if (selectElem && collectionName) {
-        for (let i = 0; i < selectElem.options.length; i++) {
-          if (selectElem.options[i].value === collectionName) {
-            selectElem.selectedIndex = i;
-            break;
-          }
-        }
-      }
-
-      if (modal) {
-        modal.classList.add('open');
-        document.body.style.overflow = 'hidden';
+      if (collectionName) {
+        window.location.href = 'cita.html?coleccion=' + encodeURIComponent(collectionName);
+      } else {
+        window.location.href = 'cita.html';
       }
     }
 

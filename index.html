@@ -976,18 +976,18 @@
       </p>
 
       <!-- Botón central solicitado expresamente: "pedir cita" -->
-      <button 
-        type="button" 
+      <a 
+        href="pages/cita.html" 
         class="btn-hero-cita" 
-        onclick="openAppointmentModal(event)"
         data-od-id="cta-hero-pedir-cita"
+        style="text-decoration: none;"
       >
         <span>Pedir Cita</span>
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
           <line x1="5" y1="12" x2="19" y2="12"></line>
           <polyline points="12 5 19 12 12 19"></polyline>
         </svg>
-      </button>
+      </a>
     </div>
   </section>
 
@@ -1207,15 +1207,14 @@
                 <span>Cómo llegar (Google Maps)</span>
               </a>
 
-              <button 
-                type="button" 
+              <a 
+                href="pages/cita.html" 
                 class="btn-hero-cita" 
-                style="width: 100%;"
-                onclick="openAppointmentModal(event)"
+                style="width: 100%; text-decoration: none;"
                 data-od-id="btn-cita-atelier"
               >
                 Concertar Visita en el Atelier
-              </button>
+              </a>
             </div>
           </div>
 
@@ -1355,9 +1354,7 @@
   <script>
     function openAppointmentModal(event) {
       if (event) event.preventDefault();
-      const modal = document.getElementById('modal-cita-backdrop');
-      modal.classList.add('is-open');
-      document.body.style.overflow = 'hidden';
+      window.location.href = 'pages/cita.html';
     }
 
     function closeAppointmentModal() {

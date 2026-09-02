@@ -183,6 +183,7 @@
       font-weight: 500;
       letter-spacing: 0.08em;
       text-transform: uppercase;
+      text-decoration: none;
       padding: 0.6875rem 1.375rem;
       background-color: var(--accent);
       color: var(--surface);
@@ -1103,9 +1104,9 @@
       </nav>
 
       <div class="header-actions">
-        <button type="button" class="btn-cta-nav" id="btn-open-modal-nav" data-od-id="btn-pedir-cita-nav">
+        <a href="cita.html" class="btn-cta-nav" id="btn-open-modal-nav" data-od-id="btn-pedir-cita-nav">
           Pedir Cita
-        </button>
+        </a>
         <button type="button" class="mobile-menu-toggle" id="mobile-toggle" aria-label="Abrir menú" aria-expanded="false">
           <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round">
             <line x1="3" y1="6" x2="21" y2="6"></line>
@@ -1419,9 +1420,9 @@
           Lorem ipsum dolor sit amet, consectetur adipiscing elit. Te esperamos en nuestro espacio de Madrid para escucharte, compartir ideas y diseñar juntos el boceto exclusivo de tu boda.
         </p>
         <div class="cta-banner-actions">
-          <button type="button" class="btn-primary-large" id="btn-open-modal-cta" data-od-id="btn-pedir-cita-cta">
+          <a href="cita.html" class="btn-primary-large" id="btn-open-modal-cta" data-od-id="btn-pedir-cita-cta">
             Pedir Cita en el Atelier
-          </button>
+          </a>
           <a href="colecciones.html" class="btn-secondary-large" data-od-id="btn-ver-colecciones">
             Explorar Colecciones
           </a>
@@ -1451,6 +1452,7 @@
           <li><a href="conoceme.html" class="footer-link">Conóceme</a></li>
           <li><a href="colecciones.html" class="footer-link">Colecciones</a></li>
           <li><a href="proceso.html" class="footer-link">Nuestro Proceso</a></li>
+          <li><a href="cita.html" class="footer-link">Pedir Cita</a></li>
         </ul>
       </div>
 
@@ -1622,8 +1624,20 @@
       }
     }
 
-    if (btnOpenNav) btnOpenNav.addEventListener('click', openModal);
-    if (btnOpenCta) btnOpenCta.addEventListener('click', openModal);
+    if (btnOpenNav) {
+      btnOpenNav.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.location.href = 'cita.html';
+      });
+    }
+
+    if (btnOpenCta) {
+      btnOpenCta.addEventListener('click', (e) => {
+        e.preventDefault();
+        window.location.href = 'cita.html';
+      });
+    }
+    
     if (btnClose) btnClose.addEventListener('click', closeModal);
     if (btnCloseSuccess) btnCloseSuccess.addEventListener('click', closeModal);
 
