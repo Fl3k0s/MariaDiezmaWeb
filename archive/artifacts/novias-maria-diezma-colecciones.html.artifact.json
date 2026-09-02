@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "kind": "html",
+  "title": "María Diezma · Colecciones Nupciales",
+  "entry": "novias-maria-diezma-colecciones.html",
+  "renderer": "html",
+  "status": "complete",
+  "exports": [
+    "html",
+    "pdf",
+    "zip"
+  ],
+  "primary": true,
+  "createdAt": "2026-09-02T15:27:37.472Z",
+  "updatedAt": "2026-09-02T15:27:37.473Z",
+  "metadata": {
+    "identifier": "novias-maria-diezma-colecciones",
+    "artifactType": "text/html",
+    "inferred": false
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 2,
+  "fileName": "novias-maria-diezma-colecciones.html",
+  "currentVersionId": "2604e2b5-c4eb-471a-99e3-a8f31b23fa35",
+  "entries": [
+    {
+      "id": "2604e2b5-c4eb-471a-99e3-a8f31b23fa35",
+      "fileName": "novias-maria-diezma-colecciones.html",
+      "version": 1,
+      "label": "Version 1",
+      "createdAt": 1788362857475,
+      "source": "ai",
+      "prompt": "En el apartado de colecciones quiero que pongas 2 bloques, 1 por coleccion, en los cuales va a ir una foto de la coleccion, el nombre y una pequeña descripcion",
+      "size": 39347,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0001-2604e2b5-c4eb-471a-99e3-a8f31b23fa35.html",
+      "contentDigest": "e26135a933821daf3586b22bcb431be5969240867673bdb19c4a29dfab79e44a",
+      "promptSource": "message"
+    }
+  ]
+}

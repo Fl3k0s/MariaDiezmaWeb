@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "kind": "html",
+  "title": "María Diezma · Pedir Cita en el Atelier",
+  "entry": "novias-maria-diezma-cita-2.html",
+  "renderer": "html",
+  "status": "complete",
+  "exports": [
+    "html",
+    "pdf",
+    "zip"
+  ],
+  "primary": true,
+  "createdAt": "2026-09-02T15:48:34.166Z",
+  "updatedAt": "2026-09-02T15:48:34.167Z",
+  "metadata": {
+    "identifier": "novias-maria-diezma-cita",
+    "artifactType": "text/html",
+    "inferred": false
+  }
+}

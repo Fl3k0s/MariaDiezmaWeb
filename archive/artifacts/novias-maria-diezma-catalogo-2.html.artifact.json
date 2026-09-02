@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "kind": "html",
+  "title": "María Diezma · Catálogo y Detalle de Vestidos en Pestaña",
+  "entry": "novias-maria-diezma-catalogo-2.html",
+  "renderer": "html",
+  "status": "complete",
+  "exports": [
+    "html",
+    "pdf",
+    "zip"
+  ],
+  "primary": true,
+  "createdAt": "2026-09-02T15:58:29.118Z",
+  "updatedAt": "2026-09-02T15:58:29.119Z",
+  "metadata": {
+    "identifier": "novias-maria-diezma-catalogo",
+    "artifactType": "text/html",
+    "inferred": false
+  }
+}

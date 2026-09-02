@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "kind": "html",
+  "title": "María Diezma · Vestidos de Novia a Medida",
+  "entry": "novias-maria-diezma.html",
+  "renderer": "html",
+  "status": "complete",
+  "exports": [
+    "html",
+    "pdf",
+    "zip"
+  ],
+  "primary": true,
+  "createdAt": "2026-09-02T12:44:21.642Z",
+  "updatedAt": "2026-09-02T12:44:21.646Z",
+  "metadata": {
+    "identifier": "novias-maria-diezma",
+    "artifactType": "text/html",
+    "inferred": false
+  }
+}

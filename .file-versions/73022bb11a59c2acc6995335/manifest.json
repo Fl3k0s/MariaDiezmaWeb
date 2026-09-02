@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 2,
+  "fileName": "novias-maria-diezma-catalogo-2.html",
+  "currentVersionId": "106cd571-d014-446f-81cc-fbd76ed51738",
+  "entries": [
+    {
+      "id": "106cd571-d014-446f-81cc-fbd76ed51738",
+      "fileName": "novias-maria-diezma-catalogo-2.html",
+      "version": 1,
+      "label": "Version 1",
+      "createdAt": 1788364709121,
+      "source": "ai",
+      "prompt": "Necesito que cuando alguien pinche en un vestido en la parte de colecciones se abra una pestaña nueva en la que se podrá ver las imagenes del vestido.\nQuiero que a la izquierda del contenedor aparezca la imagen seleccionada en grande y debajo en pequeño la contra parte, que se pueda seleccionar y a la derecha en grande el nombre del vestido y debajo del nombre que aparezca una pequeña descripcion del vestido",
+      "size": 61924,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0001-106cd571-d014-446f-81cc-fbd76ed51738.html",
+      "contentDigest": "c8b154816ec26fa9d9de813e784d90fb3ff94c2268f2295f16a7fdc25193c114",
+      "promptSource": "message"
+    }
+  ]
+}

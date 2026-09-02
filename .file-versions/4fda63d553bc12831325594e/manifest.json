@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 2,
+  "fileName": "novias-maria-diezma-conoceme.html",
+  "currentVersionId": "b1e779a5-d335-45f5-87ab-99211b41143d",
+  "entries": [
+    {
+      "id": "b1e779a5-d335-45f5-87ab-99211b41143d",
+      "fileName": "novias-maria-diezma-conoceme.html",
+      "version": 1,
+      "label": "Version 1",
+      "createdAt": 1788362660019,
+      "source": "ai",
+      "prompt": "Ahora quiero que generes la pagina de conoceme, en la cual vas a poner una foto para nuestra diseñadora y una pequeña descripcion, esta no hace falta que la generes, puedes poner lorem ipsum",
+      "size": 36296,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0001-b1e779a5-d335-45f5-87ab-99211b41143d.html",
+      "contentDigest": "f60fbd697dfb7a4ade62ff51e02fb9e630a7c4de3a38a69c1136e9f67f3f0359",
+      "promptSource": "message"
+    }
+  ]
+}

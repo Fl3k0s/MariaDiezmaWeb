@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 2,
+  "fileName": "novias-maria-diezma-catalogo.html",
+  "currentVersionId": "179a1148-094e-4d19-b06c-8119d6d1b889",
+  "entries": [
+    {
+      "id": "179a1148-094e-4d19-b06c-8119d6d1b889",
+      "fileName": "novias-maria-diezma-catalogo.html",
+      "version": 1,
+      "label": "Version 1",
+      "createdAt": 1788363231281,
+      "source": "ai",
+      "prompt": "Quiero que generes una pagina donde se van a mostrar todos los vestidos de las colecciones según seleccione el usuario, necesito que sea una plantilla, en dicha pagina se tienen que mostrar los vestidos en filas de 4 y debajo de cada imagen tiene que aparecer el nombre de dicho vestido",
+      "size": 57968,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0001-179a1148-094e-4d19-b06c-8119d6d1b889.html",
+      "contentDigest": "bb9ed8601c644b90376eb00414099d990eeb2525552b76774fec4b0082ba45df",
+      "promptSource": "message"
+    }
+  ]
+}

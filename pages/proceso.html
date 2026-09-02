@@ -1,0 +1,1653 @@
+
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>María Diezma · Nuestro Proceso de Alta Costura Nupcial</title>
+  <style>
+    :root {
+      --bg: oklch(98.5% 0.005 85);
+      --surface: oklch(100% 0 0);
+      --surface-subtle: oklch(96.5% 0.008 85);
+      --fg: oklch(20% 0.018 70);
+      --muted: oklch(48% 0.012 70);
+      --border: oklch(90% 0.006 95);
+      --border-subtle: oklch(93% 0.004 95);
+      --accent: oklch(52% 0.10 28);
+      --accent-hover: oklch(46% 0.10 28);
+      --accent-subtle: oklch(94% 0.03 28);
+
+      --font-display: 'Iowan Old Style', 'Charter', 'Baskerville', Georgia, serif;
+      --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      --font-mono: 'JetBrains Mono', 'IBM Plex Mono', ui-monospace, Menlo, monospace;
+
+      --radius-sm: 2px;
+      --radius-md: 4px;
+      --radius-lg: 8px;
+      --max-width: 1200px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    /* Skip link */
+    .skip-link {
+      position: absolute;
+      top: -40px;
+      left: 1rem;
+      background: var(--fg);
+      color: var(--surface);
+      padding: 0.5rem 1rem;
+      z-index: 1000;
+      transition: top 0.2s;
+    }
+    .skip-link:focus {
+      top: 1rem;
+    }
+
+    /* HEADER & NAV */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      background: oklch(98.5% 0.005 85 / 0.94);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: all 0.3s ease;
+    }
+
+    .header-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 1rem 2rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .brand-logo img {
+      height: 38px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .brand-logo-text {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .brand-name {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 500;
+      line-height: 1.1;
+      color: var(--fg);
+    }
+
+    .brand-tagline {
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-top: 2px;
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 2.25rem;
+      list-style: none;
+    }
+
+    .nav-link {
+      font-size: 0.875rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--fg);
+      position: relative;
+      padding: 0.5rem 0;
+      font-weight: 400;
+    }
+
+    .nav-link::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 0%;
+      height: 1.5px;
+      background: var(--accent);
+      transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
+      width: 100%;
+    }
+
+    .nav-link.active {
+      font-weight: 600;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+    }
+
+    .btn-cta-nav {
+      font-family: var(--font-body);
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 0.6875rem 1.375rem;
+      background-color: var(--accent);
+      color: var(--surface);
+      border-radius: var(--radius-sm);
+      transition: all 0.2s ease;
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-cta-nav:hover {
+      background-color: var(--accent-hover);
+      box-shadow: 0 4px 12px oklch(52% 0.10 28 / 0.2);
+    }
+
+    .btn-cta-nav:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    .mobile-menu-toggle {
+      display: none;
+      background: none;
+      border: 1px solid var(--border);
+      padding: 0.5rem;
+      border-radius: var(--radius-sm);
+      min-width: 44px;
+      min-height: 44px;
+      align-items: center;
+      justify-content: center;
+      color: var(--fg);
+    }
+
+    /* BREADCRUMB */
+    .breadcrumb-nav {
+      max-width: var(--max-width);
+      margin: 1.5rem auto 0;
+      padding: 0 2rem;
+      font-size: 0.8125rem;
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-mono);
+      letter-spacing: 0.04em;
+    }
+
+    .breadcrumb-nav a:hover {
+      color: var(--fg);
+      text-decoration: underline;
+    }
+
+    .breadcrumb-separator {
+      opacity: 0.5;
+    }
+
+    /* HERO PROCESO */
+    .process-hero {
+      max-width: var(--max-width);
+      margin: 2rem auto 4rem;
+      padding: 0 2rem;
+      text-align: center;
+    }
+
+    .hero-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      margin-bottom: 1.25rem;
+      display: inline-block;
+    }
+
+    .hero-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.25rem, 4.5vw, 3.75rem);
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.01em;
+      color: var(--fg);
+      max-width: 850px;
+      margin: 0 auto 1.5rem;
+    }
+
+    .hero-lead {
+      font-size: 1.125rem;
+      line-height: 1.75;
+      color: var(--muted);
+      max-width: 720px;
+      margin: 0 auto 2.5rem;
+    }
+
+    /* METRICS STRIP */
+    .process-metrics-strip {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 2rem 2.5rem;
+      border-radius: var(--radius-sm);
+      max-width: 960px;
+      margin: 0 auto;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.02);
+    }
+
+    .metric-item {
+      text-align: left;
+      border-left: 1px solid var(--border);
+      padding-left: 1.5rem;
+    }
+
+    .metric-item:first-child {
+      border-left: none;
+      padding-left: 0;
+    }
+
+    .metric-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-bottom: 0.35rem;
+    }
+
+    .metric-value {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      color: var(--fg);
+      line-height: 1.2;
+    }
+
+    .metric-sub {
+      font-size: 0.8125rem;
+      color: var(--muted);
+      margin-top: 0.25rem;
+    }
+
+    /* TIMELINE CONTAINER */
+    .timeline-section {
+      max-width: var(--max-width);
+      margin: 0 auto 6rem;
+      padding: 0 2rem;
+      position: relative;
+    }
+
+    .timeline-spine {
+      position: absolute;
+      top: 3rem;
+      bottom: 4rem;
+      left: 50%;
+      width: 1px;
+      background: var(--border);
+      transform: translateX(-50%);
+      z-index: 1;
+    }
+
+    .step-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4.5rem;
+      align-items: center;
+      margin-bottom: 5.5rem;
+      position: relative;
+      z-index: 2;
+    }
+
+    .step-block:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Step marker in the center for desktop */
+    .step-marker {
+      position: absolute;
+      left: 50%;
+      top: 2rem;
+      transform: translate(-50%, -50%);
+      width: 44px;
+      height: 44px;
+      background: var(--surface);
+      border: 1.5px solid var(--accent);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--font-mono);
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--accent);
+      box-shadow: 0 0 0 6px var(--bg);
+      z-index: 3;
+    }
+
+    /* Inverted layout for alternating rhythm */
+    .step-block.inverted .step-content {
+      order: 2;
+    }
+    .step-block.inverted .step-visual {
+      order: 1;
+    }
+
+    /* Step content styles */
+    .step-content {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 3rem 2.5rem;
+      border-radius: var(--radius-sm);
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.02);
+    }
+
+    .step-kicker-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 1rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .step-phase-badge {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .step-timing-badge {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      background: var(--surface-subtle);
+      padding: 0.2rem 0.55rem;
+      border-radius: var(--radius-sm);
+    }
+
+    .step-title {
+      font-family: var(--font-display);
+      font-size: 1.875rem;
+      line-height: 1.25;
+      color: var(--fg);
+      margin-bottom: 1.25rem;
+    }
+
+    .step-text {
+      color: var(--fg);
+      font-size: 1rem;
+      line-height: 1.75;
+      margin-bottom: 1.25rem;
+      text-align: justify;
+    }
+
+    .step-text:last-of-type {
+      margin-bottom: 1.75rem;
+    }
+
+    .step-highlights {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+      padding-top: 1.25rem;
+      border-top: 1px solid var(--border-subtle);
+      font-size: 0.875rem;
+      color: var(--muted);
+    }
+
+    .step-highlight-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.625rem;
+    }
+
+    .step-highlight-icon {
+      color: var(--accent);
+      flex-shrink: 0;
+      margin-top: 3px;
+    }
+
+    .step-highlight-text strong {
+      color: var(--fg);
+      font-weight: 500;
+    }
+
+    /* Step visual styles */
+    .step-visual {
+      position: relative;
+    }
+
+    .step-image-frame {
+      position: relative;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 0.75rem;
+      border-radius: var(--radius-sm);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.04);
+    }
+
+    .step-image-frame img {
+      width: 100%;
+      height: 480px;
+      object-fit: cover;
+      display: block;
+      filter: saturate(0.95) contrast(1.02);
+      transition: transform 0.4s ease;
+    }
+
+    .step-image-frame:hover img {
+      transform: scale(1.01);
+    }
+
+    .step-image-caption {
+      margin-top: 0.75rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+
+    .step-image-badge {
+      position: absolute;
+      bottom: 1.75rem;
+      right: 1.75rem;
+      background: oklch(100% 0 0 / 0.92);
+      backdrop-filter: blur(8px);
+      border: 1px solid var(--border);
+      padding: 0.5rem 0.875rem;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--fg);
+      border-radius: var(--radius-sm);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+    }
+
+    /* FAQ ACCORDION SECTION */
+    .process-faq-section {
+      max-width: 960px;
+      margin: 0 auto 6rem;
+      padding: 0 2rem;
+    }
+
+    .faq-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .faq-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+      display: inline-block;
+    }
+
+    .faq-title {
+      font-family: var(--font-display);
+      font-size: 2.25rem;
+      color: var(--fg);
+      line-height: 1.25;
+    }
+
+    .faq-accordion {
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+    }
+
+    .faq-item {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      transition: border-color 0.2s;
+    }
+
+    .faq-item:hover {
+      border-color: var(--muted);
+    }
+
+    .faq-question-btn {
+      width: 100%;
+      text-align: left;
+      padding: 1.35rem 1.75rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1rem;
+      font-family: var(--font-display);
+      font-size: 1.1875rem;
+      color: var(--fg);
+      min-height: 52px;
+      background: none;
+    }
+
+    .faq-question-btn:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: -2px;
+    }
+
+    .faq-toggle-icon {
+      flex-shrink: 0;
+      width: 24px;
+      height: 24px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.25s ease, background-color 0.2s;
+      color: var(--accent);
+    }
+
+    .faq-item.active .faq-toggle-icon {
+      transform: rotate(45deg);
+      background-color: var(--accent-subtle);
+    }
+
+    .faq-answer-panel {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s cubic-bezier(0.16, 1, 0.3, 1), padding 0.3s ease;
+      padding: 0 1.75rem;
+      color: var(--muted);
+      font-size: 0.9375rem;
+      line-height: 1.7;
+    }
+
+    .faq-item.active .faq-answer-panel {
+      max-height: 240px;
+      padding: 0 1.75rem 1.5rem;
+    }
+
+    /* CTA BANNER */
+    .cta-banner-section {
+      max-width: var(--max-width);
+      margin: 0 auto 6rem;
+      padding: 0 2rem;
+    }
+
+    .cta-banner-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 4.5rem 3rem;
+      text-align: center;
+      border-radius: var(--radius-sm);
+      position: relative;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.03);
+    }
+
+    .cta-banner-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .cta-banner-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.5vw, 2.75rem);
+      color: var(--fg);
+      margin-bottom: 1.25rem;
+      line-height: 1.2;
+    }
+
+    .cta-banner-desc {
+      color: var(--muted);
+      max-width: 620px;
+      margin: 0 auto 2.5rem;
+      font-size: 1.0625rem;
+      line-height: 1.7;
+    }
+
+    .cta-banner-actions {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 1.25rem;
+    }
+
+    .btn-primary-large {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.9375rem 2.25rem;
+      background: var(--accent);
+      color: var(--surface);
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s ease;
+      min-height: 48px;
+    }
+
+    .btn-primary-large:hover {
+      background: var(--accent-hover);
+      box-shadow: 0 4px 16px oklch(52% 0.10 28 / 0.25);
+    }
+
+    .btn-primary-large:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    .btn-secondary-large {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0.9375rem 2rem;
+      background: transparent;
+      border: 1px solid var(--border);
+      color: var(--fg);
+      font-size: 0.875rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s ease;
+      min-height: 48px;
+    }
+
+    .btn-secondary-large:hover {
+      border-color: var(--fg);
+      background: var(--surface-subtle);
+    }
+
+    /* FOOTER */
+    .site-footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 4.5rem 2rem 2.5rem;
+    }
+
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      gap: 3.5rem;
+      margin-bottom: 3.5rem;
+    }
+
+    .footer-brand-title {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 0.875rem;
+      color: var(--fg);
+    }
+
+    .footer-brand-desc {
+      color: var(--muted);
+      font-size: 0.875rem;
+      line-height: 1.65;
+      max-width: 320px;
+      margin-bottom: 1.25rem;
+    }
+
+    .footer-col-title {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--fg);
+      margin-bottom: 1.25rem;
+      font-weight: 600;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .footer-link {
+      font-size: 0.875rem;
+      color: var(--muted);
+      transition: color 0.2s;
+    }
+
+    .footer-link:hover {
+      color: var(--fg);
+    }
+
+    .footer-address {
+      font-style: normal;
+      font-size: 0.875rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .footer-address p {
+      margin-bottom: 0.5rem;
+    }
+
+    .footer-address a {
+      color: var(--accent);
+      text-decoration: underline;
+    }
+
+    .footer-bottom {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-family: var(--font-mono);
+      letter-spacing: 0.04em;
+    }
+
+    /* MODAL PEDIR CITA */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background: oklch(15% 0.01 0 / 0.6);
+      backdrop-filter: blur(6px);
+      z-index: 200;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.25s ease;
+    }
+
+    .modal-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-window {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      width: 100%;
+      max-width: 580px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 2.75rem 2.5rem;
+      position: relative;
+      transform: translateY(20px);
+      transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+    }
+
+    .modal-backdrop.open .modal-window {
+      transform: translateY(0);
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      transition: all 0.2s;
+    }
+
+    .modal-close-btn:hover {
+      color: var(--fg);
+      border-color: var(--fg);
+    }
+
+    .modal-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .modal-title {
+      font-family: var(--font-display);
+      font-size: 1.875rem;
+      color: var(--fg);
+      margin-bottom: 0.75rem;
+      line-height: 1.2;
+    }
+
+    .modal-desc {
+      font-size: 0.875rem;
+      color: var(--muted);
+      margin-bottom: 2rem;
+      line-height: 1.6;
+    }
+
+    .form-group {
+      margin-bottom: 1.35rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 0.8125rem;
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      color: var(--fg);
+      margin-bottom: 0.35rem;
+    }
+
+    .form-input,
+    .form-select,
+    .form-textarea {
+      width: 100%;
+      padding: 0.75rem 0.875rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background: var(--surface);
+      color: var(--fg);
+      font-family: inherit;
+      font-size: 0.875rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    .form-input:focus,
+    .form-select:focus,
+    .form-textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px oklch(52% 0.10 28 / 0.12);
+    }
+
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .btn-submit-form {
+      width: 100%;
+      padding: 0.875rem;
+      background: var(--accent);
+      color: var(--surface);
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s;
+      margin-top: 0.75rem;
+      min-height: 46px;
+    }
+
+    .btn-submit-form:hover {
+      background: var(--accent-hover);
+    }
+
+    .modal-success-state {
+      display: none;
+      text-align: center;
+      padding: 2rem 1rem;
+    }
+
+    .modal-success-icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: var(--accent-subtle);
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+    }
+
+    /* RESPONSIVE MEDIA QUERIES */
+    @media (max-width: 960px) {
+      .timeline-spine {
+        left: 24px;
+        transform: none;
+      }
+
+      .step-block {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        padding-left: 3.5rem;
+        margin-bottom: 4rem;
+      }
+
+      .step-marker {
+        left: 24px;
+        transform: translate(-50%, 0);
+        top: 0;
+      }
+
+      .step-block.inverted .step-content {
+        order: 1;
+      }
+      .step-block.inverted .step-visual {
+        order: 2;
+      }
+
+      .step-image-frame img {
+        height: 360px;
+      }
+
+      .process-metrics-strip {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+        padding: 1.5rem;
+      }
+
+      .metric-item {
+        border-left: none;
+        padding-left: 0;
+        border-top: 1px solid var(--border);
+        padding-top: 1.25rem;
+      }
+
+      .metric-item:first-child {
+        border-top: none;
+        padding-top: 0;
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: 2.5rem;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header-inner {
+        padding: 1rem 1.25rem;
+      }
+
+      .nav-menu {
+        display: none;
+      }
+
+      .mobile-menu-toggle {
+        display: inline-flex;
+      }
+
+      .nav-menu.open-mobile {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100%;
+        background: var(--surface);
+        padding: 1.5rem 2rem;
+        border-bottom: 1px solid var(--border);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+        gap: 1.25rem;
+        align-items: flex-start;
+      }
+
+      .step-content {
+        padding: 2rem 1.5rem;
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-bottom {
+        flex-direction: column;
+        gap: 0.75rem;
+        text-align: center;
+      }
+
+      .form-grid-2 {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <a href="#content" class="skip-link">Saltar al contenido principal</a>
+
+  <!-- CABECERA Y NAVEGACIÓN -->
+  <header class="site-header" data-od-id="main-header">
+    <div class="header-inner">
+      <a href="../index.html" class="brand-logo" title="Volver al Inicio">
+        <img src="../assets/images/logo-maria-diezma.png" alt="Logotipo María Diezma" onerror="this.style.display='none'; document.getElementById('brand-fallback').style.display='block';">
+        <div id="brand-fallback" class="brand-logo-text" style="display:none;">
+          <span class="brand-name">María Diezma</span>
+          <span class="brand-tagline">Atelier Nupcial · Madrid</span>
+        </div>
+      </a>
+
+      <nav aria-label="Navegación principal">
+        <ul class="nav-menu" id="nav-menu">
+          <li><a href="../index.html" class="nav-link" data-od-id="nav-link-inicio">Inicio</a></li>
+          <li><a href="conoceme.html" class="nav-link" data-od-id="nav-link-conoceme">Conóceme</a></li>
+          <li><a href="colecciones.html" class="nav-link" data-od-id="nav-link-colecciones">Colecciones</a></li>
+          <li><a href="proceso.html" class="nav-link active" data-od-id="nav-link-proceso" aria-current="page">Nuestro Proceso</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button type="button" class="btn-cta-nav" id="btn-open-modal-nav" data-od-id="btn-pedir-cita-nav">
+          Pedir Cita
+        </button>
+        <button type="button" class="mobile-menu-toggle" id="mobile-toggle" aria-label="Abrir menú" aria-expanded="false">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main id="content">
+
+    <!-- MIGA DE PAN -->
+    <nav class="breadcrumb-nav" aria-label="Migas de pan">
+      <a href="../index.html">Inicio</a>
+      <span class="breadcrumb-separator">/</span>
+      <span>Atelier</span>
+      <span class="breadcrumb-separator">/</span>
+      <span style="color: var(--fg); font-weight: 500;">Nuestro Proceso</span>
+    </nav>
+
+    <!-- HERO DE LA SECCIÓN PROCESO -->
+    <section class="process-hero" data-od-id="process-hero">
+      <span class="hero-eyebrow">Alta Costura a Medida · Confección Lenta</span>
+      <h1 class="hero-title">El Proceso de Confección: Cinco Pasos Hacia tu Vestido Soñado</h1>
+      <p class="hero-lead">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+      </p>
+
+      <!-- TIRA DE MÉTRICAS / RESUMEN -->
+      <div class="process-metrics-strip" data-od-id="metrics-strip">
+        <div class="metric-item">
+          <div class="metric-label">Tiempo Recomendado</div>
+          <div class="metric-value">4 a 6 Meses</div>
+          <div class="metric-sub">Antelación ideal previa a la boda</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-label">Pruebas Presenciales</div>
+          <div class="metric-value">4 a 5 Citas</div>
+          <div class="metric-sub">En nuestro atelier de C/ de Goya, 69</div>
+        </div>
+        <div class="metric-item">
+          <div class="metric-label">Patronaje Exclusivo</div>
+          <div class="metric-value">100% Artesanal</div>
+          <div class="metric-sub">Pieza única creada sobre tu figura</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TIMELINE DE LOS 5 PASOS -->
+    <section class="timeline-section" data-od-id="process-timeline">
+      <div class="timeline-spine" aria-hidden="true"></div>
+
+      <!-- PASO 1 -->
+      <article class="step-block" id="paso-1" data-od-id="step-card-1">
+        <div class="step-marker" aria-label="Paso 1">01</div>
+        <div class="step-content">
+          <div class="step-kicker-row">
+            <span class="step-phase-badge">Fase 01 · Conceptualización</span>
+            <span class="step-timing-badge">Mes 1 · Primer Encuentro</span>
+          </div>
+          <h2 class="step-title">Primera Cita & Concepción del Boceto</h2>
+          <p class="step-text">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer nec odio. Praesent libero. Sed cursus ante dapibus diam. Sed nisi. Nulla quis sem at nibh elementum imperdiet. Duis sagittis ipsum. Praesent mauris. Fusce nec tellus sed augue semper porta. Mauris massa. Vestibulum lacinia arcu eget nulla.
+          </p>
+          <p class="step-text">
+            Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Curabitur sodales ligula in libero. Sed dignissim lacinia nunc. Curabitur tortor. Pellentesque nibh. Aenean quam. In scelerisque sem at dolor. Maecenas mattis. Sed convallis tristique sem.
+          </p>
+          <ul class="step-highlights">
+            <li class="step-highlight-item">
+              <span class="step-highlight-icon">✦</span>
+              <span class="step-highlight-text"><strong>Objetivo:</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit.</span>
+            </li>
+            <li class="step-highlight-item">
+              <span class="step-highlight-icon">✦</span>
+              <span class="step-highlight-text"><strong>Entregable:</strong> Boceto exclusivo ilustrado a mano y carta de siluetas.</span>
+            </li>
+          </ul>
+        </div>
+        <div class="step-visual">
+          <div class="step-image-frame">
+            <img src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=900&q=80" alt="Bocetos de alta costura y mesa de diseño en el atelier">
+            <div class="step-image-caption">
+              <span>Mesa de corte y lápiz de autor</span>
+              <span>Madrid · Atelier</span>
+            </div>
+            <div class="step-image-badge">Fase 01 / 05</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- PASO 2 -->
+      <article class="step-block inverted" id="paso-2" data-od-id="step-card-2">
+        <div class="step-marker" aria-label="Paso 2">02</div>
+        <div class="step-content">
+          <div class="step-kicker-row">
+            <span class="step-phase-badge">Fase 02 · Materias Nobles</span>
+            <span class="step-timing-badge">Mes 2 · Selección Textil</span>
+          </div>
+          <h2 class="step-title">Toma de Medidas & Elección de Tejidos</h2>
+          <p class="step-text">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi pellentesque libero vel orci commodo, sit amet feugiat sem efficitur. Integer vehicula, justo nec convallis lacinia, nisl mauris placerat elit, non ultricies magna turpis ac felis. Vivamus pharetra diam vitae nibh pellentesque, non efficitur ipsum convallis.
+          </p>
+          <p class="step-text">
+            Suspendisse dictum feugiat nisl ut dapibus. Mauris iaculis porttitor posuere. Praesent id metus massa, ut blandit odio. Proin quis tortor orci. Etiam at risus et justo dignissim congue. Donec congue lacinia dui, a porttitor lectus condimentum laoreet.
+          </p>
+          <ul class="step-highlights">
+            <li class="step-highlight-item">
+              <span class="step-highlight-icon">✦</span>
+              <span class="step-highlight-text"><strong>Tejidos:</strong> Crepé de seda natural, mikado italiano, satén pesante y gasas puras.</span>
+            </li>
+            <li class="step-highlight-item">
+              <span class="step-highlight-icon">✦</span>
+              <span class="step-highlight-text"><strong>Medidas:</strong> Más de 28 cotas antropométricas para asegurar la caída perfecta.</span>
+            </li>
+          </ul>
+        </div>
+        <div class="step-visual">
+          <div class="step-image-frame">
+            <img src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=900&q=80" alt="Muestrario de tejidos nobles, crepé de seda y encajes bordados">
+            <div class="step-image-caption">
+              <span>Selección de crepé y mikado de seda</span>
+              <span>Colección Textil</span>
+            </div>
+            <div class="step-image-badge">Fase 02 / 05</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- PASO 3 -->
+      <article class="step-block" id="paso-3" data-od-id="step-card-3">
+        <div class="step-marker" aria-label="Paso 3">03</div>
+        <div class="step-content">
+          <div class="step-kicker-row">
+            <span class="step-phase-badge">Fase 03 · Escultura Textil</span>
+            <span class="step-timing-badge">Mes 3 · Primera Prueba</span>
+          </div>
+          <h2 class="step-title">La Glaseilla: Primera Prueba en Toile</h2>
+          <p class="step-text">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem.
+          </p>
+          <p class="step-text">
+            Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis.
+          </p>
+          <ul class="step-highlights">
+            <li class="step-highlight-item">
+              <span class="step-highlight-icon">✦</span>
+              <span class="step-highlight-text"><strong>La Glaseilla:</strong> Prototipo exacto confeccionado en lienzo de algodón crudo.</span>
+            </li>
+            <li class="step-highlight-item">
+              <span class="step-highlight-icon">✦</span>
+              <span class="step-highlight-text"><strong>Modificaciones:</strong> Ajustes directos de escotes, sisas, alturas de talle y volumen.</span>
+            </li>
+          </ul>
+        </div>
+        <div class="step-visual">
+          <div class="step-image-frame">
+            <img src="https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=900&q=80" alt="Modelado sobre maniquí de alta costura y prueba de glaseilla">
+            <div class="step-image-caption">
+              <span>Modelado en toile de algodón</span>
+              <span>Ajuste Anatómico</span>
+            </div>
+            <div class="step-image-badge">Fase 03 / 05</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- PASO 4 -->
+      <article class="step-block inverted" id="paso-4" data-od-id="step-card-4">
+        <div class="step-marker" aria-label="Paso 4">04</div>
+        <div class="step-content">
+          <div class="step-kicker-row">
+            <span class="step-phase-badge">Fase 04 · Materialización</span>
+            <span class="step-timing-badge">Mes 4-5 · Confección Real</span>
+          </div>
+          <h2 class="step-title">Confección en Tejido Real & Pruebas de Caída</h2>
+          <p class="step-text">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis.
+          </p>
+          <p class="step-text">
+            At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi.
+          </p>
+          <ul class="step-highlights">
+            <li class="step-highlight-item">
+              <span class="step-highlight-icon">✦</span>
+              <span class="step-highlight-text"><strong>Prueba en movimiento:</strong> Calzado definitivo, ritmo de paso y colocación de cola.</span>
+            </li>
+            <li class="step-highlight-item">
+              <span class="step-highlight-icon">✦</span>
+              <span class="step-highlight-text"><strong>Bordados:</strong> Aplicación de pedrería y encajes colocados milímetro a milímetro.</span>
+            </li>
+          </ul>
+        </div>
+        <div class="step-visual">
+          <div class="step-image-frame">
+            <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=80" alt="Pruebas de vestido en tejido real y verificación de la caída">
+            <div class="step-image-caption">
+              <span>Prueba de caída en seda natural</span>
+              <span>Atelier María Diezma</span>
+            </div>
+            <div class="step-image-badge">Fase 04 / 05</div>
+          </div>
+        </div>
+      </article>
+
+      <!-- PASO 5 -->
+      <article class="step-block" id="paso-5" data-od-id="step-card-5">
+        <div class="step-marker" aria-label="Paso 5">05</div>
+        <div class="step-content">
+          <div class="step-kicker-row">
+            <span class="step-phase-badge">Fase 05 · Culminación</span>
+            <span class="step-timing-badge">Semana previa · Entrega Final</span>
+          </div>
+          <h2 class="step-title">Últimos Detalles, Planchado & Entrega</h2>
+          <p class="step-text">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores.
+          </p>
+          <p class="step-text">
+            Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus.
+          </p>
+          <ul class="step-highlights">
+            <li class="step-highlight-item">
+              <span class="step-highlight-icon">✦</span>
+              <span class="step-highlight-text"><strong>Planchado a vapor:</strong> Técnica tradicional sobre maniquí para sellar costuras.</span>
+            </li>
+            <li class="step-highlight-item">
+              <span class="step-highlight-icon">✦</span>
+              <span class="step-highlight-text"><strong>Entrega protegida:</strong> Funda transpirable personalizada, percha forrada y guía de cuidados.</span>
+            </li>
+          </ul>
+        </div>
+        <div class="step-visual">
+          <div class="step-image-frame">
+            <img src="https://images.unsplash.com/photo-1546804784-896d0dca3805?auto=format&fit=crop&w=900&q=80" alt="Vestido de novia terminado y listo para el gran día">
+            <div class="step-image-caption">
+              <span>Entrega final en funda de conservación</span>
+              <span>Lista para el Enlace</span>
+            </div>
+            <div class="step-image-badge">Fase 05 / 05</div>
+          </div>
+        </div>
+      </article>
+
+    </section>
+
+    <!-- PREGUNTAS FRECUENTES SOBRE EL PROCESO -->
+    <section class="process-faq-section" data-od-id="process-faq">
+      <div class="faq-header">
+        <span class="faq-eyebrow">Dudas Habituales</span>
+        <h2 class="faq-title">Preguntas Frecuentes sobre el Proceso de Costura</h2>
+      </div>
+
+      <div class="faq-accordion">
+        <div class="faq-item" data-od-id="faq-item-1">
+          <button type="button" class="faq-question-btn" aria-expanded="false">
+            <span>¿Con cuánta antelación debo pedir mi primera cita?</span>
+            <span class="faq-toggle-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer-panel">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Recomendamos iniciar el proceso entre 5 y 7 meses antes de la fecha de la boda. De este modo disponemos del tiempo necesario para las pruebas de glaseilla, tinturas especiales y bordados a mano sin urgencias.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item" data-od-id="faq-item-2">
+          <button type="button" class="faq-question-btn" aria-expanded="false">
+            <span>¿A cuántas personas puedo traer conmigo a las pruebas?</span>
+            <span class="faq-toggle-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer-panel">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. En el atelier de María Diezma recomendamos asistir acompañada de un máximo de 2 personas de tu máxima confianza. Un ambiente íntimo favorece la concentración en los detalles y la toma de decisiones serena.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item" data-od-id="faq-item-3">
+          <button type="button" class="faq-question-btn" aria-expanded="false">
+            <span>¿Qué debo llevar a la prueba de la glaseilla (toile)?</span>
+            <span class="faq-toggle-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer-panel">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Para la glaseilla es ideal traer la ropa interior que tengas previsto llevar el día de la boda (o similar en sujeción y tono nude) y, si ya dispones de ellos, los zapatos o unos de altura equivalente.
+            </p>
+          </div>
+        </div>
+
+        <div class="faq-item" data-od-id="faq-item-4">
+          <button type="button" class="faq-question-btn" aria-expanded="false">
+            <span>¿Puedo modificar el diseño una vez comenzado el vestido?</span>
+            <span class="faq-toggle-icon" aria-hidden="true">+</span>
+          </button>
+          <div class="faq-answer-panel">
+            <p>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. La fase de glaseilla existe precisamente para explorar y pulir detalles: escotes, volúmenes de falda y larguras. Una vez cortado el tejido definitivo, se realizan ajustes anatómicos de precisión.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BANNER LLAMADA A LA ACCIÓN -->
+    <section class="cta-banner-section" data-od-id="cta-section">
+      <div class="cta-banner-card">
+        <span class="cta-banner-eyebrow">Primer Paso</span>
+        <h2 class="cta-banner-title">Comienza a Crear tu Vestido en Nuestro Atelier</h2>
+        <p class="cta-banner-desc">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Te esperamos en nuestro espacio de Madrid para escucharte, compartir ideas y diseñar juntos el boceto exclusivo de tu boda.
+        </p>
+        <div class="cta-banner-actions">
+          <button type="button" class="btn-primary-large" id="btn-open-modal-cta" data-od-id="btn-pedir-cita-cta">
+            Pedir Cita en el Atelier
+          </button>
+          <a href="colecciones.html" class="btn-secondary-large" data-od-id="btn-ver-colecciones">
+            Explorar Colecciones
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- PIE DE PÁGINA -->
+  <footer class="site-footer" data-od-id="site-footer">
+    <div class="footer-inner">
+      <div>
+        <h3 class="footer-brand-title">María Diezma</h3>
+        <p class="footer-brand-desc">
+          Atelier de alta costura nupcial en Madrid. Creación artesanal de vestidos de novia a medida mediante patronaje anatómico y tejidos nobles.
+        </p>
+        <p style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--muted);">
+          Cita exclusiva y personalizada.
+        </p>
+      </div>
+
+      <div>
+        <h4 class="footer-col-title">Secciones</h4>
+        <ul class="footer-links">
+          <li><a href="../index.html" class="footer-link">Inicio</a></li>
+          <li><a href="conoceme.html" class="footer-link">Conóceme</a></li>
+          <li><a href="colecciones.html" class="footer-link">Colecciones</a></li>
+          <li><a href="proceso.html" class="footer-link">Nuestro Proceso</a></li>
+        </ul>
+      </div>
+
+      <div>
+        <h4 class="footer-col-title">Atelier</h4>
+        <div class="footer-address">
+          <p><strong>Dirección:</strong><br>C/ de Goya, 69, 1º Dcha<br>Barrio de Salamanca<br>28001 Madrid</p>
+          <p><strong>Metro:</strong> Goya / Príncipe de Vergara</p>
+        </div>
+      </div>
+
+      <div>
+        <h4 class="footer-col-title">Atención</h4>
+        <div class="footer-address">
+          <p><strong>Horario de visitas:</strong><br>Lunes a Viernes: 10:00 – 20:00<br>Sábados: 10:00 – 14:00</p>
+          <p style="margin-top: 0.75rem;">
+            <a href="../index.html#mapa-atelier">Ver ubicación en mapa →</a>
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2025 María Diezma Atelier Nupcial S.L. · Todos los derechos reservados.</span>
+      <span>C/ de Goya, 69, Madrid · Alta Costura</span>
+    </div>
+  </footer>
+
+  <!-- MODAL PEDIR CITA -->
+  <div class="modal-backdrop" id="modal-cita" role="dialog" aria-modal="true" aria-labelledby="modal-title" data-od-id="modal-pedir-cita">
+    <div class="modal-window">
+      <button type="button" class="modal-close-btn" id="modal-close-btn" aria-label="Cerrar modal">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      <div id="modal-form-container">
+        <span class="modal-eyebrow">Atelier María Diezma</span>
+        <h3 class="modal-title" id="modal-title">Pedir Cita para Iniciar tu Proceso</h3>
+        <p class="modal-desc">
+          Completa el formulario para reservar tu primer encuentro en nuestro atelier de C/ de Goya, 69, Madrid.
+        </p>
+
+        <form id="appointment-form">
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="input-nombre" class="form-label">Nombre y Apellidos *</label>
+              <input type="text" id="input-nombre" class="form-input" placeholder="Ej. Clara Martín" required>
+            </div>
+            <div class="form-group">
+              <label for="input-telefono" class="form-label">Teléfono *</label>
+              <input type="tel" id="input-telefono" class="form-input" placeholder="+34 600 000 000" required>
+            </div>
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-group">
+              <label for="input-email" class="form-label">Correo Electrónico *</label>
+              <input type="email" id="input-email" class="form-input" placeholder="tuemail@ejemplo.com" required>
+            </div>
+            <div class="form-group">
+              <label for="input-fecha-boda" class="form-label">Fecha Prevista del Enlace</label>
+              <input type="date" id="input-fecha-boda" class="form-input">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="input-motivo" class="form-label">Motivo de la Cita</label>
+            <select id="input-motivo" class="form-select">
+              <option value="primer-boceto" selected>Primera Cita: Diseño & Boceto de Vestido a Medida</option>
+              <option value="prueba-glaseilla">Consulta sobre Plazos y Glaseilla</option>
+              <option value="colecciones">Prueba de Modelos de Colección</option>
+              <option value="informacion">Información General</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="input-mensaje" class="form-label">Detalles o Preferencias</label>
+            <textarea id="input-mensaje" class="form-textarea" rows="3" placeholder="Cuéntanos tus ideas, corte preferido o cualquier detalle sobre tu boda..."></textarea>
+          </div>
+
+          <button type="submit" class="btn-submit-form" id="btn-submit-cita">
+            Confirmar Solicitud de Cita
+          </button>
+        </form>
+      </div>
+
+      <!-- ESTADO DE CONFIRMACIÓN -->
+      <div class="modal-success-state" id="modal-success-state">
+        <div class="modal-success-icon">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+        </div>
+        <h4 style="font-family: var(--font-display); font-size: 1.6rem; color: var(--fg); margin-bottom: 0.5rem;">
+          ¡Solicitud Recibida con Éxito!
+        </h4>
+        <p style="color: var(--muted); font-size: 0.9375rem; margin-bottom: 1.5rem; line-height: 1.6;">
+          Nos pondremos en contacto contigo en un plazo máximo de 24 horas para confirmar el día y la hora exacta en nuestro atelier de <strong>C/ de Goya, 69, Madrid</strong>.
+        </p>
+        <button type="button" class="btn-primary-large" id="btn-close-success" style="width: 100%;">
+          Entendido, volver a la web
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPT DE INTERACCIÓN -->
+  <script>
+    // Gestión del menú móvil
+    const mobileToggle = document.getElementById('mobile-toggle');
+    const navMenu = document.getElementById('nav-menu');
+    if (mobileToggle && navMenu) {
+      mobileToggle.addEventListener('click', () => {
+        const isOpen = navMenu.classList.toggle('open-mobile');
+        mobileToggle.setAttribute('aria-expanded', isOpen);
+      });
+    }
+
+    // Acordeón de FAQ
+    const faqItems = document.querySelectorAll('.faq-item');
+    faqItems.forEach(item => {
+      const btn = item.querySelector('.faq-question-btn');
+      btn.addEventListener('click', () => {
+        const isActive = item.classList.contains('active');
+        // Cerrar los demás
+        faqItems.forEach(i => {
+          i.classList.remove('active');
+          i.querySelector('.faq-question-btn').setAttribute('aria-expanded', 'false');
+        });
+        // Alternar el actual
+        if (!isActive) {
+          item.classList.add('active');
+          btn.setAttribute('aria-expanded', 'true');
+        }
+      });
+    });
+
+    // Gestión del Modal de Cita
+    const modal = document.getElementById('modal-cita');
+    const btnOpenNav = document.getElementById('btn-open-modal-nav');
+    const btnOpenCta = document.getElementById('btn-open-modal-cta');
+    const btnClose = document.getElementById('modal-close-btn');
+    const btnCloseSuccess = document.getElementById('btn-close-success');
+    const formContainer = document.getElementById('modal-form-container');
+    const successState = document.getElementById('modal-success-state');
+    const appointmentForm = document.getElementById('appointment-form');
+
+    function openModal() {
+      if (modal) {
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeModal() {
+      if (modal) {
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+        setTimeout(() => {
+          if (formContainer && successState) {
+            formContainer.style.display = 'block';
+            successState.style.display = 'none';
+          }
+          if (appointmentForm) appointmentForm.reset();
+        }, 300);
+      }
+    }
+
+    if (btnOpenNav) btnOpenNav.addEventListener('click', openModal);
+    if (btnOpenCta) btnOpenCta.addEventListener('click', openModal);
+    if (btnClose) btnClose.addEventListener('click', closeModal);
+    if (btnCloseSuccess) btnCloseSuccess.addEventListener('click', closeModal);
+
+    if (modal) {
+      modal.addEventListener('click', (e) => {
+        if (e.target === modal) closeModal();
+      });
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && modal && modal.classList.contains('open')) {
+        closeModal();
+      }
+    });
+
+    if (appointmentForm) {
+      appointmentForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        if (formContainer && successState) {
+          formContainer.style.display = 'none';
+          successState.style.display = 'block';
+        }
+      });
+    }
+  </script>
+</body>
+</html>

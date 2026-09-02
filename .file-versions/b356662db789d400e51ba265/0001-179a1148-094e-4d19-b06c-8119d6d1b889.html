@@ -1,0 +1,1755 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Catálogo de Colecciones · María Diezma Alta Costura Nupcial</title>
+  <style>
+    :root {
+      --bg:      oklch(98.5% 0.005 85);
+      --surface: oklch(100% 0 0);
+      --fg:      oklch(20% 0.018 70);
+      --muted:   oklch(48% 0.012 70);
+      --border:  oklch(90% 0.006 95);
+      --accent:  oklch(52% 0.10 28);
+      --accent-soft: oklch(95% 0.02 28);
+
+      --font-display: 'Iowan Old Style', 'Charter', Georgia, serif;
+      --font-body:    -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      --font-mono:    ui-monospace, Menlo, Monaco, 'Cascadia Mono', monospace;
+
+      --max-width: 1280px;
+      --header-h: 74px;
+      --radius-sm: 2px;
+      --radius-md: 4px;
+      --transition: all 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+      transition: var(--transition);
+    }
+
+    /* =========================================
+       CABECERA Y NAVEGACIÓN
+       ========================================= */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      background: rgba(255, 255, 255, 0.94);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      height: var(--header-h);
+    }
+
+    .header-container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 24px;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo img {
+      height: 38px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .brand-fallback {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    .brand-sub {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.65rem;
+      letter-spacing: 0.18em;
+      color: var(--muted);
+      text-transform: uppercase;
+    }
+
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+
+    .nav-link {
+      font-size: 0.9rem;
+      font-weight: 450;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+      padding: 8px 0;
+      position: relative;
+    }
+
+    .nav-link:hover {
+      color: var(--fg);
+    }
+
+    .nav-link.active {
+      color: var(--fg);
+      font-weight: 600;
+    }
+
+    .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1.5px;
+      background-color: var(--accent);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .btn-cita-header {
+      background-color: var(--accent);
+      color: #fff;
+      padding: 10px 20px;
+      font-size: 0.85rem;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      font-weight: 500;
+      border-radius: var(--radius-sm);
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-cita-header:hover {
+      background-color: oklch(46% 0.12 28);
+      transform: translateY(-1px);
+    }
+
+    .btn-cita-header:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    /* Menú hamburguesa móvil */
+    .mobile-menu-toggle {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 44px;
+      height: 44px;
+      padding: 10px;
+    }
+
+    .mobile-menu-toggle span {
+      display: block;
+      width: 24px;
+      height: 1.5px;
+      background-color: var(--fg);
+    }
+
+    /* =========================================
+       ENCABEZADO EDITORIAL DE LA PLANTILLA
+       ========================================= */
+    .catalog-hero {
+      padding: 60px 24px 36px;
+      max-width: var(--max-width);
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .catalog-kicker {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      margin-bottom: 12px;
+      display: block;
+    }
+
+    .catalog-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 4vw, 3.4rem);
+      font-weight: 400;
+      line-height: 1.15;
+      color: var(--fg);
+      margin-bottom: 16px;
+      letter-spacing: -0.01em;
+    }
+
+    .catalog-desc {
+      max-width: 680px;
+      margin: 0 auto 28px;
+      color: var(--muted);
+      font-size: 1.05rem;
+      line-height: 1.6;
+    }
+
+    .catalog-meta-strip {
+      display: inline-flex;
+      align-items: center;
+      gap: 24px;
+      padding: 8px 20px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 40px;
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--muted);
+      margin-bottom: 10px;
+    }
+
+    .meta-item strong {
+      color: var(--fg);
+      font-weight: 600;
+    }
+
+    /* =========================================
+       BARRA DE FILTROS (SELECTOR DE COLECCIONES)
+       ========================================= */
+    .filter-section {
+      position: sticky;
+      top: var(--header-h);
+      z-index: 80;
+      background: rgba(251, 250, 248, 0.95);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 48px;
+    }
+
+    .filter-container {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .filter-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-right: 8px;
+    }
+
+    .filter-pill {
+      font-size: 0.88rem;
+      font-weight: 450;
+      color: var(--muted);
+      padding: 9px 18px;
+      border-radius: 30px;
+      background: transparent;
+      border: 1px solid transparent;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 44px;
+    }
+
+    .filter-pill:hover {
+      color: var(--fg);
+      background: rgba(0, 0, 0, 0.02);
+      border-color: var(--border);
+    }
+
+    .filter-pill.active {
+      color: #fff;
+      background: var(--fg);
+      border-color: var(--fg);
+      font-weight: 500;
+    }
+
+    .filter-pill .pill-badge {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      padding: 2px 7px;
+      border-radius: 12px;
+      background: rgba(0, 0, 0, 0.08);
+    }
+
+    .filter-pill.active .pill-badge {
+      background: rgba(255, 255, 255, 0.25);
+      color: #fff;
+    }
+
+    .filter-count-info {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    .filter-count-info span {
+      color: var(--fg);
+      font-weight: 600;
+    }
+
+    /* =========================================
+       RETÍCULA DE VESTIDOS EN FILAS DE 4
+       ========================================= */
+    .catalog-main {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 0 24px 90px;
+    }
+
+    /* Regla exacta: 4 columnas en desktop */
+    .dresses-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 36px 24px;
+    }
+
+    .dress-card {
+      display: flex;
+      flex-direction: column;
+      cursor: pointer;
+      outline: none;
+      position: relative;
+      transition: var(--transition);
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .dress-card.hidden {
+      display: none;
+    }
+
+    .dress-card-media {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 3 / 4;
+      background-color: oklch(94% 0.005 85);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      margin-bottom: 16px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 16px rgba(0, 0, 0, 0.02);
+      transition: var(--transition);
+    }
+
+    .dress-card:hover .dress-card-media {
+      box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+      border-color: oklch(80% 0.01 85);
+      transform: translateY(-3px);
+    }
+
+    .dress-card:focus-visible .dress-card-media {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    .dress-card-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      transition: transform 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .dress-card:hover .dress-card-media img {
+      transform: scale(1.04);
+    }
+
+    /* Etiqueta flotante de colección */
+    .dress-collection-tag {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(8px);
+      padding: 4px 9px;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--fg);
+      border-radius: var(--radius-sm);
+      border: 1px solid rgba(0, 0, 0, 0.06);
+    }
+
+    .dress-card-action-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(20, 18, 16, 0.35);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transition: opacity 0.25s ease;
+    }
+
+    .dress-card:hover .dress-card-action-overlay {
+      opacity: 1;
+    }
+
+    .btn-view-quick {
+      background: #fff;
+      color: var(--fg);
+      padding: 9px 16px;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      border-radius: var(--radius-sm);
+      transform: translateY(6px);
+      transition: var(--transition);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    }
+
+    .dress-card:hover .btn-view-quick {
+      transform: translateY(0);
+    }
+
+    /* Pie de cada tarjeta: Nombre del vestido como requisito clave */
+    .dress-card-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .dress-name {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: var(--fg);
+      line-height: 1.3;
+      letter-spacing: 0.01em;
+      transition: color 0.2s ease;
+    }
+
+    .dress-card:hover .dress-name {
+      color: var(--accent);
+    }
+
+    .dress-meta {
+      font-size: 0.85rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .dress-fabric {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: oklch(40% 0.015 70);
+      margin-top: 2px;
+      letter-spacing: 0.02em;
+    }
+
+    /* Mensaje de no resultados */
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 80px 24px;
+      background: var(--surface);
+      border: 1px dashed var(--border);
+      border-radius: var(--radius-md);
+      display: none;
+    }
+
+    .no-results h3 {
+      font-family: var(--font-display);
+      font-size: 1.6rem;
+      margin-bottom: 8px;
+    }
+
+    .no-results p {
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    /* =========================================
+       BANNER DE INVITACIÓN AL ATELIER
+       ========================================= */
+    .atelier-banner {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 64px 24px;
+      margin-bottom: 70px;
+    }
+
+    .atelier-banner-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .atelier-banner-content h2 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 3vw, 2.4rem);
+      font-weight: 400;
+      margin-bottom: 14px;
+    }
+
+    .atelier-banner-content p {
+      color: var(--muted);
+      font-size: 1rem;
+      line-height: 1.65;
+      margin-bottom: 24px;
+      max-width: 580px;
+    }
+
+    .atelier-details-box {
+      background: var(--bg);
+      padding: 28px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+    }
+
+    .atelier-details-box h4 {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .atelier-details-box p {
+      font-size: 0.95rem;
+      color: var(--fg);
+      margin-bottom: 8px;
+    }
+
+    .atelier-details-box .hours {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+
+    /* =========================================
+       MODAL DE DETALLE DE VESTIDO
+       ========================================= */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: rgba(18, 16, 14, 0.72);
+      backdrop-filter: blur(6px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 0.3s ease, visibility 0.3s ease;
+    }
+
+    .modal-overlay.open {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .modal-dialog {
+      background: var(--surface);
+      border-radius: var(--radius-sm);
+      width: 100%;
+      max-width: 860px;
+      max-height: 90vh;
+      overflow-y: auto;
+      position: relative;
+      border: 1px solid var(--border);
+      box-shadow: 0 20px 48px rgba(0, 0, 0, 0.25);
+      transform: translateY(16px);
+      transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .modal-overlay.open .modal-dialog {
+      transform: translateY(0);
+    }
+
+    .btn-modal-close {
+      position: absolute;
+      top: 18px;
+      right: 18px;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.9);
+      color: var(--fg);
+      font-size: 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+      border: 1px solid var(--border);
+    }
+
+    .btn-modal-close:hover {
+      background: var(--fg);
+      color: #fff;
+    }
+
+    .modal-layout {
+      display: grid;
+      grid-template-columns: 1fr 1.15fr;
+    }
+
+    .modal-media {
+      background: #f4f2ee;
+      min-height: 460px;
+    }
+
+    .modal-media img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .modal-content {
+      padding: 40px 32px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .modal-kicker {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .modal-title {
+      font-family: var(--font-display);
+      font-size: 2.1rem;
+      line-height: 1.2;
+      margin-bottom: 14px;
+    }
+
+    .modal-tagline {
+      color: var(--muted);
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .modal-specs {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      padding: 18px;
+      border-radius: var(--radius-sm);
+      margin-bottom: 28px;
+    }
+
+    .spec-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px 0;
+      border-bottom: 1px dashed var(--border);
+      font-size: 0.88rem;
+    }
+
+    .spec-row:last-child {
+      border-bottom: none;
+    }
+
+    .spec-label {
+      color: var(--muted);
+    }
+
+    .spec-value {
+      font-family: var(--font-mono);
+      font-weight: 500;
+      color: var(--fg);
+    }
+
+    .modal-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn-modal-book {
+      flex: 1;
+      background: var(--accent);
+      color: #fff;
+      padding: 13px 20px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      border-radius: var(--radius-sm);
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-modal-book:hover {
+      background: oklch(46% 0.12 28);
+    }
+
+    /* =========================================
+       MODAL DE PEDIR CITA EN ATELIER
+       ========================================= */
+    .appointment-dialog {
+      background: var(--surface);
+      border-radius: var(--radius-sm);
+      width: 100%;
+      max-width: 580px;
+      padding: 40px;
+      position: relative;
+      border: 1px solid var(--border);
+      box-shadow: 0 20px 48px rgba(0,0,0,0.25);
+    }
+
+    .appointment-dialog h3 {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      margin-bottom: 6px;
+    }
+
+    .appointment-dialog p {
+      color: var(--muted);
+      font-size: 0.92rem;
+      margin-bottom: 24px;
+    }
+
+    .form-group {
+      margin-bottom: 16px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 0.82rem;
+      font-family: var(--font-mono);
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--fg);
+      margin-bottom: 6px;
+    }
+
+    .form-control {
+      width: 100%;
+      padding: 11px 14px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-family: inherit;
+      font-size: 0.95rem;
+      background: var(--surface);
+      color: var(--fg);
+    }
+
+    .form-control:focus {
+      outline: none;
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-soft);
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .btn-submit-cita {
+      width: 100%;
+      background: var(--accent);
+      color: #fff;
+      padding: 13px 20px;
+      font-size: 0.9rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 500;
+      border-radius: var(--radius-sm);
+      margin-top: 10px;
+      min-height: 44px;
+    }
+
+    .btn-submit-cita:hover {
+      background: oklch(46% 0.12 28);
+    }
+
+    /* Estado de cita confirmada */
+    .appointment-success {
+      display: none;
+      text-align: center;
+      padding: 30px 10px;
+    }
+
+    .success-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--accent-soft);
+      color: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+      font-size: 1.6rem;
+    }
+
+    /* =========================================
+       PIE DE PÁGINA
+       ========================================= */
+    .site-footer {
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 60px 24px 40px;
+    }
+
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 48px;
+    }
+
+    .footer-brand h4 {
+      font-family: var(--font-display);
+      font-size: 1.3rem;
+      letter-spacing: 0.04em;
+      margin-bottom: 10px;
+    }
+
+    .footer-brand p {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.6;
+      max-width: 320px;
+    }
+
+    .footer-col h5 {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--fg);
+      margin-bottom: 16px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+    }
+
+    .footer-col li {
+      margin-bottom: 10px;
+    }
+
+    .footer-col a {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .footer-col a:hover {
+      color: var(--accent);
+    }
+
+    .footer-bottom {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding-top: 28px;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--muted);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    /* =========================================
+       RESPONSIVE DESIGN
+       ========================================= */
+    @media (max-width: 1024px) {
+      .dresses-grid {
+        grid-template-columns: repeat(2, 1fr); /* 2 columnas en tablet */
+        gap: 32px 20px;
+      }
+
+      .atelier-banner-inner {
+        grid-template-columns: 1fr;
+        gap: 32px;
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .main-nav {
+        display: none;
+      }
+
+      .mobile-menu-toggle {
+        display: flex;
+      }
+
+      .modal-layout {
+        grid-template-columns: 1fr;
+      }
+
+      .modal-media {
+        min-height: 320px;
+      }
+
+      .modal-content {
+        padding: 24px;
+      }
+
+      .filter-container {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .dresses-grid {
+        grid-template-columns: 1fr; /* 1 columna en móviles pequeños para máxima nitidez */
+        gap: 28px;
+      }
+
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+
+      .footer-inner {
+        grid-template-columns: 1fr;
+      }
+
+      .appointment-dialog {
+        padding: 28px 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ============================================================
+       CABECERA CON NAVEGACIÓN Y ACCESOS A LAS 4 VENTANAS
+       ============================================================ -->
+  <header class="site-header" data-od-id="header-nav">
+    <div class="header-container">
+      <a href="novias-maria-diezma-index-2.html" class="brand-logo" aria-label="María Diezma Inicio">
+        <img src="logo-maria-diezma.png" alt="María Diezma Logo" onerror="this.style.display='none'; document.getElementById('brandFallback').style.display='block';">
+        <div id="brandFallback" style="display: none;">
+          <span class="brand-fallback">María Diezma</span>
+          <span class="brand-sub">Alta Costura Nupcial</span>
+        </div>
+      </a>
+
+      <!-- Menú con las 4 ventanas esenciales -->
+      <nav class="main-nav" aria-label="Navegación principal">
+        <a href="novias-maria-diezma-conoceme.html" class="nav-link">Conóceme</a>
+        <a href="novias-maria-diezma-colecciones.html" class="nav-link active" aria-current="page">Colecciones</a>
+        <a href="novias-maria-diezma-proceso.html" class="nav-link">Nuestro Proceso</a>
+        <a href="javascript:void(0)" onclick="openAppointmentModal()" class="nav-link">Pedir Cita</a>
+      </nav>
+
+      <div class="header-actions">
+        <button type="button" class="btn-cita-header" onclick="openAppointmentModal()">Pedir Cita</button>
+        <button type="button" class="mobile-menu-toggle" onclick="toggleMobileNav()" aria-label="Abrir menú">
+          <span></span>
+          <span></span>
+          <span></span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ============================================================
+       HERO EDITORIAL DE LA PLANTILLA DE COLECCIONES
+       ============================================================ -->
+  <section class="catalog-hero" data-od-id="catalog-hero">
+    <span class="catalog-kicker">Catálogo Oficial de Atelier</span>
+    <h1 class="catalog-title">Vestidos de Colección</h1>
+    <p class="catalog-desc">
+      Una selección de siluetas creadas artesanalmente en nuestro taller de Madrid. Cada pieza sirve como base de inspiración para adaptarse a las medidas exactas y personalidad de cada novia.
+    </p>
+
+    <div class="catalog-meta-strip">
+      <div class="meta-item">Colecciones: <strong>2 Líneas</strong></div>
+      <div class="meta-item">Confección: <strong>100% a medida</strong></div>
+      <div class="meta-item">Atelier: <strong>C/ de Goya, 69, Madrid</strong></div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       BARRA DE FILTRADO INTERACTIVO (SELECCIÓN DEL USUARIO)
+       ============================================================ -->
+  <section class="filter-section" data-od-id="catalog-filter-bar">
+    <div class="filter-container">
+      <div class="filter-group" role="tablist" aria-label="Filtrar por colección">
+        <span class="filter-label">Ver colección:</span>
+        <button type="button" class="filter-pill active" data-filter="all" onclick="filterCollection('all', this)" role="tab" aria-selected="true">
+          Todas las Colecciones
+          <span class="pill-badge">12</span>
+        </button>
+        <button type="button" class="filter-pill" data-filter="siluetas-puras" onclick="filterCollection('siluetas-puras', this)" role="tab" aria-selected="false">
+          Siluetas Puras
+          <span class="pill-badge">6</span>
+        </button>
+        <button type="button" class="filter-pill" data-filter="botanica-bordados" onclick="filterCollection('botanica-bordados', this)" role="tab" aria-selected="false">
+          Botánica & Bordados
+          <span class="pill-badge">6</span>
+        </button>
+      </div>
+
+      <div class="filter-count-info" id="countInfo">
+        Mostrando <span id="visibleCount">12</span> vestidos en catálogo
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       PLANTILLA DE CATÁLOGO: RETÍCULA EN FILAS DE 4 COLUMNAS
+       Debajo de cada imagen aparece el nombre del vestido correspondiente
+       ============================================================ -->
+  <main class="catalog-main" id="content">
+    <div class="dresses-grid" id="dressesGrid" data-od-id="dresses-grid-4-cols">
+
+      <!-- ==========================================
+           COLECCIÓN 1: SILUETAS PURAS (6 VESTIDOS)
+           ========================================== -->
+
+      <!-- Vestido 01 -->
+      <article class="dress-card" data-collection="siluetas-puras" onclick="openDressModal(1)" tabindex="0" data-od-id="dress-card-altea">
+        <div class="dress-card-media">
+          <span class="dress-collection-tag">Siluetas Puras</span>
+          <img src="https://images.unsplash.com/photo-1594552072238-b8a33785b261?auto=format&fit=crop&w=800&q=80" alt="Vestido Altea - Alta Costura María Diezma" loading="lazy">
+          <div class="dress-card-action-overlay">
+            <span class="btn-view-quick">Ver detalles</span>
+          </div>
+        </div>
+        <div class="dress-card-info">
+          <h3 class="dress-name">Vestido Altea</h3>
+          <p class="dress-meta">Línea columna con escote asimétrico</p>
+          <span class="dress-fabric">Crepé de seda natural pesado</span>
+        </div>
+      </article>
+
+      <!-- Vestido 02 -->
+      <article class="dress-card" data-collection="siluetas-puras" onclick="openDressModal(2)" tabindex="0" data-od-id="dress-card-carlota">
+        <div class="dress-card-media">
+          <span class="dress-collection-tag">Siluetas Puras</span>
+          <img src="https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&w=800&q=80" alt="Vestido Carlota - Alta Costura María Diezma" loading="lazy">
+          <div class="dress-card-action-overlay">
+            <span class="btn-view-quick">Ver detalles</span>
+          </div>
+        </div>
+        <div class="dress-card-info">
+          <h3 class="dress-name">Vestido Carlota</h3>
+          <p class="dress-meta">Espalda descubierta en V profunda</p>
+          <span class="dress-fabric">Satén pesante italiano & botonadura forrada</span>
+        </div>
+      </article>
+
+      <!-- Vestido 03 -->
+      <article class="dress-card" data-collection="siluetas-puras" onclick="openDressModal(3)" tabindex="0" data-od-id="dress-card-valeria">
+        <div class="dress-card-media">
+          <span class="dress-collection-tag">Siluetas Puras</span>
+          <img src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=800&q=80" alt="Vestido Valeria - Alta Costura María Diezma" loading="lazy">
+          <div class="dress-card-action-overlay">
+            <span class="btn-view-quick">Ver detalles</span>
+          </div>
+        </div>
+        <div class="dress-card-info">
+          <h3 class="dress-name">Vestido Valeria</h3>
+          <p class="dress-meta">Corte imperio con capa desmontable</p>
+          <span class="dress-fabric">Georgette de seda y chifón vaporoso</span>
+        </div>
+      </article>
+
+      <!-- Vestido 04 -->
+      <article class="dress-card" data-collection="siluetas-puras" onclick="openDressModal(4)" tabindex="0" data-od-id="dress-card-siena">
+        <div class="dress-card-media">
+          <span class="dress-collection-tag">Siluetas Puras</span>
+          <img src="https://images.unsplash.com/photo-1549416878-b9ca95e26903?auto=format&fit=crop&w=800&q=80" alt="Vestido Siena - Alta Costura María Diezma" loading="lazy">
+          <div class="dress-card-action-overlay">
+            <span class="btn-view-quick">Ver detalles</span>
+          </div>
+        </div>
+        <div class="dress-card-info">
+          <h3 class="dress-name">Vestido Siena</h3>
+          <p class="dress-meta">Estructura arquitectónica y cola limpia</p>
+          <span class="dress-fabric">Mikado de seda natural marfil</span>
+        </div>
+      </article>
+
+      <!-- Vestido 05 -->
+      <article class="dress-card" data-collection="siluetas-puras" onclick="openDressModal(5)" tabindex="0" data-od-id="dress-card-gabriela">
+        <div class="dress-card-media">
+          <span class="dress-collection-tag">Siluetas Puras</span>
+          <img src="https://images.unsplash.com/photo-1546804784-896d0dca3805?auto=format&fit=crop&w=800&q=80" alt="Vestido Gabriela - Alta Costura María Diezma" loading="lazy">
+          <div class="dress-card-action-overlay">
+            <span class="btn-view-quick">Ver detalles</span>
+          </div>
+        </div>
+        <div class="dress-card-info">
+          <h3 class="dress-name">Vestido Gabriela</h3>
+          <p class="dress-meta">Silueta fluida con manga francesa</p>
+          <span class="dress-fabric">Brocado sutil y crepé mate</span>
+        </div>
+      </article>
+
+      <!-- Vestido 06 -->
+      <article class="dress-card" data-collection="siluetas-puras" onclick="openDressModal(6)" tabindex="0" data-od-id="dress-card-olimpia">
+        <div class="dress-card-media">
+          <span class="dress-collection-tag">Siluetas Puras</span>
+          <img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80" alt="Vestido Olimpia - Alta Costura María Diezma" loading="lazy">
+          <div class="dress-card-action-overlay">
+            <span class="btn-view-quick">Ver detalles</span>
+          </div>
+        </div>
+        <div class="dress-card-info">
+          <h3 class="dress-name">Vestido Olimpia</h3>
+          <p class="dress-meta">Dos piezas: corpiño estructurado y falda recta</p>
+          <span class="dress-fabric">Lino rústico y seda salvaje</span>
+        </div>
+      </article>
+
+      <!-- ==========================================
+           COLECCIÓN 2: BOTÁNICA & BORDADOS (6 VESTIDOS)
+           ========================================== -->
+
+      <!-- Vestido 07 -->
+      <article class="dress-card" data-collection="botanica-bordados" onclick="openDressModal(7)" tabindex="0" data-od-id="dress-card-martina">
+        <div class="dress-card-media">
+          <span class="dress-collection-tag">Botánica & Bordados</span>
+          <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80" alt="Vestido Martina - Alta Costura María Diezma" loading="lazy">
+          <div class="dress-card-action-overlay">
+            <span class="btn-view-quick">Ver detalles</span>
+          </div>
+        </div>
+        <div class="dress-card-info">
+          <h3 class="dress-name">Vestido Martina</h3>
+          <p class="dress-meta">Espalda joya y ramas florales en relieve</p>
+          <span class="dress-fabric">Encaje francés de Chantilly & pedrería</span>
+        </div>
+      </article>
+
+      <!-- Vestido 08 -->
+      <article class="dress-card" data-collection="botanica-bordados" onclick="openDressModal(8)" tabindex="0" data-od-id="dress-card-penelope">
+        <div class="dress-card-media">
+          <span class="dress-collection-tag">Botánica & Bordados</span>
+          <img src="https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=800&q=80" alt="Vestido Penélope - Alta Costura María Diezma" loading="lazy">
+          <div class="dress-card-action-overlay">
+            <span class="btn-view-quick">Ver detalles</span>
+          </div>
+        </div>
+        <div class="dress-card-info">
+          <h3 class="dress-name">Vestido Penélope</h3>
+          <p class="dress-meta">Falda de vuelo con sobrecapa etérea</p>
+          <span class="dress-fabric">Tul de seda bordado en hilo de algodón</span>
+        </div>
+      </article>
+
+      <!-- Vestido 09 -->
+      <article class="dress-card" data-collection="botanica-bordados" onclick="openDressModal(9)" tabindex="0" data-od-id="dress-card-julieta">
+        <div class="dress-card-media">
+          <span class="dress-collection-tag">Botánica & Bordados</span>
+          <img src="https://images.unsplash.com/photo-1596451190630-186aff535bf2?auto=format&fit=crop&w=800&q=80" alt="Vestido Julieta - Alta Costura María Diezma" loading="lazy">
+          <div class="dress-card-action-overlay">
+            <span class="btn-view-quick">Ver detalles</span>
+          </div>
+        </div>
+        <div class="dress-card-info">
+          <h3 class="dress-name">Vestido Julieta</h3>
+          <p class="dress-meta">Escote barco con enredadera en puños</p>
+          <span class="dress-fabric">Gasa rústica y guipur floral</span>
+        </div>
+      </article>
+
+      <!-- Vestido 10 -->
+      <article class="dress-card" data-collection="botanica-bordados" onclick="openDressModal(10)" tabindex="0" data-od-id="dress-card-leonor">
+        <div class="dress-card-media">
+          <span class="dress-collection-tag">Botánica & Bordados</span>
+          <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=800&q=80" alt="Vestido Leonor - Alta Costura María Diezma" loading="lazy">
+          <div class="dress-card-action-overlay">
+            <span class="btn-view-quick">Ver detalles</span>
+          </div>
+        </div>
+        <div class="dress-card-info">
+          <h3 class="dress-name">Vestido Leonor</h3>
+          <p class="dress-meta">Silueta romántica con tirante bordado</p>
+          <span class="dress-fabric">Tul ilusión con pétalos cosidos a mano</span>
+        </div>
+      </article>
+
+      <!-- Vestido 11 -->
+      <article class="dress-card" data-collection="botanica-bordados" onclick="openDressModal(11)" tabindex="0" data-od-id="dress-card-valentina">
+        <div class="dress-card-media">
+          <span class="dress-collection-tag">Botánica & Bordados</span>
+          <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=800&q=80" alt="Vestido Valentina - Alta Costura María Diezma" loading="lazy">
+          <div class="dress-card-action-overlay">
+            <span class="btn-view-quick">Ver detalles</span>
+          </div>
+        </div>
+        <div class="dress-card-info">
+          <h3 class="dress-name">Vestido Valentina</h3>
+          <p class="dress-meta">Falda evasé con motivos botánicos sutiles</p>
+          <span class="dress-fabric">Organza de seda natural y encaje veneciano</span>
+        </div>
+      </article>
+
+      <!-- Vestido 12 -->
+      <article class="dress-card" data-collection="botanica-bordados" onclick="openDressModal(12)" tabindex="0" data-od-id="dress-card-bianca">
+        <div class="dress-card-media">
+          <span class="dress-collection-tag">Botánica & Bordados</span>
+          <img src="https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=800&q=80" alt="Vestido Bianca - Alta Costura María Diezma" loading="lazy">
+          <div class="dress-card-action-overlay">
+            <span class="btn-view-quick">Ver detalles</span>
+          </div>
+        </div>
+        <div class="dress-card-info">
+          <h3 class="dress-name">Vestido Bianca</h3>
+          <p class="dress-meta">Corte princesa suave con talle floral</p>
+          <span class="dress-fabric">Chantilly sobre mikado de seda cálida</span>
+        </div>
+      </article>
+
+      <!-- Mensaje cuando una búsqueda no coincida -->
+      <div class="no-results" id="noResults">
+        <h3>No se encontraron vestidos</h3>
+        <p>No hay vestidos disponibles para la selección actual.</p>
+        <button type="button" class="btn-cita-header" onclick="filterCollection('all', document.querySelector('[data-filter=\"all\"]'))">
+          Ver todas las colecciones
+        </button>
+      </div>
+
+    </div>
+  </main>
+
+  <!-- ============================================================
+       BLOQUE DE INVITACIÓN AL ATELIER EN C/ DE GOYA, 69
+       ============================================================ -->
+  <section class="atelier-banner" data-od-id="atelier-appointment-banner">
+    <div class="atelier-banner-inner">
+      <div class="atelier-banner-content">
+        <h2>Pruébate cualquier vestido en nuestro Atelier de Madrid</h2>
+        <p>
+          Todas nuestras colecciones están a tu disposición en pruebas privadas de 90 minutos. María Diezma te guiará para adaptar las líneas, escotes y tejidos a tu fisonomía y visión personal.
+        </p>
+        <button type="button" class="btn-cita-header" onclick="openAppointmentModal()">
+          Pedir Cita en el Atelier
+        </button>
+      </div>
+
+      <div class="atelier-details-box">
+        <h4>Ubicación & Cita Previa</h4>
+        <p><strong>Atelier María Diezma</strong></p>
+        <p>Calle de Goya, 69, 1º Izq.</p>
+        <p>28001 Madrid (Barrio de Salamanca)</p>
+        <p class="hours">Metro Goya (L2, L4) / Velázquez (L4)<br>Martes a Sábado: 10:30 – 19:30 h (Previa reserva)</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============================================================
+       MODAL DE DETALLE DE VESTIDO
+       ============================================================ -->
+  <div class="modal-overlay" id="dressModal" role="dialog" aria-modal="true" aria-labelledby="modalDressTitle">
+    <div class="modal-dialog">
+      <button type="button" class="btn-modal-close" onclick="closeDressModal()" aria-label="Cerrar modal">&times;</button>
+      <div class="modal-layout">
+        <div class="modal-media">
+          <img id="modalDressImg" src="" alt="Detalle del vestido">
+        </div>
+        <div class="modal-content">
+          <div>
+            <span class="modal-kicker" id="modalDressCollection">Colección Siluetas Puras</span>
+            <h2 class="modal-title" id="modalDressTitle">Nombre del Vestido</h2>
+            <p class="modal-tagline" id="modalDressDesc">Descripción técnica del vestido y caída.</p>
+
+            <div class="modal-specs">
+              <div class="spec-row">
+                <span class="spec-label">Tejido Principal</span>
+                <span class="spec-value" id="modalDressFabric">Crepé de seda natural</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-label">Silueta & Patronaje</span>
+                <span class="spec-value" id="modalDressSilhouette">Línea Columna</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-label">Elaboración</span>
+                <span class="spec-value">A medida en Madrid</span>
+              </div>
+              <div class="spec-row">
+                <span class="spec-label">Pruebas sugeridas</span>
+                <span class="spec-value">4 - 5 encuentros</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="modal-actions">
+            <button type="button" class="btn-modal-book" id="btnBookThisDress" onclick="bookCurrentDress()">
+              Pedir cita para probar este modelo
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       MODAL DE PEDIR CITA PREVIA
+       ============================================================ -->
+  <div class="modal-overlay" id="appointmentModal" role="dialog" aria-modal="true" aria-labelledby="appointmentTitle">
+    <div class="appointment-dialog">
+      <button type="button" class="btn-modal-close" onclick="closeAppointmentModal()" aria-label="Cerrar cita">&times;</button>
+      
+      <div id="appointmentFormContainer">
+        <h3 id="appointmentTitle">Concertar Cita en el Atelier</h3>
+        <p>Calle de Goya, 69, Madrid · Encuentro privado de 90 minutos con María Diezma.</p>
+
+        <form id="appointmentForm" onsubmit="handleAppointmentSubmit(event)">
+          <div class="form-group">
+            <label for="fName">Nombre completo</label>
+            <input type="text" id="fName" class="form-control" placeholder="Ej. Clara Gómez" required>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fPhone">Teléfono de contacto</label>
+              <input type="tel" id="fPhone" class="form-control" placeholder="+34 600 000 000" required>
+            </div>
+            <div class="form-group">
+              <label for="fEmail">Correo electrónico</label>
+              <input type="email" id="fEmail" class="form-control" placeholder="clara@ejemplo.com" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fDate">Fecha preferida</label>
+              <input type="date" id="fDate" class="form-control" required>
+            </div>
+            <div class="form-group">
+              <label for="fTime">Franja horaria</label>
+              <select id="fTime" class="form-control" required>
+                <option value="">Selecciona hora</option>
+                <option value="10:30">10:30 h (Mañana)</option>
+                <option value="12:30">12:30 h (Mediodía)</option>
+                <option value="16:30">16:30 h (Tarde)</option>
+                <option value="18:30">18:30 h (Última hora)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="fModel">Vestido o Colección de interés</label>
+            <input type="text" id="fModel" class="form-control" placeholder="Ej. Vestido Altea o asesoramiento general">
+          </div>
+
+          <button type="submit" class="btn-submit-cita">Confirmar Cita en Atelier</button>
+        </form>
+      </div>
+
+      <!-- Mensaje de confirmación -->
+      <div class="appointment-success" id="appointmentSuccess">
+        <div class="success-icon">✓</div>
+        <h3 style="font-family: var(--font-display); font-size: 1.8rem; margin-bottom: 8px;">Cita Solicitada con Éxito</h3>
+        <p style="color: var(--muted); font-size: 0.95rem; margin-bottom: 20px;">
+          Gracias <strong id="confName" style="color: var(--fg);"></strong>. Hemos recibido tu solicitud para el <strong id="confDate" style="color: var(--fg);"></strong> en nuestro atelier de C/ de Goya, 69, Madrid.
+        </p>
+        <p style="font-family: var(--font-mono); font-size: 0.8rem; color: var(--accent); margin-bottom: 24px;">
+          Código de referencia: MD-2026-084
+        </p>
+        <button type="button" class="btn-cita-header" onclick="closeAppointmentModal()">Entendido</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       PIE DE PÁGINA
+       ============================================================ -->
+  <footer class="site-footer" data-od-id="footer-main">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <h4>María Diezma</h4>
+        <p>
+          Atelier de alta costura nupcial en Madrid. Creación y confección pausada de vestidos de novia a medida con los mejores tejidos naturales del mundo.
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h5>Navegación</h5>
+        <ul>
+          <li><a href="novias-maria-diezma-index-2.html">Inicio</a></li>
+          <li><a href="novias-maria-diezma-conoceme.html">Conóceme</a></li>
+          <li><a href="novias-maria-diezma-colecciones.html">Colecciones</a></li>
+          <li><a href="novias-maria-diezma-proceso.html">Nuestro Proceso</a></li>
+          <li><a href="javascript:void(0)" onclick="openAppointmentModal()">Pedir Cita</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Colecciones</h5>
+        <ul>
+          <li><a href="javascript:void(0)" onclick="filterCollection('siluetas-puras', document.querySelector('[data-filter=\"siluetas-puras\"]'))">Siluetas Puras (6)</a></li>
+          <li><a href="javascript:void(0)" onclick="filterCollection('botanica-bordados', document.querySelector('[data-filter=\"botanica-bordados\"]'))">Botánica & Bordados (6)</a></li>
+          <li><a href="javascript:void(0)" onclick="openAppointmentModal()">Vestido 100% Exclusivo</a></li>
+          <li><a href="novias-maria-diezma-proceso.html">Pruebas en Glaseilla</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Atelier Madrid</h5>
+        <p style="font-size: 0.88rem; color: var(--muted); margin-bottom: 6px;">C/ de Goya, 69, 1º Izquierda</p>
+        <p style="font-size: 0.88rem; color: var(--muted); margin-bottom: 6px;">28001 Madrid</p>
+        <p style="font-size: 0.88rem; color: var(--muted); margin-bottom: 6px;">+34 912 345 678</p>
+        <p style="font-size: 0.88rem; color: var(--muted);">citas@mariadiezma.com</p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>© 2026 María Diezma. Todos los derechos reservados.</div>
+      <div>Atelier de Alta Costura Nupcial · Madrid</div>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       LÓGICA JAVASCRIPT: FILTRADO Y MODALES
+       ============================================================ -->
+  <script>
+    // Base de datos de vestidos de la plantilla
+    const DRESSES_DATA = {
+      1: {
+        id: 1,
+        name: "Vestido Altea",
+        collection: "Siluetas Puras",
+        collectionKey: "siluetas-puras",
+        desc: "Línea columna con escote asimétrico y caída impecable que estiliza con serenidad.",
+        fabric: "Crepé de seda natural pesado (400g)",
+        silhouette: "Línea Columna Contemporánea",
+        img: "https://images.unsplash.com/photo-1594552072238-b8a33785b261?auto=format&fit=crop&w=800&q=80"
+      },
+      2: {
+        id: 2,
+        name: "Vestido Carlota",
+        collection: "Siluetas Puras",
+        collectionKey: "siluetas-puras",
+        desc: "Elegancia minimalista con espalda descubierta en V y botonadura forrada a mano.",
+        fabric: "Satén pesante italiano & seda rústica",
+        silhouette: "Espalda descubierta en V",
+        img: "https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&w=800&q=80"
+      },
+      3: {
+        id: 3,
+        name: "Vestido Valeria",
+        collection: "Siluetas Puras",
+        collectionKey: "siluetas-puras",
+        desc: "Corte imperio con capa desmontable de gasa para doble look entre ceremonia y cóctel.",
+        fabric: "Georgette de seda natural y chifón",
+        silhouette: "Corte Imperio con Capa",
+        img: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=800&q=80"
+      },
+      4: {
+        id: 4,
+        name: "Vestido Siena",
+        collection: "Siluetas Puras",
+        collectionKey: "siluetas-puras",
+        desc: "Pureza estructural y volumen equilibrado en cola que mantiene la forma al caminar.",
+        fabric: "Mikado de seda natural marfil",
+        silhouette: "Línea A Arquitectónica",
+        img: "https://images.unsplash.com/photo-1549416878-b9ca95e26903?auto=format&fit=crop&w=800&q=80"
+      },
+      5: {
+        id: 5,
+        name: "Vestido Gabriela",
+        collection: "Siluetas Puras",
+        collectionKey: "siluetas-puras",
+        desc: "Manga francesa de inspiración clásica con puño entallado y caída fluida hasta el suelo.",
+        fabric: "Brocado floral plano & crepé mate",
+        silhouette: "Fluida con Manga Francesa",
+        img: "https://images.unsplash.com/photo-1546804784-896d0dca3805?auto=format&fit=crop&w=800&q=80"
+      },
+      6: {
+        id: 6,
+        name: "Vestido Olimpia",
+        collection: "Siluetas Puras",
+        collectionKey: "siluetas-puras",
+        desc: "Composición en dos piezas: corpiño estructurado y falda limpia de talle alto.",
+        fabric: "Lino de seda salvaje natural",
+        silhouette: "Dos Piezas Contemporáneo",
+        img: "https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80"
+      },
+      7: {
+        id: 7,
+        name: "Vestido Martina",
+        collection: "Botánica & Bordados",
+        collectionKey: "botanica-bordados",
+        desc: "Ramas florales y pétalos aplicados a mano en bastidor para una espalda joya inolvidable.",
+        fabric: "Encaje de Chantilly & micro-pedrería mate",
+        silhouette: "Espalda Joya en Bastidor",
+        img: "https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80"
+      },
+      8: {
+        id: 8,
+        name: "Vestido Penélope",
+        collection: "Botánica & Bordados",
+        collectionKey: "botanica-bordados",
+        desc: "Falda ligera con varias capas de tul sedoso bordado en hilo de algodón crudo.",
+        fabric: "Tul de seda bordado a mano",
+        silhouette: "Vuelo Romántico Etéreo",
+        img: "https://images.unsplash.com/photo-1465495976277-4387d4b0b4c6?auto=format&fit=crop&w=800&q=80"
+      },
+      9: {
+        id: 9,
+        name: "Vestido Julieta",
+        collection: "Botánica & Bordados",
+        collectionKey: "botanica-bordados",
+        desc: "Escote barco con enredadera botánica en puños y cintura, diseñado para novias nostálgicas.",
+        fabric: "Gasa rústica y guipur floral",
+        silhouette: "Escote Barco con Guipur",
+        img: "https://images.unsplash.com/photo-1596451190630-186aff535bf2?auto=format&fit=crop&w=800&q=80"
+      },
+      10: {
+        id: 10,
+        name: "Vestido Leonor",
+        collection: "Botánica & Bordados",
+        collectionKey: "botanica-bordados",
+        desc: "Tirante bordado y escote cuadrado con aplicaciones que simulan la caída de hojas silvestres.",
+        fabric: "Tul ilusión con pétalos 3D cosidos a mano",
+        silhouette: "Escote Cuadrado Botánico",
+        img: "https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=800&q=80"
+      },
+      11: {
+        id: 11,
+        name: "Vestido Valentina",
+        collection: "Botánica & Bordados",
+        collectionKey: "botanica-bordados",
+        desc: "Falda evasé con sobrefalda en organza bordada y aplicaciones en el talle.",
+        fabric: "Organza de seda natural y encaje veneciano",
+        silhouette: "Línea Evasé Romántica",
+        img: "https://images.unsplash.com/photo-1522673607200-164d1b6ce486?auto=format&fit=crop&w=800&q=80"
+      },
+      12: {
+        id: 12,
+        name: "Vestido Bianca",
+        collection: "Botánica & Bordados",
+        collectionKey: "botanica-bordados",
+        desc: "Princesa suave contemporánea con talle floral esculpido y cola bordada.",
+        fabric: "Chantilly francés sobre mikado cálido",
+        silhouette: "Princesa Suave Contemporánea",
+        img: "https://images.unsplash.com/photo-1537633552985-df8429e8048b?auto=format&fit=crop&w=800&q=80"
+      }
+    };
+
+    let currentSelectedDressId = null;
+
+    // Función de filtrado interactivo por colección
+    function filterCollection(filterKey, buttonEl) {
+      // Actualizar estado de botones
+      const buttons = document.querySelectorAll('.filter-pill');
+      buttons.forEach(btn => {
+        btn.classList.remove('active');
+        btn.setAttribute('aria-selected', 'false');
+      });
+
+      if (buttonEl) {
+        buttonEl.classList.add('active');
+        buttonEl.setAttribute('aria-selected', 'true');
+      }
+
+      // Filtrar tarjetas en la retícula
+      const cards = document.querySelectorAll('.dress-card');
+      let visible = 0;
+
+      cards.forEach(card => {
+        const itemCollection = card.getAttribute('data-collection');
+        if (filterKey === 'all' || itemCollection === filterKey) {
+          card.classList.remove('hidden');
+          visible++;
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+
+      // Actualizar contador
+      const countEl = document.getElementById('visibleCount');
+      if (countEl) countEl.textContent = visible;
+
+      // Mensaje si no hay resultados
+      const noResultsEl = document.getElementById('noResults');
+      if (noResultsEl) {
+        noResultsEl.style.display = (visible === 0) ? 'block' : 'none';
+      }
+    }
+
+    // Modal de detalle de vestido
+    function openDressModal(dressId) {
+      const data = DRESSES_DATA[dressId];
+      if (!data) return;
+
+      currentSelectedDressId = dressId;
+      document.getElementById('modalDressTitle').textContent = data.name;
+      document.getElementById('modalDressCollection').textContent = 'Colección ' + data.collection;
+      document.getElementById('modalDressDesc').textContent = data.desc;
+      document.getElementById('modalDressFabric').textContent = data.fabric;
+      document.getElementById('modalDressSilhouette').textContent = data.silhouette;
+      document.getElementById('modalDressImg').src = data.img;
+      document.getElementById('modalDressImg').alt = data.name;
+
+      document.getElementById('dressModal').classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeDressModal() {
+      document.getElementById('dressModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function bookCurrentDress() {
+      const data = DRESSES_DATA[currentSelectedDressId];
+      closeDressModal();
+      openAppointmentModal(data ? data.name : '');
+    }
+
+    // Modal de Cita
+    function openAppointmentModal(prefillModel) {
+      const modal = document.getElementById('appointmentModal');
+      document.getElementById('appointmentFormContainer').style.display = 'block';
+      document.getElementById('appointmentSuccess').style.display = 'none';
+
+      // Pre-llenar modelo si viene de un vestido
+      const modelInput = document.getElementById('fModel');
+      if (prefillModel && modelInput) {
+        modelInput.value = prefillModel;
+      }
+
+      // Fecha mínima: mañana
+      const dateInput = document.getElementById('fDate');
+      if (dateInput) {
+        const tomorrow = new Date();
+        tomorrow.setDate(tomorrow.getDate() + 1);
+        dateInput.min = tomorrow.toISOString().split('T')[0];
+      }
+
+      modal.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeAppointmentModal() {
+      document.getElementById('appointmentModal').classList.remove('open');
+      document.body.style.overflow = '';
+    }
+
+    function handleAppointmentSubmit(e) {
+      e.preventDefault();
+      const name = document.getElementById('fName').value;
+      const date = document.getElementById('fDate').value;
+
+      document.getElementById('confName').textContent = name;
+      document.getElementById('confDate').textContent = date;
+
+      document.getElementById('appointmentFormContainer').style.display = 'none';
+      document.getElementById('appointmentSuccess').style.display = 'block';
+    }
+
+    // Cerrar modales con tecla Escape y clic fuera
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeDressModal();
+        closeAppointmentModal();
+      }
+    });
+
+    document.querySelectorAll('.modal-overlay').forEach(overlay => {
+      overlay.addEventListener('click', (e) => {
+        if (e.target === overlay) {
+          closeDressModal();
+          closeAppointmentModal();
+        }
+      });
+    });
+
+    // Menú móvil básico
+    function toggleMobileNav() {
+      const nav = document.querySelector('.main-nav');
+      if (nav) {
+        if (nav.style.display === 'flex') {
+          nav.style.display = '';
+        } else {
+          nav.style.display = 'flex';
+          nav.style.flexDirection = 'column';
+          nav.style.position = 'absolute';
+          nav.style.top = 'var(--header-h)';
+          nav.style.left = '0';
+          nav.style.right = '0';
+          nav.style.background = '#fff';
+          nav.style.padding = '20px';
+          nav.style.borderBottom = '1px solid var(--border)';
+        }
+      }
+    }
+  </script>
+</body>
+</html>

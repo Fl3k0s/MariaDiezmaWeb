@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "kind": "html",
+  "title": "María Diezma · Pantallas Independientes de Atelier Nupcial",
+  "entry": "novias-maria-diezma-pantallas.html",
+  "renderer": "html",
+  "status": "complete",
+  "exports": [
+    "html",
+    "pdf",
+    "zip"
+  ],
+  "primary": true,
+  "createdAt": "2026-09-02T12:54:00.983Z",
+  "updatedAt": "2026-09-02T12:54:00.984Z",
+  "metadata": {
+    "identifier": "novias-maria-diezma-pantallas",
+    "artifactType": "text/html",
+    "inferred": false
+  }
+}

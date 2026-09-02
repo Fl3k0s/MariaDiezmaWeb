@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 2,
+  "fileName": "novias-maria-diezma-index.html",
+  "currentVersionId": "bcfa9b11-17c7-499d-94fe-60dec5a58d95",
+  "entries": [
+    {
+      "id": "bcfa9b11-17c7-499d-94fe-60dec5a58d95",
+      "fileName": "novias-maria-diezma-index.html",
+      "version": 1,
+      "label": "Version 1",
+      "createdAt": 1788353393737,
+      "source": "ai",
+      "prompt": "Quiero que la web sea una index que tenga un poco de cada y enlace a cada parte que te he mencionado anteriormente",
+      "size": 79765,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0001-bcfa9b11-17c7-499d-94fe-60dec5a58d95.html",
+      "contentDigest": "c6e3c6e4a4ab79a3b0a7c902dd374b0fb77c53e56da8fbc1c1ee69eb5b62a695",
+      "promptSource": "message"
+    }
+  ]
+}

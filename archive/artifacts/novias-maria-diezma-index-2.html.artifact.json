@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "kind": "html",
+  "title": "María Diezma · Portada Atelier Nupcial",
+  "entry": "novias-maria-diezma-index-2.html",
+  "renderer": "html",
+  "status": "complete",
+  "exports": [
+    "html",
+    "pdf",
+    "zip"
+  ],
+  "primary": true,
+  "createdAt": "2026-09-02T15:21:21.916Z",
+  "updatedAt": "2026-09-02T15:21:21.918Z",
+  "metadata": {
+    "identifier": "novias-maria-diezma-index",
+    "artifactType": "text/html",
+    "inferred": false
+  }
+}

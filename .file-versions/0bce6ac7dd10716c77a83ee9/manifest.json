@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 2,
+  "fileName": "novias-maria-diezma-pantallas.html",
+  "currentVersionId": "889a4567-7eb6-4fd1-827d-ed330dac8f91",
+  "entries": [
+    {
+      "id": "889a4567-7eb6-4fd1-827d-ed330dac8f91",
+      "fileName": "novias-maria-diezma-pantallas.html",
+      "version": 1,
+      "label": "Version 1",
+      "createdAt": 1788353640986,
+      "source": "ai",
+      "prompt": "Quiero que las pantallas del menú sean pantallas independientes",
+      "size": 91531,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0001-889a4567-7eb6-4fd1-827d-ed330dac8f91.html",
+      "contentDigest": "159a07e1b98bcca8fe296b8eea706fb6fa3c25d2112727afc5814c432d33bee7",
+      "promptSource": "message"
+    }
+  ]
+}

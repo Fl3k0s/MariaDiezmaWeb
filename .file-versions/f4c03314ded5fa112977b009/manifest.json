@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 2,
+  "fileName": "novias-maria-diezma-cita-2.html",
+  "currentVersionId": "ef9b9af4-03a3-4341-afa3-f13fbe8a92e8",
+  "entries": [
+    {
+      "id": "ef9b9af4-03a3-4341-afa3-f13fbe8a92e8",
+      "fileName": "novias-maria-diezma-cita-2.html",
+      "version": 1,
+      "label": "Version 1",
+      "createdAt": 1788364114169,
+      "source": "ai",
+      "prompt": "Cambia las horas de las citas por los siguientes tramos horarios:\n10:00 - 11:30\n11:30 - 13:00\n17:00 - 18:30\n18:30 - 20:00\ny añade tambien un slider con el tipo de cita que tiene que ser los siguientes:\nNovia\nFiesta\nComunion",
+      "size": 63311,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0001-ef9b9af4-03a3-4341-afa3-f13fbe8a92e8.html",
+      "contentDigest": "bf726652e70cbb796dbcb2afb1eefa255c3dcb557c4e9b94bb89a6a1cef6d8ab",
+      "promptSource": "message"
+    }
+  ]
+}

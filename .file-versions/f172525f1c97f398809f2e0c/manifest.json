@@ -1,0 +1,22 @@
+{
+  "schemaVersion": 2,
+  "fileName": "novias-maria-diezma-index-2.html",
+  "currentVersionId": "eb3097bb-0c2c-45cc-92f2-55216d17b901",
+  "entries": [
+    {
+      "id": "eb3097bb-0c2c-45cc-92f2-55216d17b901",
+      "fileName": "novias-maria-diezma-index-2.html",
+      "version": 1,
+      "label": "Version 1",
+      "createdAt": 1788362481921,
+      "source": "ai",
+      "prompt": "Quiero que solo hagas el index con la siguiente informacion que te voy a decir.\nQuiero que en el index aparezca una imagen grande que ya la editaré yo mas adelante, pon una de stock mientras tanto; esta imagen quiero que abarque toda la pantalla de ancho y en el medio aparezca un botón que ponga \"pedir cita\".\nA continuacion quiero que el \"div\" que se genere tenga una foto de la diseñadora a un lado y al otro lado una breve descripcion.\nA continuacion un apartado donde aparezcan 2 imagenes en los cuales se van a poner como Pie de foto el nombre de la coleccion de vestidos correspondiente con un enlace a dichas colecciones (aun no lo vas a desarrollar)\nY finalmente un mapa que lleve al atelier situado en C/ de goya, 69, Madrid, 28001",
+      "size": 44915,
+      "mime": "text/html; charset=utf-8",
+      "kind": "html",
+      "contentPath": "0001-eb3097bb-0c2c-45cc-92f2-55216d17b901.html",
+      "contentDigest": "4bcd56416e0a5e427c8207659affe5b066656113e40981c688ac1faca641ddac",
+      "promptSource": "message"
+    }
+  ]
+}

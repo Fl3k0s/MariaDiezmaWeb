@@ -1,0 +1,1300 @@
+
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Colecciones · María Diezma · Alta Costura Nupcial</title>
+  <meta name="description" content="Descubre las colecciones de vestidos de novia a medida de María Diezma en su atelier de Madrid. Siluetas Puras y Botánica & Bordados.">
+  <style>
+    :root {
+      --bg: oklch(98.5% 0.005 85);
+      --surface: oklch(100% 0 0);
+      --surface-subtle: oklch(97.5% 0.006 85);
+      --fg: oklch(20% 0.018 70);
+      --muted: oklch(48% 0.012 70);
+      --border: oklch(90% 0.006 95);
+      --border-subtle: oklch(93% 0.004 95);
+      --accent: oklch(52% 0.10 28);
+      --accent-hover: oklch(46% 0.11 28);
+      --accent-soft: oklch(94% 0.025 35);
+      
+      --font-display: 'Iowan Old Style', 'Charter', Georgia, serif;
+      --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      --font-mono: ui-monospace, 'IBM Plex Mono', 'JetBrains Mono', Menlo, monospace;
+
+      --radius-sm: 2px;
+      --radius-md: 4px;
+      --radius-lg: 8px;
+      --transition-fast: 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      --transition-base: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.65;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: color var(--transition-fast);
+    }
+
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    /* BARRA SUPERIOR ANUNCIO */
+    .top-announcement {
+      background-color: var(--fg);
+      color: var(--surface);
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 7px 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .top-announcement a {
+      color: var(--surface);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+      margin-left: 8px;
+    }
+
+    /* CABECERA & NAVEGACIÓN */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 90;
+      background-color: color-mix(in oklch, var(--bg) 92%, transparent);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      transition: all var(--transition-fast);
+    }
+
+    .header-container {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 32px;
+      height: 84px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand-link {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-logo-img {
+      height: 38px;
+      width: auto;
+      object-fit: contain;
+    }
+
+    .brand-text-fallback {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--fg);
+    }
+
+    .nav-menu {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+      list-style: none;
+    }
+
+    .nav-link {
+      font-size: 0.88rem;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      position: relative;
+      padding: 8px 0;
+      font-weight: 400;
+      transition: color var(--transition-fast);
+    }
+
+    .nav-link:hover {
+      color: var(--fg);
+    }
+
+    .nav-link.active {
+      color: var(--fg);
+      font-weight: 500;
+    }
+
+    .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1.5px;
+      background-color: var(--accent);
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--accent);
+      color: var(--surface);
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 500;
+      padding: 12px 24px;
+      border-radius: var(--radius-sm);
+      transition: background-color var(--transition-fast), transform var(--transition-fast);
+      min-height: 44px;
+      border: 1px solid var(--accent);
+    }
+
+    .btn-cta:hover {
+      background-color: var(--accent-hover);
+      border-color: var(--accent-hover);
+    }
+
+    .btn-cta:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 3px;
+    }
+
+    .mobile-menu-toggle {
+      display: none;
+      background: none;
+      border: 1px solid var(--border);
+      padding: 8px 12px;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--fg);
+    }
+
+    /* CONTENEDOR GENERAL */
+    .main-content {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 32px 100px 32px;
+    }
+
+    /* ENCABEZADO DE SECCIÓN */
+    .page-header {
+      padding: 64px 0 48px 0;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 72px;
+    }
+
+    .breadcrumb-trail {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    .breadcrumb-trail a:hover {
+      color: var(--fg);
+      text-decoration: underline;
+    }
+
+    .breadcrumb-sep {
+      color: var(--border);
+    }
+
+    .page-kicker {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+      display: block;
+    }
+
+    .page-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.4rem, 4.5vw, 3.8rem);
+      font-weight: 400;
+      line-height: 1.15;
+      letter-spacing: -0.015em;
+      color: var(--fg);
+      margin-bottom: 18px;
+      max-width: 900px;
+    }
+
+    .page-intro {
+      font-size: 1.12rem;
+      line-height: 1.7;
+      color: var(--muted);
+      max-width: 720px;
+      font-weight: 350;
+    }
+
+    /* CONTENEDOR DE COLECCIONES (LOS 2 BLOQUES REQUERIDOS) */
+    .collections-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 110px;
+    }
+
+    .collection-block {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      box-shadow: 0 4px 20px -8px rgba(0, 0, 0, 0.04);
+      transition: border-color var(--transition-base), box-shadow var(--transition-base);
+    }
+
+    .collection-block:hover {
+      border-color: color-mix(in oklch, var(--border) 60%, var(--accent));
+      box-shadow: 0 12px 32px -10px rgba(0, 0, 0, 0.07);
+    }
+
+    /* Disposición inversa para el segundo bloque */
+    .collection-block.block-reverse {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .collection-block.block-reverse .collection-visual {
+      order: 2;
+    }
+
+    .collection-block.block-reverse .collection-content {
+      order: 1;
+    }
+
+    /* VISUAL / FOTO DE LA COLECCIÓN */
+    .collection-visual {
+      position: relative;
+      background-color: var(--surface-subtle);
+      overflow: hidden;
+      min-height: 580px;
+    }
+
+    .collection-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .collection-block:hover .collection-img {
+      transform: scale(1.025);
+    }
+
+    .collection-badge-overlay {
+      position: absolute;
+      top: 24px;
+      left: 24px;
+      background-color: color-mix(in oklch, var(--surface) 90%, transparent);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid var(--border-subtle);
+      padding: 6px 14px;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--fg);
+      border-radius: var(--radius-sm);
+    }
+
+    /* CONTENIDO / TEXTO DE LA COLECCIÓN */
+    .collection-content {
+      padding: 64px 56px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      border-left: 1px solid var(--border-subtle);
+    }
+
+    .collection-block.block-reverse .collection-content {
+      border-left: none;
+      border-right: 1px solid var(--border-subtle);
+    }
+
+    .collection-header-meta {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      padding-bottom: 16px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+
+    .collection-number {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .collection-season {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .collection-title {
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 3.2vw, 2.75rem);
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--fg);
+      margin-bottom: 24px;
+      letter-spacing: -0.01em;
+    }
+
+    .collection-desc {
+      font-size: 1.05rem;
+      line-height: 1.75;
+      color: var(--fg);
+      margin-bottom: 32px;
+      font-weight: 380;
+    }
+
+    /* ESPECIFICACIONES / FICHA TÉCNICA */
+    .specs-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px 24px;
+      padding: 24px 0;
+      border-top: 1px solid var(--border-subtle);
+      border-bottom: 1px solid var(--border-subtle);
+      margin-bottom: 40px;
+    }
+
+    .spec-item {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .spec-label {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    .spec-value {
+      font-size: 0.92rem;
+      color: var(--fg);
+      font-weight: 450;
+      line-height: 1.4;
+    }
+
+    /* ACCIONES DE LA COLECCIÓN */
+    .collection-actions {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .btn-secondary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 24px;
+      background-color: transparent;
+      color: var(--fg);
+      font-size: 0.82rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 500;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      transition: all var(--transition-fast);
+      min-height: 44px;
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--surface-subtle);
+      border-color: var(--fg);
+    }
+
+    .btn-secondary:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+    }
+
+    .btn-inline-link {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 4px;
+      border-bottom: 1px solid transparent;
+      transition: all var(--transition-fast);
+    }
+
+    .btn-inline-link:hover {
+      border-bottom-color: var(--accent);
+      gap: 10px;
+    }
+
+    /* SECCIÓN INFERIOR ATELIER / PROCESO A MEDIDA */
+    .custom-couture-banner {
+      margin-top: 100px;
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      padding: 64px 56px;
+      border-radius: var(--radius-sm);
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .banner-content h3 {
+      font-family: var(--font-display);
+      font-size: clamp(1.8rem, 2.5vw, 2.2rem);
+      font-weight: 400;
+      line-height: 1.25;
+      margin-bottom: 16px;
+      color: var(--fg);
+    }
+
+    .banner-content p {
+      font-size: 1.02rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .banner-action-area {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 16px;
+    }
+
+    .atelier-address-tag {
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-align: right;
+    }
+
+    /* PIE DE PÁGINA */
+    .site-footer {
+      background-color: var(--surface);
+      border-top: 1px solid var(--border);
+      padding: 80px 32px 40px 32px;
+    }
+
+    .footer-container {
+      max-width: 1320px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1.5fr;
+      gap: 48px;
+      margin-bottom: 60px;
+    }
+
+    .footer-brand h4 {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      margin-bottom: 14px;
+    }
+
+    .footer-brand p {
+      font-size: 0.92rem;
+      color: var(--muted);
+      line-height: 1.7;
+      max-width: 340px;
+      margin-bottom: 20px;
+    }
+
+    .footer-col h5 {
+      font-family: var(--font-mono);
+      font-size: 0.76rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 20px;
+    }
+
+    .footer-col ul {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .footer-col a {
+      font-size: 0.88rem;
+      color: var(--muted);
+      transition: color var(--transition-fast);
+    }
+
+    .footer-col a:hover {
+      color: var(--fg);
+    }
+
+    .atelier-address-list {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .footer-bottom {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding-top: 32px;
+      border-top: 1px solid var(--border-subtle);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* MODAL DE CITA PREVIA */
+    .modal-backdrop {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background-color: rgba(20, 18, 16, 0.55);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition-base);
+    }
+
+    .modal-backdrop.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .modal-window {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      width: 100%;
+      max-width: 600px;
+      max-height: 90vh;
+      overflow-y: auto;
+      padding: 48px;
+      position: relative;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.2);
+      transform: translateY(20px);
+      transition: transform var(--transition-base);
+    }
+
+    .modal-backdrop.open .modal-window {
+      transform: translateY(0);
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 24px;
+      right: 24px;
+      width: 36px;
+      height: 36px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      color: var(--muted);
+      border-radius: 50%;
+      transition: all var(--transition-fast);
+    }
+
+    .modal-close-btn:hover {
+      color: var(--fg);
+      border-color: var(--fg);
+    }
+
+    .modal-title {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      font-weight: 400;
+      margin-bottom: 8px;
+      color: var(--fg);
+    }
+
+    .modal-subtitle {
+      font-size: 0.95rem;
+      color: var(--muted);
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--fg);
+      margin-bottom: 8px;
+      font-weight: 500;
+    }
+
+    .form-input, .form-select, .form-textarea {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background-color: var(--bg);
+      font-family: var(--font-body);
+      font-size: 0.95rem;
+      color: var(--fg);
+      transition: border-color var(--transition-fast);
+    }
+
+    .form-input:focus, .form-select:focus, .form-textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      background-color: var(--surface);
+    }
+
+    .form-row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-submit-btn {
+      width: 100%;
+      background-color: var(--accent);
+      color: var(--surface);
+      padding: 14px 24px;
+      font-size: 0.85rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 500;
+      border-radius: var(--radius-sm);
+      margin-top: 12px;
+      transition: background-color var(--transition-fast);
+      min-height: 48px;
+    }
+
+    .form-submit-btn:hover {
+      background-color: var(--accent-hover);
+    }
+
+    .confirmation-box {
+      display: none;
+      text-align: center;
+      padding: 24px 0;
+    }
+
+    .confirmation-box h4 {
+      font-family: var(--font-display);
+      font-size: 1.8rem;
+      margin-bottom: 12px;
+      color: var(--fg);
+    }
+
+    .confirmation-box p {
+      color: var(--muted);
+      font-size: 0.98rem;
+      line-height: 1.6;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 1024px) {
+      .header-container {
+        padding: 0 24px;
+      }
+      .nav-menu {
+        gap: 20px;
+      }
+      .main-content {
+        padding: 0 24px 80px 24px;
+      }
+      .collection-block,
+      .collection-block.block-reverse {
+        grid-template-columns: 1fr;
+      }
+      .collection-block.block-reverse .collection-visual {
+        order: 1;
+      }
+      .collection-block.block-reverse .collection-content {
+        order: 2;
+        border-right: none;
+        border-top: 1px solid var(--border-subtle);
+      }
+      .collection-content {
+        padding: 44px 32px;
+        border-left: none;
+        border-top: 1px solid var(--border-subtle);
+      }
+      .collection-visual {
+        min-height: 460px;
+      }
+      .custom-couture-banner {
+        grid-template-columns: 1fr;
+        padding: 40px 32px;
+        gap: 32px;
+      }
+      .banner-action-area {
+        align-items: flex-start;
+      }
+      .atelier-address-tag {
+        text-align: left;
+      }
+      .footer-container {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .top-announcement {
+        font-size: 0.68rem;
+        padding: 6px 12px;
+      }
+      .nav-menu {
+        display: none;
+      }
+      .mobile-menu-toggle {
+        display: block;
+      }
+      .header-container {
+        height: 70px;
+        padding: 0 18px;
+      }
+      .page-header {
+        padding: 40px 0 32px 0;
+        margin-bottom: 48px;
+      }
+      .page-title {
+        font-size: 2.2rem;
+      }
+      .collections-stack {
+        gap: 64px;
+      }
+      .collection-content {
+        padding: 32px 20px;
+      }
+      .collection-visual {
+        min-height: 380px;
+      }
+      .specs-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+      }
+      .modal-window {
+        padding: 32px 20px;
+      }
+      .form-row-2 {
+        grid-template-columns: 1fr;
+        gap: 0;
+      }
+      .footer-container {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        gap: 12px;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body data-od-id="page-colecciones">
+
+  <!-- BARRA SUPERIOR INFORMATIVA -->
+  <aside class="top-announcement" data-od-id="top-announcement">
+    <span>Atelier en C/ de Goya, 69, Salamanca, Madrid</span>
+    <span class="breadcrumb-sep">·</span>
+    <span>Confección a medida bajo cita previa</span>
+    <a href="#pedir-cita" onclick="openAppointmentModal('Cita general'); return false;">Reservar encuentro</a>
+  </aside>
+
+  <!-- CABECERA PRINCIPAL -->
+  <header class="site-header" data-od-id="site-header">
+    <div class="header-container">
+      <a href="../index.html" class="brand-link" data-od-id="brand-link" title="María Diezma · Inicio">
+        <img 
+          src="../assets/images/logo-maria-diezma.png" 
+          alt="María Diezma" 
+          class="brand-logo-img" 
+          onerror="this.style.display='none'; document.getElementById('header-text-fallback').style.display='block';"
+        >
+        <span id="header-text-fallback" class="brand-text-fallback" style="display:none;">MARÍA DIEZMA</span>
+      </a>
+
+      <nav aria-label="Navegación principal" data-od-id="main-nav">
+        <ul class="nav-menu">
+          <li><a href="../index.html" class="nav-link" data-od-id="nav-inicio">Inicio</a></li>
+          <li><a href="conoceme.html" class="nav-link" data-od-id="nav-conoceme">Conóceme</a></li>
+          <li><a href="colecciones.html" class="nav-link active" data-od-id="nav-colecciones" aria-current="page">Colecciones</a></li>
+          <li><a href="proceso.html" class="nav-link" data-od-id="nav-proceso">Nuestro Proceso</a></li>
+        </ul>
+      </nav>
+
+      <div class="header-actions">
+        <button type="button" class="btn-cta" data-od-id="btn-header-cita" onclick="openAppointmentModal('Colecciones nupciales')">
+          Pedir Cita
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- CUERPO PRINCIPAL -->
+  <main id="content" class="main-content">
+
+    <!-- ENCABEZADO DE LA SECCIÓN COLECCIONES -->
+    <section class="page-header" data-od-id="section-page-header">
+      <nav class="breadcrumb-trail" aria-label="Miga de pan" data-od-id="breadcrumb-trail">
+        <a href="../index.html">Inicio</a>
+        <span class="breadcrumb-sep">/</span>
+        <span aria-current="page">Colecciones</span>
+      </nav>
+      <span class="page-kicker">PROPUESTAS DE ALTA COSTURA NUPCIAL</span>
+      <h1 class="page-title">Nuestras Colecciones</h1>
+      <p class="page-intro">
+        Cada una de nuestras líneas de diseño nace en el taller de Madrid como una propuesta de siluetas, volúmenes y tejidos nobles. Son el punto de partida para concebir, junto a cada novia, una pieza completamente irrepetible y adaptada a su anatomía.
+      </p>
+    </section>
+
+    <!-- LOS 2 BLOQUES REQUERIDOS (1 POR COLECCIÓN) -->
+    <div class="collections-stack" data-od-id="collections-stack">
+
+      <!-- ==========================================
+           BLOQUE 1: COLECCIÓN SILUETAS PURAS
+           ========================================== -->
+      <article class="collection-block" data-od-id="collection-block-siluetas-puras">
+        
+        <!-- FOTO DE LA COLECCIÓN 1 -->
+        <div class="collection-visual" data-od-id="visual-siluetas-puras">
+          <img 
+            src="https://images.unsplash.com/photo-1594552072238-b8a33785b261?auto=format&fit=crop&w=1200&q=85" 
+            alt="Vestido de novia de la Colección Siluetas Puras de María Diezma" 
+            class="collection-img"
+            loading="lazy"
+          >
+          <div class="collection-badge-overlay">Colección Permanente</div>
+        </div>
+
+        <!-- CONTENIDO: NOMBRE Y PEQUEÑA DESCRIPCIÓN -->
+        <div class="collection-content" data-od-id="content-siluetas-puras">
+          <div>
+            <div class="collection-header-meta">
+              <span class="collection-number">01 / Colección</span>
+              <span class="collection-season">Línea Arquitectónica</span>
+            </div>
+            
+            <h2 class="collection-title">Siluetas Puras</h2>
+            
+            <p class="collection-desc">
+              Una oda al corte magistral, la geometría y la caída natural de los tejidos nobles. Diseñada para novias que buscan una elegancia sobria y atemporal, donde cada línea del patrón responde a la estructura corporal sin añadidos superfluos, logrando una presencia serena y distinguida.
+            </p>
+
+            <!-- FICHA DE TEJIDOS Y DETALLES -->
+            <div class="specs-grid">
+              <div class="spec-item">
+                <span class="spec-label">Tejidos Nobles</span>
+                <span class="spec-value">Crepé de seda natural, mikado italiano & satén pesante</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-label">Patronaje</span>
+                <span class="spec-value">Corte al bies, escotes asimétricos y caídas limpias</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-label">Carácter</span>
+                <span class="spec-value">Minimalismo contemporáneo de alta costura</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-label">Confección</span>
+                <span class="spec-value">100% a medida en nuestro taller de Madrid</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ACCIONES -->
+          <div class="collection-actions">
+            <button 
+              type="button" 
+              class="btn-secondary" 
+              data-od-id="btn-cita-siluetas"
+              onclick="openAppointmentModal('Colección Siluetas Puras')"
+            >
+              Probar esta línea en el Atelier
+            </button>
+            <a 
+              href="#pedir-cita" 
+              class="btn-inline-link"
+              onclick="openAppointmentModal('Colección Siluetas Puras'); return false;"
+            >
+              Consultar detalles de confección &rarr;
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+      <!-- ==========================================
+           BLOQUE 2: COLECCIÓN BOTÁNICA & BORDADOS
+           ========================================== -->
+      <article class="collection-block block-reverse" data-od-id="collection-block-botanica-bordados">
+        
+        <!-- FOTO DE LA COLECCIÓN 2 -->
+        <div class="collection-visual" data-od-id="visual-botanica-bordados">
+          <img 
+            src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1200&q=85" 
+            alt="Vestido nupcial con bordados florales de la Colección Botánica & Bordados de María Diezma" 
+            class="collection-img"
+            loading="lazy"
+          >
+          <div class="collection-badge-overlay">Edición Atelier</div>
+        </div>
+
+        <!-- CONTENIDO: NOMBRE Y PEQUEÑA DESCRIPCIÓN -->
+        <div class="collection-content" data-od-id="content-botanica-bordados">
+          <div>
+            <div class="collection-header-meta">
+              <span class="collection-number">02 / Colección</span>
+              <span class="collection-season">Línea Romántica</span>
+            </div>
+            
+            <h2 class="collection-title">Botánica & Bordados</h2>
+            
+            <p class="collection-desc">
+              Inspirada en las formas orgánicas y la riqueza ornamental de la naturaleza. Piezas artesanales enriquecidas con bordados minuciosos en hilo de seda, apliques florales elaborados a mano e incrustaciones de encaje antiguo francés sobre sutiles capas de tul ilusión y organza.
+            </p>
+
+            <!-- FICHA DE TEJIDOS Y DETALLES -->
+            <div class="specs-grid">
+              <div class="spec-item">
+                <span class="spec-label">Tejidos Nobles</span>
+                <span class="spec-value">Tules de seda bordados, encaje de Chantilly & organza</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-label">Técnica</span>
+                <span class="spec-value">Bordado a mano en bastidor y relieves florales</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-label">Carácter</span>
+                <span class="spec-value">Romanticismo lírico y delicadeza artesanal</span>
+              </div>
+              <div class="spec-item">
+                <span class="spec-label">Personalización</span>
+                <span class="spec-value">Motivos y densidad de bordado personalizados</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- ACCIONES -->
+          <div class="collection-actions">
+            <button 
+              type="button" 
+              class="btn-secondary" 
+              data-od-id="btn-cita-botanica"
+              onclick="openAppointmentModal('Colección Botánica & Bordados')"
+            >
+              Probar esta línea en el Atelier
+            </button>
+            <a 
+              href="#pedir-cita" 
+              class="btn-inline-link"
+              onclick="openAppointmentModal('Colección Botánica & Bordados'); return false;"
+            >
+              Consultar detalles de confección &rarr;
+            </a>
+          </div>
+        </div>
+
+      </article>
+
+    </div>
+
+    <!-- BANNER DE CONFECCIÓN EXCLUSIVA Y CITA -->
+    <section class="custom-couture-banner" data-od-id="section-custom-banner">
+      <div class="banner-content">
+        <span class="page-kicker">CONFECCIÓN EXCLUSIVA EN MADRID</span>
+        <h3>¿Tienes una idea propia o deseas combinar elementos de ambas colecciones?</h3>
+        <p>
+          En el atelier de María Diezma no realizamos vestidos en serie. Cada novia tiene la libertad de combinar patronajes, variar escotes o crear un diseño completamente nuevo desde el primer boceto.
+        </p>
+      </div>
+      <div class="banner-action-area">
+        <button type="button" class="btn-cta" onclick="openAppointmentModal('Creación a medida exclusiva')">
+          Concertar cita con María Diezma
+        </button>
+        <span class="atelier-address-tag">Calle de Goya, 69 · Barrio de Salamanca, Madrid</span>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- PIE DE PÁGINA -->
+  <footer class="site-footer" data-od-id="site-footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <h4>MARÍA DIEZMA</h4>
+        <p>
+          Atelier de alta costura nupcial en el corazón de Madrid. Vestidos de novia hechos a medida mediante procesos artesanales y dedicación exclusiva.
+        </p>
+        <div style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase;">
+          Atelier de autor · C/ de Goya, 69, Madrid
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h5>Navegación</h5>
+        <ul>
+          <li><a href="../index.html">Inicio</a></li>
+          <li><a href="conoceme.html">Conóceme</a></li>
+          <li><a href="colecciones.html" style="color: var(--fg); font-weight: 500;">Colecciones</a></li>
+          <li><a href="proceso.html">Nuestro Proceso</a></li>
+          <li><a href="#pedir-cita" onclick="openAppointmentModal('Cita general'); return false;">Pedir Cita</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Colecciones</h5>
+        <ul>
+          <li><a href="#collection-block-siluetas-puras">01 Siluetas Puras</a></li>
+          <li><a href="#collection-block-botanica-bordados">02 Botánica & Bordados</a></li>
+          <li><a href="#custom-couture-banner">Diseño a Medida</a></li>
+          <li><a href="conoceme.html">El Atelier</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h5>Contacto & Citas</h5>
+        <div class="atelier-address-list">
+          <p style="color: var(--fg); font-weight: 500; margin-bottom: 4px;">Atelier María Diezma</p>
+          <p>Calle de Goya, 69, 1º Dcha</p>
+          <p>28001 Madrid (Barrio de Salamanca)</p>
+          <p style="margin-top: 10px;">Metro: Goya (L2, L4) / Velázquez (L4)</p>
+          <p style="margin-top: 10px; color: var(--accent);">+34 912 345 678</p>
+          <p>citas@mariadiezma.com</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>&copy; 2026 María Diezma Atelier. Todos los derechos reservados.</div>
+      <div>Alta Costura Nupcial a Medida · Madrid</div>
+    </div>
+  </footer>
+
+  <!-- MODAL DE ASISTENTE DE CITA -->
+  <div id="appointment-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-heading">
+    <div class="modal-window">
+      <button type="button" class="modal-close-btn" aria-label="Cerrar modal" onclick="closeAppointmentModal()">&times;</button>
+      
+      <div id="modal-form-view">
+        <span class="page-kicker" style="font-size: 0.72rem; margin-bottom: 6px;">ENCUENTRO PERSONALIZADO</span>
+        <h3 id="modal-heading" class="modal-title">Pedir Cita en el Atelier</h3>
+        <p class="modal-subtitle">
+          Ven a conocer nuestras piezas en Calle de Goya, 69, Madrid. Reservamos el taller exclusivamente para ti y tus acompañantes.
+        </p>
+
+        <form id="appointment-form" onsubmit="handleFormSubmit(event)">
+          <div class="form-group">
+            <label for="input-collection" class="form-label">Colección o Interés Principal</label>
+            <select id="input-collection" class="form-select" required>
+              <option value="Colección Siluetas Puras">Colección Siluetas Puras</option>
+              <option value="Colección Botánica & Bordados">Colección Botánica & Bordados</option>
+              <option value="Diseño a medida desde cero">Diseño a medida desde cero</option>
+              <option value="Primera visita exploratoria">Primera visita exploratoria</option>
+            </select>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="input-name" class="form-label">Nombre Completo</label>
+              <input type="text" id="input-name" class="form-input" placeholder="Ej. Clara Serrano" required>
+            </div>
+            <div class="form-group">
+              <label for="input-phone" class="form-label">Teléfono de Contacto</label>
+              <input type="tel" id="input-phone" class="form-input" placeholder="+34 600 000 000" required>
+            </div>
+          </div>
+
+          <div class="form-row-2">
+            <div class="form-group">
+              <label for="input-email" class="form-label">Correo Electrónico</label>
+              <input type="email" id="input-email" class="form-input" placeholder="clara@ejemplo.com" required>
+            </div>
+            <div class="form-group">
+              <label for="input-wedding-date" class="form-label">Fecha Estimada de Boda</label>
+              <input type="date" id="input-wedding-date" class="form-input" required>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="input-notes" class="form-label">Comentarios o Preferencias (Opcional)</label>
+            <textarea id="input-notes" class="form-textarea" rows="3" placeholder="Cuéntanos si tienes alguna idea específica, estilo o preferencia sobre los tejidos..."></textarea>
+          </div>
+
+          <button type="submit" class="form-submit-btn">
+            Confirmar Solicitud de Cita
+          </button>
+        </form>
+      </div>
+
+      <div id="modal-confirmation-view" class="confirmation-box">
+        <span class="page-kicker" style="color: var(--accent); margin-bottom: 8px;">SOLICITUD REGISTRADA</span>
+        <h4>¡Gracias por tu confianza!</h4>
+        <p style="margin-bottom: 16px;">
+          Hemos recibido tu solicitud de cita para <strong id="confirmed-collection" style="color: var(--fg);"></strong> en nuestro atelier de Madrid.
+        </p>
+        <p style="font-size: 0.9rem; color: var(--muted); margin-bottom: 28px;">
+          María Diezma se pondrá en contacto contigo en las próximas 24 horas laborables para confirmar la fecha y hora definitivas de tu visita.
+        </p>
+        <button type="button" class="btn-cta" onclick="closeAppointmentModal()">Entendido</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SCRIPT DE CONTROL E INTERACTIVIDAD -->
+  <script>
+    function openAppointmentModal(collectionName) {
+      const modal = document.getElementById('appointment-modal');
+      const formView = document.getElementById('modal-form-view');
+      const confirmView = document.getElementById('modal-confirmation-view');
+      const selectElem = document.getElementById('input-collection');
+
+      if (formView && confirmView) {
+        formView.style.display = 'block';
+        confirmView.style.display = 'none';
+      }
+
+      if (selectElem && collectionName) {
+        for (let i = 0; i < selectElem.options.length; i++) {
+          if (selectElem.options[i].value === collectionName) {
+            selectElem.selectedIndex = i;
+            break;
+          }
+        }
+      }
+
+      if (modal) {
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+      }
+    }
+
+    function closeAppointmentModal() {
+      const modal = document.getElementById('appointment-modal');
+      if (modal) {
+        modal.classList.remove('open');
+        document.body.style.overflow = '';
+      }
+    }
+
+    function handleFormSubmit(event) {
+      event.preventDefault();
+      const formView = document.getElementById('modal-form-view');
+      const confirmView = document.getElementById('modal-confirmation-view');
+      const selectElem = document.getElementById('input-collection');
+      const confirmedTarget = document.getElementById('confirmed-collection');
+
+      if (selectElem && confirmedTarget) {
+        confirmedTarget.textContent = selectElem.value;
+      }
+
+      if (formView && confirmView) {
+        formView.style.display = 'none';
+        confirmView.style.display = 'block';
+      }
+    }
+
+    // Cerrar modal al hacer clic en el fondo
+    const modalBackdrop = document.getElementById('appointment-modal');
+    if (modalBackdrop) {
+      modalBackdrop.addEventListener('click', function(e) {
+        if (e.target === this) {
+          closeAppointmentModal();
+        }
+      });
+    }
+
+    // Cerrar modal con tecla ESC
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        closeAppointmentModal();
+      }
+    });
+  </script>
+</body>
+</html>

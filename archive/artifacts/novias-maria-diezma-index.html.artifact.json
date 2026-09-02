@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "kind": "html",
+  "title": "María Diezma · Vestidos de Novia a Medida (Index)",
+  "entry": "novias-maria-diezma-index.html",
+  "renderer": "html",
+  "status": "complete",
+  "exports": [
+    "html",
+    "pdf",
+    "zip"
+  ],
+  "primary": true,
+  "createdAt": "2026-09-02T12:49:53.733Z",
+  "updatedAt": "2026-09-02T12:49:53.735Z",
+  "metadata": {
+    "identifier": "novias-maria-diezma-index",
+    "artifactType": "text/html",
+    "inferred": false
+  }
+}
