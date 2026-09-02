@@ -1,0 +1,208 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title id="page-title">Detalle de Vestido · María Diezma Atelier</title>
+  <link rel="stylesheet" href="../assets/css/detalle.css">
+</head>
+<body data-od-id="page-detalle">
+
+  <!-- ─── BARRA DE NAVEGACIÓN ─── -->
+  <header class="top-nav" data-od-id="header-nav">
+    <div class="container nav-inner">
+      <a href="../index.html" class="brand-logo" data-od-id="nav-brand">
+        <!-- Logotipo con fallback tipográfico de alta costura -->
+        <img src="../assets/images/logo-maria-diezma.png" alt="María Diezma" class="brand-logo-img" onerror="this.style.display='none'; document.getElementById('brand-text-fallback').style.display='flex';">
+        <div id="brand-text-fallback" class="brand-fallback" style="display: none;">
+          <span class="brand-name">María Diezma</span>
+          <span class="brand-tag">Alta Costura Nupcial</span>
+        </div>
+      </a>
+
+      <!-- Menú principal -->
+      <nav aria-label="Menú principal">
+        <ul class="nav-menu">
+          <li><a href="../index.html" class="nav-link" data-od-id="nav-link-inicio">Inicio</a></li>
+          <li><a href="conoceme.html" class="nav-link" data-od-id="nav-link-conoceme">Conóceme</a></li>
+          <li><a href="colecciones.html" class="nav-link" data-od-id="nav-link-colecciones">Colecciones</a></li>
+          <li><a href="catalogo.html" class="nav-link active" data-od-id="nav-link-catalogo" aria-current="page">Catálogo</a></li>
+          <li><a href="proceso.html" class="nav-link" data-od-id="nav-link-proceso">Nuestro Proceso</a></li>
+        </ul>
+      </nav>
+
+      <!-- Acción principal -->
+      <div class="nav-actions">
+        <a href="cita.html" class="btn-cita" data-od-id="btn-nav-pedir-cita">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>
+          Pedir Cita
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main id="content" class="detail-page-main">
+    <div class="container">
+      
+      <!-- Migas de pan -->
+      <nav class="breadcrumb" aria-label="Migas de pan">
+        <a href="../index.html">Inicio</a>
+        <span>/</span>
+        <a href="colecciones.html">Colecciones</a>
+        <span>/</span>
+        <a href="catalogo.html">Catálogo</a>
+        <span>/</span>
+        <span id="breadcrumb-dress-name" style="color: var(--accent);">Cargando vestido...</span>
+      </nav>
+
+      <!-- DEDICATED DRESS DETAIL CONTAINER
+           Layout: Left = Large image + counterpart thumbnails below; Right = Large name + short description + specs -->
+      <section id="dress-detail-showcase" class="dress-detail-showcase-section" data-od-id="section-dress-detail">
+        <div class="detail-container-inner">
+          
+          <div class="showcase-header">
+            <div class="showcase-eyebrow-box">
+              <span class="showcase-eyebrow">Vista Detallada de Vestido & Contra Parte</span>
+              <span style="color: var(--border);">|</span>
+              <span id="showcase-model-id" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent);">REF. MD-01</span>
+            </div>
+
+            <a href="catalogo.html" class="btn-back-to-catalog" title="Volver al catálogo completo de vestidos">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+              <span>Volver al Catálogo</span>
+            </a>
+          </div>
+
+          <!-- THE MAIN TWO-COLUMN CONTAINER -->
+          <div class="dress-detail-container">
+            
+            <!-- LEFT COLUMN: Large selected image + counterpart thumbnails below -->
+            <div class="dress-gallery-left">
+              <div class="main-image-viewport">
+                <img id="main-dress-image" src="" alt="Vestido seleccionado" class="main-active-img">
+                <div id="main-view-label" class="main-view-badge">Vista Delantera · Silueta Principal</div>
+              </div>
+
+              <!-- Below in small: the counterpart (contra parte) and other angles -->
+              <div class="counterpart-thumbnails-block">
+                <div class="thumbnails-label">
+                  <span>Selecciona la vista para proyectar en grande:</span>
+                  <span style="color: var(--accent); font-size: 0.7rem;">★ Contra Parte disponible</span>
+                </div>
+                <div class="thumbnails-grid" id="thumbnails-container">
+                  <!-- Injected via JavaScript based on selected dress -->
+                </div>
+              </div>
+            </div>
+
+            <!-- RIGHT COLUMN: Large Dress Name + Short Description + Specifications -->
+            <div class="dress-info-right">
+              <div class="collection-kicker" id="detail-collection-kicker">Colección Siluetas Puras · Edición Atelier</div>
+              
+              <!-- Large Dress Name -->
+              <h1 id="detail-dress-name" class="detail-dress-name-large">Vestido</h1>
+
+              <!-- Short Description beneath the name -->
+              <p id="detail-dress-description" class="detail-dress-description"></p>
+
+              <!-- Technical specifications -->
+              <div class="specs-card">
+                <div class="spec-item">
+                  <span class="spec-label">Tejido Principal</span>
+                  <span class="spec-value" id="detail-fabric"></span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-label">Contra Parte (Espalda)</span>
+                  <span class="spec-value" id="detail-back"></span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-label">Silueta & Patronaje</span>
+                  <span class="spec-value" id="detail-silhouette"></span>
+                </div>
+                <div class="spec-item">
+                  <span class="spec-label">Tiempo de Confección</span>
+                  <span class="spec-value" id="detail-time"></span>
+                </div>
+              </div>
+
+              <div class="detail-actions-group">
+                <a id="btn-detail-book-appointment" href="cita.html" class="btn-primary-action" data-od-id="cta-probar-vestido">
+                  <span>Pedir Cita para Probar este Vestido</span>
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </a>
+
+                <div class="atelier-guarantee-box">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2" style="flex-shrink: 0; margin-top: 2px;"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                  <span>
+                    Cada vestido de María Diezma se confecciona desde cero sobre el cuerpo de la novia en nuestro atelier de <strong>C/ de Goya, 69, 1º Dcha, Madrid</strong>.
+                  </span>
+                </div>
+              </div>
+
+              <!-- Model Next/Previous switcher -->
+              <div class="model-navigation-bar">
+                <button class="nav-model-btn" onclick="navigateDress(-1)" title="Ver vestido anterior">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                  <span>Vestido Anterior</span>
+                </button>
+                <span id="model-step-counter" style="font-family: var(--font-mono); font-size: 0.8125rem; color: var(--muted);"></span>
+                <button class="nav-model-btn" onclick="navigateDress(1)" title="Ver siguiente vestido">
+                  <span>Siguiente Vestido</span>
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                </button>
+              </div>
+
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- PIE DE PÁGINA -->
+  <footer class="site-footer" data-od-id="footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <img src="../assets/images/logo-maria-diezma.png" alt="María Diezma Atelier" style="height: 36px; width: auto; object-fit: contain; margin-bottom: 1rem; display: block;">
+          <p>Atelier de alta costura especializado en vestidos de novia a medida y costura artesanal en el Barrio de Salamanca de Madrid.</p>
+          <span style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent);">C/ de Goya, 69, 1º Dcha · 28001 Madrid</span>
+        </div>
+
+        <div>
+          <div class="footer-nav-title">Navegación</div>
+          <ul class="footer-links">
+            <li><a href="../index.html">Inicio</a></li>
+            <li><a href="conoceme.html">Conóceme</a></li>
+            <li><a href="colecciones.html">Colecciones</a></li>
+            <li><a href="catalogo.html">Catálogo</a></li>
+            <li><a href="proceso.html">Nuestro Proceso</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <div class="footer-nav-title">Contacto</div>
+          <ul class="footer-links">
+            <li>C/ de Goya, 69, 1º Dcha, Salamanca, Madrid</li>
+            <li>+34 914 892 340</li>
+            <li>atelier@mariadiezma.es</li>
+            <li><a href="cita.html" style="color: var(--accent); font-weight: 500;">Solicitar cita previa</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <span>© 2026 María Diezma Atelier. Todos los derechos reservados.</span>
+        <span>Confección lenta y alta costura artesanal en Madrid.</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../assets/js/dresses-data.js"></script>
+  <script src="../assets/js/detalle.js"></script>
+</body>
+</html>
