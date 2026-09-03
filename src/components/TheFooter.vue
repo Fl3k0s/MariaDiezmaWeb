@@ -8,8 +8,13 @@ const currentYear = new Date().getFullYear()
       <div class="footer-grid">
         <!-- Columna Marca -->
         <div class="footer-brand-col">
-          <span class="footer-brand-title">MARÍA DIEZMA</span>
-          <span class="footer-brand-sub">ATELIER NUPCIAL · MADRID</span>
+          <router-link to="/" class="footer-brand-link" aria-label="María Diezma Inicio">
+            <img 
+              src="/assets/images/logo-maria-diezma.png" 
+              alt="María Diezma Atelier de Novias" 
+              class="footer-logo-img"
+            >
+          </router-link>
           <p class="footer-brand-desc">
             Creaciones exclusivas a medida elaboradas artesanalmente con tejidos nobles, devoción por los acabados y respeto por la silueta femenina.
           </p>
@@ -22,6 +27,7 @@ const currentYear = new Date().getFullYear()
             <li><router-link to="/conoceme">Conóceme</router-link></li>
             <li><router-link to="/colecciones">Colecciones</router-link></li>
             <li><router-link to="/proceso">Nuestro Proceso</router-link></li>
+            <li><router-link to="/prensa">Prensa</router-link></li>
             <li><router-link to="/cita">Pedir Cita Previa</router-link></li>
           </ul>
         </div>
@@ -46,11 +52,24 @@ const currentYear = new Date().getFullYear()
           <h4 class="footer-col-title">Contacto</h4>
           <p class="footer-info-item">
             <strong>Atención Personalizada</strong><br>
-            <a href="tel:+34910000000" class="footer-contact-link">+34 910 00 00 00</a><br>
-            <a href="mailto:hola@mariadiezma.com" class="footer-contact-link">hola@mariadiezma.com</a>
+            <a href="tel:+34629675583" class="footer-contact-link">+34 629 675 583</a><br>
+            <a href="mailto:mariadiezmanovias@yahoo.es" class="footer-contact-link">mariadiezmanovias@yahoo.es</a>
           </p>
           <div class="footer-socials">
-            <span class="social-tag">Instagram: @mariadiezma_atelier</span>
+            <a 
+              href="https://www.instagram.com/mariadiezma_atelier/" 
+              target="_blank" 
+              rel="noopener noreferrer" 
+              class="footer-instagram-link"
+              aria-label="Instagram de María Diezma Atelier (@mariadiezma_atelier)"
+            >
+              <svg class="instagram-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+              <span>@mariadiezma_atelier</span>
+            </a>
           </div>
         </div>
       </div>
@@ -85,21 +104,22 @@ const currentYear = new Date().getFullYear()
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.footer-brand-title {
-  font-family: var(--font-brand);
-  font-size: 1.35rem;
-  letter-spacing: 0.18em;
-  color: #ffffff;
-  display: block;
+.footer-brand-link {
+  display: inline-block;
+  margin-bottom: 1.25rem;
 }
 
-.footer-brand-sub {
-  font-size: 0.65rem;
-  letter-spacing: 0.24em;
-  color: #9e4b37;
+.footer-logo-img {
+  height: 46px;
+  width: auto;
+  object-fit: contain;
   display: block;
-  margin-top: 0.25rem;
-  margin-bottom: 1.25rem;
+  filter: brightness(0) invert(1);
+  transition: opacity 0.25s ease;
+}
+
+.footer-brand-link:hover .footer-logo-img {
+  opacity: 0.85;
 }
 
 .footer-brand-desc {
@@ -158,10 +178,30 @@ const currentYear = new Date().getFullYear()
   color: #ffffff;
 }
 
-.social-tag {
-  font-size: 0.82rem;
+.footer-socials {
+  margin-top: 1.25rem;
+}
+
+.footer-instagram-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
   color: #a89f99;
-  font-style: italic;
+  font-size: 0.85rem;
+  transition: color 0.25s ease, transform 0.25s ease;
+  text-decoration: none;
+}
+
+.footer-instagram-link:hover {
+  color: #ffffff;
+  transform: translateX(2px);
+}
+
+.instagram-icon {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+  flex-shrink: 0;
 }
 
 .footer-bottom {

@@ -1,0 +1,1041 @@
+<!doctype html>
+<html lang="es">
+<head><script type="application/json" data-od-external-dependencies>["https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4","https://images.unsplash.com/photo-1594552072238-b8a33785b261?auto=format&fit=crop&w=1600&q=80"]</script>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prensa · María Diezma · Vestidos de Novia a Medida</title>
+  <style>
+    :root {
+      --bg: oklch(98.5% 0.005 85);
+      --surface: oklch(100% 0 0);
+      --fg: oklch(20% 0.018 70);
+      --muted: oklch(46% 0.015 70);
+      --border: oklch(90% 0.006 95);
+      --accent: oklch(52% 0.10 28);
+      --accent-hover: oklch(46% 0.11 28);
+      --accent-soft: oklch(94% 0.02 28);
+
+      --font-display: 'Iowan Old Style', 'Charter', Georgia, serif;
+      --font-body: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      --font-mono: 'JetBrains Mono', 'IBM Plex Mono', ui-monospace, monospace;
+
+      --max-width: 980px;
+      --radius-sm: 4px;
+      --radius-md: 8px;
+    }
+
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      background-color: var(--bg);
+      color: var(--fg);
+      font-family: var(--font-body);
+      font-size: 16px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    button {
+      font-family: inherit;
+      cursor: pointer;
+      border: none;
+      background: none;
+    }
+
+    /* Cabecera / Navegación */
+    .site-header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background-color: var(--bg);
+      border-bottom: 1px solid var(--border);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+    }
+
+    .header-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 1rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+    }
+
+    .brand-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      letter-spacing: 0.02em;
+      font-weight: 500;
+      color: var(--fg);
+    }
+
+    .brand-logo img {
+      height: 38px;
+      width: auto;
+      object-fit: contain;
+      display: block;
+    }
+
+    .brand-logo-fallback {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+
+    .brand-logo-fallback span:first-child {
+      font-size: 1.15rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .brand-logo-fallback span:last-child {
+      font-size: 0.65rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--muted);
+    }
+
+    .main-nav {
+      display: flex;
+      align-items: center;
+      gap: 1.75rem;
+    }
+
+    .nav-link {
+      font-size: 0.9rem;
+      color: var(--muted);
+      letter-spacing: 0.02em;
+      position: relative;
+      padding: 0.25rem 0;
+      transition: color 0.2s ease;
+    }
+
+    .nav-link:hover {
+      color: var(--fg);
+    }
+
+    .nav-link.active {
+      color: var(--fg);
+      font-weight: 500;
+    }
+
+    .nav-link.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 1.5px;
+      background-color: var(--accent);
+    }
+
+    .header-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--accent);
+      color: #ffffff;
+      padding: 0.55rem 1.15rem;
+      font-size: 0.85rem;
+      font-weight: 500;
+      letter-spacing: 0.03em;
+      border-radius: var(--radius-sm);
+      transition: background-color 0.2s ease;
+      min-height: 44px;
+      white-space: nowrap;
+    }
+
+    .header-cta:hover {
+      background-color: var(--accent-hover);
+    }
+
+    /* Contenedor Principal */
+    .page-main {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      padding: 3.5rem 1.5rem 5rem;
+    }
+
+    /* Encabezado Editorial Simple */
+    .page-header {
+      margin-bottom: 3rem;
+      padding-bottom: 1.75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .kicker {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--accent);
+      margin-bottom: 0.6rem;
+      display: block;
+    }
+
+    .page-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.2rem, 4vw, 3rem);
+      font-weight: 400;
+      line-height: 1.2;
+      color: var(--fg);
+      letter-spacing: -0.01em;
+      margin-bottom: 0.75rem;
+    }
+
+    .page-subtitle {
+      color: var(--muted);
+      font-size: 1.05rem;
+      max-width: 620px;
+      line-height: 1.6;
+    }
+
+    /* Sección de Video */
+    .video-section {
+      margin-bottom: 4rem;
+    }
+
+    .section-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--muted);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .section-label::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background-color: var(--border);
+    }
+
+    .video-card {
+      background-color: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.03);
+    }
+
+    .video-player-wrap {
+      position: relative;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      background-color: #121212;
+    }
+
+    .video-player-wrap video {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    .video-custom-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.6) 100%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      color: #ffffff;
+      cursor: pointer;
+      transition: opacity 0.3s ease;
+      padding: 2rem;
+      text-align: center;
+    }
+
+    .video-custom-overlay.is-hidden {
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .play-button {
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.92);
+      color: var(--fg);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 1.25rem;
+      transition: transform 0.2s ease, background-color 0.2s ease;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+    }
+
+    .play-button svg {
+      width: 26px;
+      height: 26px;
+      fill: currentColor;
+      margin-left: 3px;
+    }
+
+    .video-custom-overlay:hover .play-button {
+      transform: scale(1.08);
+      background-color: #ffffff;
+    }
+
+    .overlay-title {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      font-weight: 400;
+      margin-bottom: 0.35rem;
+    }
+
+    .overlay-meta {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      letter-spacing: 0.08em;
+      opacity: 0.85;
+      text-transform: uppercase;
+    }
+
+    .video-caption {
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 1.5rem;
+      background-color: var(--surface);
+    }
+
+    .video-caption-text h3 {
+      font-family: var(--font-display);
+      font-size: 1.15rem;
+      font-weight: 500;
+      color: var(--fg);
+      margin-bottom: 0.2rem;
+    }
+
+    .video-caption-text p {
+      font-size: 0.9rem;
+      color: var(--muted);
+    }
+
+    .video-duration-tag {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      padding: 0.3rem 0.6rem;
+      background-color: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--muted);
+      white-space: nowrap;
+    }
+
+    /* Sección de Listado de Artículos */
+    .articles-section {
+      margin-bottom: 4rem;
+    }
+
+    .articles-list {
+      display: flex;
+      flex-direction: column;
+      border-top: 1px solid var(--border);
+    }
+
+    .article-item {
+      padding: 1.85rem 0;
+      border-bottom: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: 200px 1fr auto;
+      gap: 2rem;
+      align-items: baseline;
+      transition: background-color 0.15s ease;
+    }
+
+    .article-item:hover .article-headline {
+      color: var(--accent);
+    }
+
+    .article-meta-col {
+      display: flex;
+      flex-direction: column;
+      gap: 0.25rem;
+    }
+
+    .article-outlet {
+      font-family: var(--font-display);
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--fg);
+    }
+
+    .article-date {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      color: var(--muted);
+    }
+
+    .article-content-col {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    .article-headline {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 400;
+      line-height: 1.35;
+      color: var(--fg);
+      transition: color 0.2s ease;
+      cursor: pointer;
+    }
+
+    .article-excerpt {
+      font-size: 0.95rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .article-action-col {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    .btn-read {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.88rem;
+      color: var(--fg);
+      font-weight: 500;
+      padding: 0.5rem 0.85rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      background-color: var(--surface);
+      transition: all 0.2s ease;
+      min-height: 44px;
+      white-space: nowrap;
+    }
+
+    .btn-read:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background-color: var(--bg);
+    }
+
+    .btn-read svg {
+      width: 14px;
+      height: 14px;
+      fill: currentColor;
+      transition: transform 0.2s ease;
+    }
+
+    .btn-read:hover svg {
+      transform: translateX(2px);
+    }
+
+    /* Modal de Lectura Simple */
+    .modal-backdrop {
+      position: fixed;
+      inset: 0;
+      background-color: rgba(20, 20, 20, 0.6);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      z-index: 100;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+
+    .modal-backdrop.is-open {
+      display: flex;
+    }
+
+    .modal-dialog {
+      background-color: var(--surface);
+      max-width: 680px;
+      width: 100%;
+      max-height: 88vh;
+      overflow-y: auto;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-md);
+      padding: 2.5rem;
+      position: relative;
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .modal-close-btn {
+      position: absolute;
+      top: 1.25rem;
+      right: 1.25rem;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--muted);
+      border: 1px solid var(--border);
+      background-color: var(--bg);
+      transition: all 0.2s ease;
+    }
+
+    .modal-close-btn:hover {
+      color: var(--fg);
+      border-color: var(--fg);
+    }
+
+    .modal-outlet-badge {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      margin-bottom: 0.75rem;
+      display: inline-block;
+    }
+
+    .modal-title {
+      font-family: var(--font-display);
+      font-size: 1.85rem;
+      line-height: 1.25;
+      font-weight: 400;
+      color: var(--fg);
+      margin-bottom: 1rem;
+    }
+
+    .modal-meta {
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--muted);
+      padding-bottom: 1.25rem;
+      margin-bottom: 1.5rem;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      gap: 1.5rem;
+    }
+
+    .modal-body {
+      font-size: 1rem;
+      line-height: 1.75;
+      color: var(--fg);
+    }
+
+    .modal-body p {
+      margin-bottom: 1.25rem;
+    }
+
+    .modal-body blockquote {
+      border-left: 2px solid var(--accent);
+      padding-left: 1.25rem;
+      margin: 1.75rem 0;
+      font-family: var(--font-display);
+      font-size: 1.2rem;
+      font-style: italic;
+      color: var(--fg);
+    }
+
+    /* Pie de página */
+    .site-footer {
+      border-top: 1px solid var(--border);
+      background-color: var(--surface);
+      padding: 3.5rem 1.5rem 2.5rem;
+    }
+
+    .footer-inner {
+      max-width: var(--max-width);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.5fr 1fr 1fr;
+      gap: 3rem;
+    }
+
+    .footer-col h4 {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      font-weight: 500;
+      margin-bottom: 1rem;
+      color: var(--fg);
+    }
+
+    .footer-col p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .footer-links {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .footer-links a {
+      font-size: 0.9rem;
+      color: var(--muted);
+      transition: color 0.2s ease;
+    }
+
+    .footer-links a:hover {
+      color: var(--fg);
+    }
+
+    .footer-bottom {
+      max-width: var(--max-width);
+      margin: 2.5rem auto 0;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.8rem;
+      color: var(--muted);
+      font-family: var(--font-mono);
+    }
+
+    /* Responsive */
+    @media (max-width: 820px) {
+      .header-inner {
+        flex-wrap: wrap;
+      }
+      .main-nav {
+        order: 3;
+        width: 100%;
+        overflow-x: auto;
+        padding: 0.5rem 0;
+        gap: 1.25rem;
+      }
+      .article-item {
+        grid-template-columns: 1fr;
+        gap: 0.75rem;
+      }
+      .article-action-col {
+        justify-content: flex-start;
+        margin-top: 0.5rem;
+      }
+      .footer-inner {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+      }
+      .footer-bottom {
+        flex-direction: column;
+        gap: 0.75rem;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Cabecera de Navegación -->
+  <header class="site-header" data-od-id="prensa-header">
+    <div class="header-inner">
+      <a href="novias-maria-diezma-index-2.html" class="brand-logo" data-od-id="header-brand">
+        <img src="data:image/png;base64,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U4TKsV2lU4SK9zEBM84YCRWhck6ojBv/Q+VQaR8qo59OESrexgRMOQMkVISKUNk5VIY/J8nUKaODTvE2JmDKGSKhIlTC34D5v8eT0SkHQ6V5p3wbC7yNCZhyhkiouE6heqh8v1+wU8a/X7B7pwyB4m1MwJQzQEJFqAQeW4TKRKfs/w13d0qjTvk2FngbEzDlDJFQEeoEofJ5yA2V248kLFRu/T/fT4Hh/3g/BbrP1t634f1vY+VvQ6fc+DZW/jaEirX30F+5TjmhU7a/x6+49f98PwWG//N5Cgz/13kaDN9t67ff5m9/Gzp/Gzrlxrfx8rcR92a/oVJm5379b38u14ZKwYV0Zad8/20KDP/n8xQY/q/zNBhuN4RKyU5J/AaqdUrG34ZOUap3l8qGvyVw9N83H58CnfL9e/25j3/fKdf/O8W/m+K/265OESq735b5oVL239nZKef/bQy7Tsn72/Dxzbfw/jZ0yu3/1/bflmH329i7VI775le9nfu7P/+G/a9r5w/z9574+s+13Snnfc+v/+3p38ad38bhpfL1//01lMrO/x1/b/799/k72f9r3939+Pfr0f/47p/dESr5du2OofLL93y1f5s67e9k/6999/t/v/70G+/0/957H9f/lP3vP/6V4qFStnN1CpWf/r2/2H/2n/1744d9fKx/G0Il5bfY/bvx47f+b77v959p2v8r362dO2v+8/P/P7qHSup32/hQ+fnP/eX+s//s37sf//g/hUrBf/Zt/8989w+/T/f5O9n/69/9+b+Pj+P7j58f44zfp9y7k+0/O38n+3/ju7Xv9/94n8b7dFSo5Hy37fnd/q9//u3/W/+b9X8//o/3X6n/tU/f/e7v/uP49z+9h4bK+W/j9u99pvd3sv/Xv1v7fve/v/u9f31O/fD3f3v0t/Fvfy9/71v4u2187f/29774vf3z3/7r//l/fG8/vv8+/v8dofLPn/XNvy1//20+47fFf/+3f3kP/8F33/v7Nq/v/u6P9/E1r186vfv8r/L39g/9L0f8e3f9G/D7/8yff376v/75v/8LIfj//99/AQYAHGv5g3Y+mS0AAAAASUVORK5CYII=" alt="María Diezma" onerror="this.style.display='none'; document.getElementById('brand-fallback').style.display='flex';" />
+        <div id="brand-fallback" class="brand-logo-fallback" style="display: none;">
+          <span>María Diezma</span>
+          <span>Atelier Nupcial</span>
+        </div>
+      </a>
+
+      <nav class="main-nav" data-od-id="header-nav">
+        <a href="novias-maria-diezma-index-2.html" class="nav-link">Inicio</a>
+        <a href="novias-maria-diezma-conoceme.html" class="nav-link">Conóceme</a>
+        <a href="novias-maria-diezma-colecciones.html" class="nav-link">Colecciones</a>
+        <a href="novias-maria-diezma-catalogo-2.html" class="nav-link">Catálogo</a>
+        <a href="novias-maria-diezma-proceso.html" class="nav-link">Nuestro Proceso</a>
+        <a href="novias-maria-diezma-prensa.html" class="nav-link active">Prensa</a>
+      </nav>
+
+      <a href="novias-maria-diezma-cita-2.html" class="header-cta" data-od-id="header-cta-cita">
+        Pedir Cita
+      </a>
+    </div>
+  </header>
+
+  <!-- Contenido Principal -->
+  <main class="page-main" id="content">
+
+    <!-- Encabezado Editorial Simple -->
+    <header class="page-header" data-od-id="prensa-page-header">
+      <span class="kicker">Archivo de Comunicación & Medios</span>
+      <h1 class="page-title">Prensa</h1>
+      <p class="page-subtitle">
+        Una selección de reportajes, piezas audiovisuales y conversaciones con publicaciones de referencia sobre la filosofía y el oficio del atelier de María Diezma.
+      </p>
+    </header>
+
+    <!-- Sección de Video -->
+    <section class="video-section" data-od-id="prensa-video-section">
+      <div class="section-label">Reportaje Audiovisual Destacado</div>
+
+      <div class="video-card">
+        <div class="video-player-wrap">
+          <video
+            id="atelierVideo"
+            controls
+            preload="metadata"
+            poster="https://images.unsplash.com/photo-1594552072238-b8a33785b261?auto=format&fit=crop&w=1600&q=80"
+          >
+            <source src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4" type="video/mp4" />
+            Su navegador no soporta la reproducción de video HTML5.
+          </video>
+
+          <div class="video-custom-overlay" id="videoOverlay" onclick="playMainVideo()">
+            <div class="play-button" aria-label="Reproducir video">
+              <svg viewBox="0 0 24 24">
+                <path d="M8 5v14l11-7z"/>
+              </svg>
+            </div>
+            <h2 class="overlay-title">El valor de la puntada a mano</h2>
+            <div class="overlay-meta">Documental de taller · 4 min 18 s</div>
+          </div>
+        </div>
+
+        <div class="video-caption">
+          <div class="video-caption-text">
+            <h3>«Dentro del Atelier: La arquitectura del vestido nupcial»</h3>
+            <p>Pieza documental producida para el especial de alta costura de RTVE y Vogue Novias sobre el proceso artesanal en la Calle de Goya, 69.</p>
+          </div>
+          <div class="video-duration-tag">4:18 min · HD</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección de Listado de Artículos -->
+    <section class="articles-section" data-od-id="prensa-articles-section">
+      <div class="section-label">Listado de Artículos & Reportajes</div>
+
+      <div class="articles-list" id="articlesContainer">
+
+        <!-- Artículo 1 -->
+        <article class="article-item" data-od-id="article-item-1">
+          <div class="article-meta-col">
+            <span class="article-outlet">Vogue Novias</span>
+            <time class="article-date">Octubre 2025</time>
+          </div>
+          <div class="article-content-col">
+            <h2 class="article-headline" onclick="openArticleModal(0)">
+              «María Diezma: La arquitecta de la nueva silueta nupcial»
+            </h2>
+            <p class="article-excerpt">
+              Un exhaustivo reportaje de ocho páginas que recorre el taller del Barrio de Salamanca, donde cada vestido se concibe sobre el cuerpo de la novia con lienzo de algodón crudo y más de 120 horas de confección manual.
+            </p>
+          </div>
+          <div class="article-action-col">
+            <button class="btn-read" onclick="openArticleModal(0)" aria-label="Leer reportaje de Vogue Novias">
+              <span>Leer artículo</span>
+              <svg viewBox="0 0 16 16"><path d="M6 3l5 5-5 5V3z"/></svg>
+            </button>
+          </div>
+        </article>
+
+        <!-- Artículo 2 -->
+        <article class="article-item" data-od-id="article-item-2">
+          <div class="article-meta-col">
+            <span class="article-outlet">Telva Novias</span>
+            <time class="article-date">Mayo 2025</time>
+          </div>
+          <div class="article-content-col">
+            <h2 class="article-headline" onclick="openArticleModal(1)">
+              «El valor de la espera: Por qué un vestido a medida requiere seis meses de oficio»
+            </h2>
+            <p class="article-excerpt">
+              Entrevista en profundidad con María Diezma acerca de la calma que exige la costura lenta frente a la inmediatez del prêt-à-porter y la importancia de las cinco pruebas presenciales.
+            </p>
+          </div>
+          <div class="article-action-col">
+            <button class="btn-read" onclick="openArticleModal(1)" aria-label="Leer reportaje de Telva Novias">
+              <span>Leer artículo</span>
+              <svg viewBox="0 0 16 16"><path d="M6 3l5 5-5 5V3z"/></svg>
+            </button>
+          </div>
+        </article>
+
+        <!-- Artículo 3 -->
+        <article class="article-item" data-od-id="article-item-3">
+          <div class="article-meta-col">
+            <span class="article-outlet">Harper's Bazaar</span>
+            <time class="article-date">Febrero 2025</time>
+          </div>
+          <div class="article-content-col">
+            <h2 class="article-headline" onclick="openArticleModal(2)">
+              «Pureza y caída: Los tejidos nobles que definen la firma madrileña»
+            </h2>
+            <p class="article-excerpt">
+              Análisis sobre la selección de crepés pesados de seda natural, mikados italianos y gasas vaporosas que componen la colección de siluetas depuradas de la diseñadora.
+            </p>
+          </div>
+          <div class="article-action-col">
+            <button class="btn-read" onclick="openArticleModal(2)" aria-label="Leer reportaje de Harper's Bazaar">
+              <span>Leer artículo</span>
+              <svg viewBox="0 0 16 16"><path d="M6 3l5 5-5 5V3z"/></svg>
+            </button>
+          </div>
+        </article>
+
+        <!-- Artículo 4 -->
+        <article class="article-item" data-od-id="article-item-4">
+          <div class="article-meta-col">
+            <span class="article-outlet">SModa · El País</span>
+            <time class="article-date">Noviembre 2024</time>
+          </div>
+          <div class="article-content-col">
+            <h2 class="article-headline" onclick="openArticleModal(3)">
+              «Artesanía viva: Las modistas que mantienen vivo el corte tradicional en Madrid»
+            </h2>
+            <p class="article-excerpt">
+              Conversación con el equipo de oficialas del atelier sobre las técnicas de planchado artesanal con trapo húmedo, botonaduras forradas a mano y refuerzos interiores invisibles.
+            </p>
+          </div>
+          <div class="article-action-col">
+            <button class="btn-read" onclick="openArticleModal(3)" aria-label="Leer reportaje de SModa">
+              <span>Leer artículo</span>
+              <svg viewBox="0 0 16 16"><path d="M6 3l5 5-5 5V3z"/></svg>
+            </button>
+          </div>
+        </article>
+
+        <!-- Artículo 5 -->
+        <article class="article-item" data-od-id="article-item-5">
+          <div class="article-meta-col">
+            <span class="article-outlet">Elle Bodas</span>
+            <time class="article-date">Septiembre 2024</time>
+          </div>
+          <div class="article-content-col">
+            <h2 class="article-headline" onclick="openArticleModal(4)">
+              «El vestido que no se parece a ningún otro: Claves para tu primera cita en el taller»
+            </h2>
+            <p class="article-excerpt">
+              Guía práctica para futuras novias: cómo preparar la primera visita, qué ropa interior llevar a la prueba de glaseilla y cómo reconocer la silueta que mejor acompaña al cuerpo.
+            </p>
+          </div>
+          <div class="article-action-col">
+            <button class="btn-read" onclick="openArticleModal(4)" aria-label="Leer reportaje de Elle Bodas">
+              <span>Leer artículo</span>
+              <svg viewBox="0 0 16 16"><path d="M6 3l5 5-5 5V3z"/></svg>
+            </button>
+          </div>
+        </article>
+
+        <!-- Artículo 6 -->
+        <article class="article-item" data-od-id="article-item-6">
+          <div class="article-meta-col">
+            <span class="article-outlet">Casilda se Casa</span>
+            <time class="article-date">Junio 2024</time>
+          </div>
+          <div class="article-content-col">
+            <h2 class="article-headline" onclick="openArticleModal(5)">
+              «La boda de Sofía en Cantabria: Crepé de seda, espalda limpia y capa de georgette»
+            </h2>
+            <p class="article-excerpt">
+              Crónica de una boda real fotografiada en los acantilados del norte con un diseño a medida concebido para acompañar la brisa del mar y la luz atlántica.
+            </p>
+          </div>
+          <div class="article-action-col">
+            <button class="btn-read" onclick="openArticleModal(5)" aria-label="Leer reportaje de Casilda se Casa">
+              <span>Leer artículo</span>
+              <svg viewBox="0 0 16 16"><path d="M6 3l5 5-5 5V3z"/></svg>
+            </button>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modal de Lectura Simple -->
+  <div class="modal-backdrop" id="articleModal" onclick="handleBackdropClick(event)">
+    <div class="modal-dialog" role="dialog" aria-modal="true">
+      <button class="modal-close-btn" onclick="closeArticleModal()" aria-label="Cerrar modal">
+        ✕
+      </button>
+      <span class="modal-outlet-badge" id="modalOutlet">Vogue Novias</span>
+      <h2 class="modal-title" id="modalTitle">Título del Reportaje</h2>
+      <div class="modal-meta">
+        <span id="modalDate">Fecha de publicación</span>
+        <span id="modalAuthor">Edición Impresa</span>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <!-- Contenido inyectado dinámicamente -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Pie de Página -->
+  <footer class="site-footer" data-od-id="prensa-footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <h4>María Diezma · Atelier</h4>
+        <p>Vestidos de novia y fiesta a medida. Confección artesanal en pleno corazón del Barrio de Salamanca.</p>
+        <p style="margin-top: 0.75rem; font-family: var(--font-mono); font-size: 0.85rem;">
+          C/ de Goya, 69, 1º Dcha<br />
+          28001 Madrid · España
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navegación</h4>
+        <ul class="footer-links">
+          <li><a href="novias-maria-diezma-index-2.html">Inicio</a></li>
+          <li><a href="novias-maria-diezma-conoceme.html">Conóceme</a></li>
+          <li><a href="novias-maria-diezma-colecciones.html">Colecciones</a></li>
+          <li><a href="novias-maria-diezma-catalogo-2.html">Catálogo de Vestidos</a></li>
+          <li><a href="novias-maria-diezma-proceso.html">Nuestro Proceso</a></li>
+          <li><a href="novias-maria-diezma-prensa.html">Prensa</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Citas & Contacto</h4>
+        <p>Atención individualizada bajo cita previa para garantizar la exclusividad de cada prueba.</p>
+        <p style="margin-top: 0.5rem;">
+          <a href="tel:+34910000000" style="color: var(--fg); font-weight: 500;">+34 91 000 00 00</a><br />
+          <a href="mailto:citas@mariadiezma.com" style="color: var(--muted);">citas@mariadiezma.com</a>
+        </p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 María Diezma. Todos los derechos reservados.</span>
+      <span>Alta Costura Nupcial · Madrid</span>
+    </div>
+  </footer>
+
+  <!-- Lógica JavaScript -->
+  <script>
+    // Datos completos de los artículos para lectura en el modal simple
+    const ARTICLES_DATA = [
+      {
+        outlet: "Vogue Novias",
+        date: "Octubre 2025",
+        author: "Por Eugenia de la Torriente",
+        title: "«María Diezma: La arquitecta de la nueva silueta nupcial»",
+        body: `
+          <p>En el número 69 de la calle de Goya, el rumor del tráfico madrileño desaparece en cuanto se cruza la puerta del primer piso. Allí, entre lienzos de algodón crudo, patrones suspendidos y la luz tamizada de los balcones señoriales, trabaja María Diezma.</p>
+          <blockquote>«Un vestido de novia no debería ser un disfraz; debe ser la afirmación más serena y rotunda de la mujer que lo viste.»</blockquote>
+          <p>La diseñadora huye conscientemente de los excesos ornamentales y las tendencias fugaces. Su devoción por el crepé de seda de alto gramaje y los cortes limpios al bies le han valido el reconocimiento de la crítica como una de las creadoras más lúcidas de su generación.</p>
+          <p>Cada pieza requiere entre cuatro y cinco pruebas directas sobre el cuerpo, modelando primero en glaseilla y culminando con el cosido invisible de cada dobladillo.</p>
+        `
+      },
+      {
+        outlet: "Telva Novias",
+        date: "Mayo 2025",
+        author: "Por Lucía Carnero",
+        title: "«El valor de la espera: Por qué un vestido a medida requiere seis meses de oficio»",
+        body: `
+          <p>En una época dominada por las compras inmediatas a un solo clic, entrar en el taller de María Diezma supone una reconciliación con el tiempo. El proceso de encargar un vestido a medida dura entre cinco y ocho meses, y esa lentitud no es un retraso: es la condición indispensable para la excelencia.</p>
+          <blockquote>«La prisa es enemiga de la caída natural del tejido. El tejido necesita descansar sobre el maniquí para asentarse.»</blockquote>
+          <p>En esta entrevista, María explica paso a paso por qué la cita inicial de boceto y la posterior prueba en lienzo crudo transforman por completo la relación entre la novia y su vestido.</p>
+        `
+      },
+      {
+        outlet: "Harper's Bazaar",
+        date: "Febrero 2025",
+        author: "Por Álvaro de Juan",
+        title: "«Pureza y caída: Los tejidos nobles que definen la firma madrileña»",
+        body: `
+          <p>Pocas cosas hay tan elocuentes en la moda como la caída pesada y limpia de un mikado de seda italiana o la sutil aspereza de un lino puro trabajado con técnica sastre. María Diezma ha consolidado un sello inconfundible basado en la economía del adorno.</p>
+          <blockquote>«Si el patrón es impecable y la materia prima es extraordinaria, no necesitas añadir artificios.»</blockquote>
+          <p>El reportaje analiza el archivo textil del taller y la meticulosa selección de proveedores europeos que abastecen a la casa madrileña.</p>
+        `
+      },
+      {
+        outlet: "SModa · El País",
+        date: "Noviembre 2024",
+        author: "Por Begoña Gómez",
+        title: "«Artesanía viva: Las modistas que mantienen vivo el corte tradicional en Madrid»",
+        body: `
+          <p>En las mesas de corte de María Diezma no hay máquinas de coser industriales ni procesos automatizados. Hay tijeras de sastre forjadas en acero, pesas de plomo y manos expertas que conocen la tensión exacta que admite una puntada invisible.</p>
+          <blockquote>«Preservar estos oficios es un acto de resistencia cultural y de amor por las cosas bien hechas.»</blockquote>
+          <p>Un homenaje a las oficialas de taller que acompañan a María en cada puntada, dando forma a vestidos que perduran en la memoria familiar durante décadas.</p>
+        `
+      },
+      {
+        outlet: "Elle Bodas",
+        date: "Septiembre 2024",
+        author: "Por Marta Hurtado",
+        title: "«El vestido que no se parece a ningún otro: Claves para tu primera cita en el taller»",
+        body: `
+          <p>Acudir por primera vez a un atelier de alta costura puede generar ciertas dudas e inseguridades. María Diezma comparte con las lectoras de Elle sus recomendaciones esenciales para disfrutar del proceso desde el primer minuto.</p>
+          <p>La diseñadora aconseja acudir con la mente abierta, sin ideas preconcebidas de catálogos masivos, y prestar especial atención a la comodidad y el movimiento corporal.</p>
+        `
+      },
+      {
+        outlet: "Casilda se Casa",
+        date: "Junio 2024",
+        author: "Por Cristina Martínez-Pardo",
+        title: "«La boda de Sofía en Cantabria: Crepé de seda, espalda limpia y capa de georgette»",
+        body: `
+          <p>Sofía tenía claro que quería casarse frente al mar cantábrico sin rigideces ni volúmenes incómodos. María Diezma concibió para ella un vestido de dos piezas con cuerpo de crepé pesado y una capa desmontable de georgette que bailaba con el viento del norte.</p>
+          <p>Una de las bodas más aplaudidas de la temporada, convertida ya en referente para novias que buscan elegancia serena y personalidad.</p>
+        `
+      }
+    ];
+
+    // Control del reproductor de video
+    function playMainVideo() {
+      const video = document.getElementById('atelierVideo');
+      const overlay = document.getElementById('videoOverlay');
+      if (video) {
+        overlay.classList.add('is-hidden');
+        video.play();
+      }
+    }
+
+    // Modal de lectura simple
+    function openArticleModal(index) {
+      const data = ARTICLES_DATA[index];
+      if (!data) return;
+
+      document.getElementById('modalOutlet').textContent = data.outlet;
+      document.getElementById('modalTitle').textContent = data.title;
+      document.getElementById('modalDate').textContent = data.date;
+      document.getElementById('modalAuthor').textContent = data.author;
+      document.getElementById('modalBody').innerHTML = data.body;
+
+      const modal = document.getElementById('articleModal');
+      modal.classList.add('is-open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeArticleModal() {
+      const modal = document.getElementById('articleModal');
+      modal.classList.remove('is-open');
+      document.body.style.overflow = '';
+    }
+
+    function handleBackdropClick(event) {
+      if (event.target.id === 'articleModal') {
+        closeArticleModal();
+      }
+    }
+
+    // Tecla Escape para cerrar modal
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeArticleModal();
+      }
+    });
+  </script>
+</body>
+</html>

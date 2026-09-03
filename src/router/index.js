@@ -39,6 +39,12 @@ const routes = [
     meta: { title: 'Pedir Cita en el Atelier · María Diezma Madrid' }
   },
   {
+    path: '/prensa',
+    name: 'prensa',
+    component: () => import('../views/PrensaView.vue'),
+    meta: { title: 'Prensa · María Diezma · Vestidos de Novia a Medida' }
+  },
+  {
     path: '/:pathMatch(.*)*',
     redirect: '/'
   }

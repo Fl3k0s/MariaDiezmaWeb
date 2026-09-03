@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Prensa · María Diezma · Vestidos de Novia a Medida</title>
+  <link rel="stylesheet" href="../assets/css/prensa.css">
+</head>
+<body>
+
+  <!-- Cabecera de Navegación -->
+  <header class="site-header" data-od-id="prensa-header">
+    <div class="header-inner">
+      <a href="../index.html" class="brand-logo" data-od-id="header-brand">
+        <img src="../assets/images/logo-maria-diezma.png" alt="María Diezma" onerror="this.style.display='none'; document.getElementById('brand-fallback').style.display='flex';" />
+        <div id="brand-fallback" class="brand-logo-fallback" style="display: none;">
+          <span>María Diezma</span>
+          <span>Atelier Nupcial</span>
+        </div>
+      </a>
+
+      <nav class="main-nav" data-od-id="header-nav">
+        <a href="../index.html" class="nav-link">Inicio</a>
+        <a href="conoceme.html" class="nav-link">Conóceme</a>
+        <a href="colecciones.html" class="nav-link">Colecciones</a>
+        <a href="catalogo.html" class="nav-link">Catálogo</a>
+        <a href="proceso.html" class="nav-link">Nuestro Proceso</a>
+        <a href="prensa.html" class="nav-link active">Prensa</a>
+      </nav>
+
+      <a href="cita.html" class="header-cta" data-od-id="header-cta-cita">
+        Pedir Cita
+      </a>
+    </div>
+  </header>
+
+  <!-- Contenido Principal -->
+  <main class="page-main" id="content">
+
+    <!-- Encabezado Editorial Simple -->
+    <header class="page-header" data-od-id="prensa-page-header">
+      <span class="kicker">Archivo de Comunicación & Medios</span>
+      <h1 class="page-title">Prensa</h1>
+      <p class="page-subtitle">
+        Una selección de reportajes, piezas audiovisuales y conversaciones con publicaciones de referencia sobre la filosofía y el oficio del atelier de María Diezma.
+      </p>
+    </header>
+
+    <!-- Sección de Video -->
+    <section class="video-section" data-od-id="prensa-video-section">
+      <div class="video-card">
+        <div class="video-player-wrap">
+          <iframe
+            id="atelierVideo"
+            src="https://www.youtube.com/embed/Y4cyN02TcZY"
+            title="María Diezma Atelier"
+            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+            referrerpolicy="strict-origin-when-cross-origin"
+            allowfullscreen
+          ></iframe>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sección de Listado de Artículos -->
+    <section class="articles-section" data-od-id="prensa-articles-section">
+      <div class="section-label">Listado de Artículos & Reportajes</div>
+
+      <div class="articles-list" id="articlesContainer">
+        <!-- Renderizado dinámico vía API (http://localhost:8080/api/v1/prensa) -->
+        <div style="padding: 2.5rem 0; text-align: center; color: var(--muted); font-family: var(--font-mono); font-size: 0.88rem;">
+          Cargando artículos de prensa...
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Modal de Lectura Simple -->
+  <div class="modal-backdrop" id="articleModal" onclick="handleBackdropClick(event)">
+    <div class="modal-dialog" role="dialog" aria-modal="true">
+      <button class="modal-close-btn" onclick="closeArticleModal()" aria-label="Cerrar modal">
+        ✕
+      </button>
+      <span class="modal-outlet-badge" id="modalOutlet">Vogue Novias</span>
+      <h2 class="modal-title" id="modalTitle">Título del Reportaje</h2>
+      <div class="modal-meta">
+        <span id="modalDate">Fecha de publicación</span>
+        <span id="modalAuthor">Edición Impresa</span>
+      </div>
+      <div class="modal-body" id="modalBody">
+        <!-- Contenido inyectado dinámicamente -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Pie de Página -->
+  <footer class="site-footer" data-od-id="prensa-footer">
+    <div class="footer-inner">
+      <div class="footer-col">
+        <a href="../index.html" style="display: inline-block; margin-bottom: 1rem;">
+          <img src="../assets/images/logo-maria-diezma.png" alt="María Diezma Atelier de Novias" style="height: 40px; width: auto; object-fit: contain; display: block;" />
+        </a>
+        <p>Vestidos de novia y fiesta a medida. Confección artesanal en pleno corazón del Barrio de Salamanca.</p>
+        <p style="margin-top: 0.75rem; font-family: var(--font-mono); font-size: 0.85rem;">
+          C/ de Goya, 69, 1º Dcha<br />
+          28001 Madrid · España
+        </p>
+      </div>
+
+      <div class="footer-col">
+        <h4>Navegación</h4>
+        <ul class="footer-links">
+          <li><a href="../index.html">Inicio</a></li>
+          <li><a href="conoceme.html">Conóceme</a></li>
+          <li><a href="colecciones.html">Colecciones</a></li>
+          <li><a href="catalogo.html">Catálogo de Vestidos</a></li>
+          <li><a href="proceso.html">Nuestro Proceso</a></li>
+          <li><a href="prensa.html">Prensa</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Citas & Contacto</h4>
+        <p>Atención individualizada bajo cita previa para garantizar la exclusividad de cada prueba.</p>
+        <p style="margin-top: 0.5rem;">
+          <a href="tel:+34629675583" style="color: var(--fg); font-weight: 500;">+34 629 675 583</a><br />
+          <a href="mailto:mariadiezmanovias@yahoo.es" style="color: var(--muted);">mariadiezmanovias@yahoo.es</a>
+        </p>
+        <p style="margin-top: 0.75rem;">
+          <a href="https://www.instagram.com/mariadiezma_atelier/" target="_blank" rel="noopener noreferrer" style="display: inline-flex; align-items: center; gap: 0.45rem; color: var(--fg); text-decoration: none; font-size: 0.85rem;" aria-label="Instagram de María Diezma Atelier">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+              <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+              <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+            </svg>
+            <span>@mariadiezma_atelier</span>
+          </a>
+        </p>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 María Diezma. Todos los derechos reservados.</span>
+      <span>Alta Costura Nupcial · Madrid</span>
+    </div>
+  </footer>
+
+  <script src="../assets/js/prensa.js"></script>
+</body>
+</html>

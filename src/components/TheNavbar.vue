@@ -47,6 +47,9 @@ watch(() => route.path, () => {
         <router-link to="/proceso" class="nav-link" active-class="active" data-od-id="nav-link-proceso">
           Nuestro Proceso
         </router-link>
+        <router-link to="/prensa" class="nav-link" active-class="active" data-od-id="nav-link-prensa">
+          Prensa
+        </router-link>
         <router-link to="/cita" class="nav-link nav-link-cta" active-class="active" data-od-id="nav-link-cita">
           Pedir Cita
         </router-link>

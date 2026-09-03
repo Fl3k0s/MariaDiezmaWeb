@@ -196,38 +196,70 @@ function goToBooking() {
       <div class="container">
         <div class="process-preview-header">
           <span class="eyebrow-label">Alta Costura a Medida</span>
-          <h2 class="section-heading">Un viaje íntimo desde el boceto a tu día</h2>
+          <h2 class="section-heading">Nuestro proceso: El Arte de Crear Tu Vestido de Novia Perfecto</h2>
           <p class="section-subtext">
-            Conoce las 5 etapas donde el tiempo, la paciencia y el saber hacer artesano dan vida al vestido de tus sueños.
+            En nuestro atelier, cada vestido de novia es una obra maestra única, creada con amor y atención meticulosa a cada detalle. Nuestro proceso de creación se caracteriza por la colaboración cercana con la novia, garantizando que su vestido no solo refleje su estilo personal, sino que también haga realidad sus sueños más preciados.
           </p>
         </div>
 
         <div class="process-steps-row">
           <div class="process-step-item">
-            <span class="step-num">01</span>
-            <h4>Primera Cita & Boceto</h4>
-            <p>Conocemos tus gustos, silueta y definimos el tejido y la línea inicial en boceto.</p>
+            <div class="step-badge-row">
+              <span class="step-num">01</span>
+              <span class="step-phase-tag">Capturando tu Visión</span>
+            </div>
+            <h4>1. Consulta Inicial</h4>
+            <p>El viaje comienza con una consulta personalizada en nuestro acogedor estudio para conocerte, comprender tus gustos y explorar estilos y telas para transformarlos en un diseño único.</p>
           </div>
+
           <div class="process-step-item">
-            <span class="step-num">02</span>
-            <h4>Toma de Medidas</h4>
-            <p>Milimetramos tu figura para confeccionar el patrón único para ti.</p>
+            <div class="step-badge-row">
+              <span class="step-num">02</span>
+              <span class="step-phase-tag">Dando Forma a tus Sueños</span>
+            </div>
+            <h4>2. Bocetos y Diseño</h4>
+            <p>Con técnicas tradicionales, creamos bocetos detallados teniendo en cuenta tu figura y estilo, ajustando y perfeccionando contigo hasta encontrar el diseño perfecto.</p>
           </div>
+
           <div class="process-step-item">
-            <span class="step-num">03</span>
-            <h4>Prueba en Toile</h4>
-            <p>Modelamos un prototipo en algodón para perfeccionar cada curva antes de cortar.</p>
+            <div class="step-badge-row">
+              <span class="step-num">03</span>
+              <span class="step-phase-tag">La Elegancia en Cada Puntada</span>
+            </div>
+            <h4>3. Selección de Telas y Detalles</h4>
+            <p>Trabajamos con encajes delicados, sedas lujosas y tules etéreos. Te invitamos a tocar las telas y seleccionar bordados, pedrería y apliques que darán ese toque especial.</p>
           </div>
+
           <div class="process-step-item">
-            <span class="step-num">04</span>
-            <h4>Confección & Seda</h4>
-            <p>Cortamos en sedas nobles con acabados a mano y pruebas de caída con tus zapatos.</p>
+            <div class="step-badge-row">
+              <span class="step-num">04</span>
+              <span class="step-phase-tag">Perfeccionando Cada Detalle</span>
+            </div>
+            <h4>4. Creación y Pruebas</h4>
+            <p>Damos vida a tu vestido a lo largo de varias pruebas, ajustando y refinando cada detalle para asegurar un ajuste perfecto y que te sientas cómoda y segura el día de tu boda.</p>
           </div>
+
           <div class="process-step-item">
-            <span class="step-num">05</span>
-            <h4>Entrega Final</h4>
-            <p>Tu vestido perfectamente planchado sobre maniquí y listo para el gran momento.</p>
+            <div class="step-badge-row">
+              <span class="step-num">05</span>
+              <span class="step-phase-tag">Preparada para tu Gran Día</span>
+            </div>
+            <h4>5. Toques Finales y Entrega</h4>
+            <p>Cuidamos los toques finales: planchado artesanal, embellecimiento y preparación minuciosa. Te entregamos tu vestido envuelto en amor y listo para su gran debut.</p>
           </div>
+
+          <div class="process-step-item">
+            <div class="step-badge-row">
+              <span class="step-num">06</span>
+              <span class="step-phase-tag">Brilla con Luz Propia</span>
+            </div>
+            <h4>6. Día de la Boda</h4>
+            <p>Ver nuestro trabajo cobrar vida cuando caminas hacia el altar es nuestro mayor honor. Cada sonrisa y momento de felicidad en tu vestido de novia es el mayor premio para nosotros.</p>
+          </div>
+        </div>
+
+        <div class="process-quote-banner">
+          <p>«Crear tu vestido de novia es un viaje de amor, creatividad y precisión. Estamos aquí para hacer realidad tu visión y asegurarnos de que te sientas absolutamente radiante en tu día especial.»</p>
         </div>
 
         <div class="process-action-center">
@@ -281,7 +313,7 @@ function goToBooking() {
                   <div class="icon">✉️</div>
                   <div>
                     <strong>Contacto</strong>
-                    <p>hola@mariadiezma.com · +34 910 00 00 00</p>
+                    <p>mariadiezmanovias@yahoo.es · +34 629 675 583</p>
                   </div>
                 </div>
               </div>
@@ -642,39 +674,86 @@ function goToBooking() {
 
 .process-steps-row {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1.5rem;
-  margin-bottom: 3.5rem;
+  margin-bottom: 2.5rem;
 }
 
 .process-step-item {
   background: #ffffff;
-  padding: 2rem 1.5rem;
+  padding: 2.2rem 1.8rem;
   border-radius: 4px;
   border: 1px solid var(--border);
   display: flex;
   flex-direction: column;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.process-step-item:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.04);
+}
+
+.step-badge-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+  gap: 0.5rem;
 }
 
 .step-num {
   font-family: var(--font-brand);
   font-size: 1.75rem;
   color: var(--accent);
-  margin-bottom: 1rem;
   font-weight: 500;
+  line-height: 1;
+}
+
+.step-phase-tag {
+  font-family: var(--font-mono, monospace);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--muted);
+  background: var(--bg);
+  padding: 0.25rem 0.6rem;
+  border-radius: 2px;
+  border: 1px solid var(--border);
 }
 
 .process-step-item h4 {
   font-family: var(--font-display);
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   font-weight: 500;
-  margin-bottom: 0.6rem;
+  margin-bottom: 0.75rem;
+  color: var(--fg);
+  line-height: 1.35;
 }
 
 .process-step-item p {
-  font-size: 0.82rem;
+  font-size: 0.88rem;
   color: var(--muted);
-  line-height: 1.6;
+  line-height: 1.65;
+}
+
+.process-quote-banner {
+  max-width: 820px;
+  margin: 0 auto 3rem;
+  text-align: center;
+  padding: 1.5rem 2rem;
+  border-left: 2px solid var(--accent);
+  border-right: 2px solid var(--accent);
+  background: #ffffff;
+  border-radius: 2px;
+}
+
+.process-quote-banner p {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  font-style: italic;
+  color: var(--fg);
+  line-height: 1.65;
 }
 
 .process-action-center {
