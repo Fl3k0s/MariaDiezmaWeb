@@ -1,18 +1,91 @@
 <script setup>
-import { ref, computed, watch } from 'vue'
+import { ref, computed, watch, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { DRESSES_DATA } from '../data/dresses'
+import { BACKOFFICE_URI } from '../config/env'
 
 const route = useRoute()
 const router = useRouter()
 
-const currentIndex = computed(() => {
-  const paramId = route.params.id
-  const idx = DRESSES_DATA.findIndex(d => d.id.toLowerCase() === String(paramId).toLowerCase())
-  return idx !== -1 ? idx : 0
+const backofficeDress = ref(null)
+
+/**
+ * ==========================================================================
+ * PETICIÓN GET AL BACKOFFICE PARA RECUPERAR DETALLES DEL VESTIDO
+ * Endpoint: http://localhost:8080/api/v1/vestidos/detalle?nombre=...&coleccion=...
+ * ==========================================================================
+ */
+async function fetchBackofficeDressDetail(nombre, coleccion) {
+  const queryParams = new URLSearchParams()
+  if (nombre) queryParams.append('nombre', nombre)
+  if (coleccion) queryParams.append('coleccion', coleccion)
+
+  const url = `${BACKOFFICE_URI}/v1/vestidos/detalle?${queryParams.toString()}`
+  console.info(`[DetalleView] Consultando detalle de vestido: ${url}`)
+
+  try {
+    const response = await fetch(url, { headers: { 'Accept': 'application/json' } })
+    if (response.ok) {
+      const result = await response.json()
+      if (result && result.success && result.data) {
+        const d = result.data
+        return {
+          id: d.id,
+          name: d.nombre,
+          collection: d.coleccion,
+          collectionName: `Colección ${d.coleccion}`,
+          description: d.descripcion,
+          ref: d.id,
+          fabric: 'Seda natural & bordados botánicos',
+          back: 'Contra parte con espalda artesanal a medida',
+          silhouette: 'Patronaje estructural adaptado a la silueta',
+          time: '4 a 6 meses de confección en atelier',
+          images: {
+            front: d.ruta_imagen_1?.startsWith('/') ? d.ruta_imagen_1 : '/' + d.ruta_imagen_1,
+            back: d.ruta_imagen_2?.startsWith('/') ? d.ruta_imagen_2 : '/' + d.ruta_imagen_2,
+            detail: d.ruta_imagen_3?.startsWith('/') ? d.ruta_imagen_3 : '/' + d.ruta_imagen_3,
+            movement: d.ruta_imagen_3?.startsWith('/') ? d.ruta_imagen_3 : '/' + d.ruta_imagen_3
+          }
+        }
+      }
+    }
+  } catch (err) {
+    console.warn('[DetalleView] Fallo de conexión con la API de detalle:', err.message)
+  }
+
+  // Fallback con la respuesta de ejemplo provista
+  return {
+    id: "drs-30000000-0000-0000-0000-000000000001",
+    name: nombre || "Vestido Magnolia",
+    collection: coleccion || "Esencia Floral",
+    collectionName: `Colección ${coleccion || 'Esencia Floral'}`,
+    description: "Vestido de corte sirena con bordados florales artesanales en tul y escote corazón.",
+    ref: "drs-30000000-0000-0000-0000-000000000001",
+    fabric: "Seda natural & bordados botánicos",
+    back: "Contra parte con espalda artesanal a medida",
+    silhouette: "Patronaje estructural adaptado a la silueta",
+    time: "4 a 6 meses de confección en atelier",
+    images: {
+      front: "/assets/images/esencia-floral/MARIA_DIEZMA_001.jpg",
+      back: "/assets/images/esencia-floral/MARIA_DIEZMA_002.jpg",
+      detail: "/assets/images/esencia-floral/MARIA_DIEZMA_003.jpg",
+      movement: "/assets/images/esencia-floral/MARIA_DIEZMA_003.jpg"
+    }
+  }
+}
+
+async function loadDressData() {
+  const nombre = route.query.nombre || ''
+  const coleccion = route.query.coleccion || ''
+
+  backofficeDress.value = await fetchBackofficeDressDetail(nombre, coleccion)
+}
+
+onMounted(() => {
+  loadDressData()
 })
 
-const dress = computed(() => DRESSES_DATA[currentIndex.value])
+const dress = computed(() => backofficeDress.value)
 
 // Miniaturas y selector de imagen
 const activeImageKey = ref('front')
@@ -20,7 +93,7 @@ const activeCaption = ref('Vista Delantera · Silueta Principal')
 const isTransitioning = ref(false)
 
 const activeImageSrc = computed(() => {
-  if (!dress.value) return ''
+  if (!dress.value || !dress.value.images) return ''
   return dress.value.images[activeImageKey.value] || dress.value.images.front
 })
 
@@ -34,17 +107,8 @@ function selectImage(key, caption) {
   }, 160)
 }
 
-function prevDress() {
-  const newIndex = (currentIndex.value - 1 + DRESSES_DATA.length) % DRESSES_DATA.length
-  router.push(`/vestido/${DRESSES_DATA[newIndex].id}`)
-}
-
-function nextDress() {
-  const newIndex = (currentIndex.value + 1) % DRESSES_DATA.length
-  router.push(`/vestido/${DRESSES_DATA[newIndex].id}`)
-}
-
-watch(() => route.params.id, () => {
+watch(() => [route.query.nombre, route.query.coleccion], () => {
+  loadDressData()
   activeImageKey.value = 'front'
   activeCaption.value = 'Vista Delantera · Silueta Principal'
 })
@@ -63,21 +127,6 @@ watch(() => route.params.id, () => {
           <span class="current">{{ dress.name }}</span>
         </nav>
 
-        <div class="dress-stepper">
-          <button class="step-btn" @click="prevDress" title="Vestido anterior">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polyline points="15 18 9 12 15 6"></polyline>
-            </svg>
-            <span>Anterior</span>
-          </button>
-          <span class="step-counter">{{ currentIndex + 1 }} de {{ DRESSES_DATA.length }}</span>
-          <button class="step-btn" @click="nextDress" title="Vestido siguiente">
-            <span>Siguiente</span>
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polyline points="9 18 15 12 9 6"></polyline>
-            </svg>
-          </button>
-        </div>
       </div>
     </div>
 
@@ -91,16 +140,13 @@ watch(() => route.params.id, () => {
             <div class="main-image-viewport">
               <img 
                 :src="activeImageSrc" 
-                :alt="`${dress.name} - ${activeCaption}`" 
+                :alt="dress.name" 
                 class="large-dress-image"
                 :class="{ 'is-fading': isTransitioning }"
               >
-              <div class="view-indicator-pill">
-                {{ activeCaption }}
-              </div>
             </div>
 
-            <!-- BOTONES DE MINIATURA (INCLUYENDO LA CONTRA PARTE) -->
+            <!-- BOTONES DE MINIATURA (3 IMÁGENES: DELANTERA, ZOOM Y TRASERA) -->
             <div class="thumbnails-bar">
               <button 
                 class="thumb-btn" 
@@ -108,34 +154,25 @@ watch(() => route.params.id, () => {
                 @click="selectImage('front', 'Vista Delantera · Silueta Principal')"
               >
                 <img :src="dress.images.front" alt="Vista Delantera">
-                <span class="thumb-label">Delantera</span>
-              </button>
-
-              <button 
-                class="thumb-btn is-contraparte" 
-                :class="{ 'active': activeImageKey === 'back' }"
-                @click="selectImage('back', 'Contra Parte · Espalda & Escote Trasero')"
-              >
-                <img :src="dress.images.back" alt="Contra Parte">
-                <span class="thumb-label">Contra Parte</span>
+                <span class="thumb-label">DELANTERA</span>
               </button>
 
               <button 
                 class="thumb-btn" 
                 :class="{ 'active': activeImageKey === 'detail' }"
-                @click="selectImage('detail', 'Detalle de Tejido & Acabados')"
+                @click="selectImage('detail', 'Vista Detalle & Zoom de Costura')"
               >
-                <img :src="dress.images.detail" alt="Detalle de Tejido">
-                <span class="thumb-label">Tejido</span>
+                <img :src="dress.images.detail" alt="Vista Zoom">
+                <span class="thumb-label">ZOOM</span>
               </button>
 
               <button 
-                class="thumb-btn" 
-                :class="{ 'active': activeImageKey === 'movement' }"
-                @click="selectImage('movement', 'Silueta en Movimiento & Caída')"
+                class="thumb-btn is-contraparte" 
+                :class="{ 'active': activeImageKey === 'back' }"
+                @click="selectImage('back', 'Contra Parte · Espalda & Vista Trasera')"
               >
-                <img :src="dress.images.movement" alt="Movimiento y Caída">
-                <span class="thumb-label">Caída</span>
+                <img :src="dress.images.back" alt="Vista Trasera">
+                <span class="thumb-label">TRASERA</span>
               </button>
             </div>
           </div>
@@ -145,33 +182,12 @@ watch(() => route.params.id, () => {
             <div class="info-header">
               <div class="collection-ref-row">
                 <span class="collection-tag">{{ dress.collectionName }}</span>
-                <span class="dress-ref-tag">REF. {{ dress.ref }}</span>
               </div>
               <h1 class="dress-title">{{ dress.name }}</h1>
               <p class="dress-desc">{{ dress.description }}</p>
             </div>
 
-            <div class="specs-card">
-              <h3 class="specs-title">Ficha Técnica de Costura</h3>
-              <dl class="specs-list">
-                <div class="spec-row">
-                  <dt>Tejido Principal</dt>
-                  <dd>{{ dress.fabric }}</dd>
-                </div>
-                <div class="spec-row highlight-row">
-                  <dt>Contra Parte (Espalda)</dt>
-                  <dd>{{ dress.back }}</dd>
-                </div>
-                <div class="spec-row">
-                  <dt>Silueta & Patrón</dt>
-                  <dd>{{ dress.silhouette }}</dd>
-                </div>
-                <div class="spec-row">
-                  <dt>Tiempo de Confección</dt>
-                  <dd>{{ dress.time }}</dd>
-                </div>
-              </dl>
-            </div>
+
 
             <div class="booking-cta-block">
               <router-link 
@@ -313,14 +329,15 @@ watch(() => route.params.id, () => {
 }
 
 .thumbnails-bar {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1rem;
+  display: flex;
+  gap: 0.85rem;
+  justify-content: flex-start;
 }
 
 .thumb-btn {
   position: relative;
-  aspect-ratio: 3 / 4;
+  width: 82px;
+  height: 106px;
   border-radius: 3px;
   overflow: hidden;
   border: 2px solid transparent;
@@ -328,6 +345,7 @@ watch(() => route.params.id, () => {
   transition: var(--transition-base);
   display: flex;
   flex-direction: column;
+  flex-shrink: 0;
 }
 
 .thumb-btn img {

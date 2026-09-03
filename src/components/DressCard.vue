@@ -19,7 +19,7 @@ const dressCollection = computed(() => {
 
 <template>
   <router-link 
-    :to="`/vestido/${dress.id}`" 
+    :to="{ path: `/vestido/${dress.id}`, query: { nombre: dress.name, coleccion: dress.collection } }" 
     class="dress-card-anchor" 
     :title="`Ver detalles de ${dress.name}`"
     :data-dress-id="dress.id"

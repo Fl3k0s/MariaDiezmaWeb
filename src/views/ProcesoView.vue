@@ -4,92 +4,106 @@ import FaqAccordion from '../components/FaqAccordion.vue'
 const steps = [
   {
     num: '01',
-    phase: 'Fase 01 · Concepción',
-    timing: 'Mes 1 · Primer Encuentro',
-    title: 'Primera Cita & Boceto Exclusivo',
-    desc: 'Un encuentro sosegado en nuestro atelier madrileño para dialogar sobre tu visión, el estilo de la celebración y tus referencias. Probamos diferentes siluetas y definimos sobre el papel el boceto que guiará la creación.',
+    phase: 'Paso 01 · Capturando tu Visión',
+    timing: 'Consulta Inicial',
+    title: '1. Consulta Inicial: Capturando tu Visión',
+    desc: 'El viaje comienza con una consulta personalizada en nuestro acogedor estudio. Durante esta sesión, nos tomamos el tiempo para conocerte, comprender tus gustos y explorar tus ideas y deseos. Hablaremos sobre los estilos que te inspiran, las telas que amas y cualquier detalle especial que desees incorporar. Nuestro objetivo es capturar la esencia de lo que deseas y transformarla en un diseño único.',
     highlights: [
-      { label: 'Diálogo personal:', text: 'Conocemos tu estilo de vida, comodidad y aspiraciones estéticas.' },
-      { label: 'Muestrario noble:', text: 'Contacto directo con crepés, mikados, encajes franceses y gasas de seda.' }
+      { label: 'Encuentro íntimo:', text: 'Dedicamos todo el tiempo necesario a conocerte y explorar tus deseos.' },
+      { label: 'Esencia a medida:', text: 'Definimos estilos de inspiración y las telas que amas para crear una pieza única.' }
     ],
     image: 'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=900&q=80',
-    caption: 'Boceto a mano en el atelier',
+    caption: 'Consulta personalizada en nuestro estudio',
     inverted: false
   },
   {
     num: '02',
-    phase: 'Fase 02 · Geometría & Anatomía',
-    timing: 'Mes 2 · Precisión Milimétrica',
-    title: 'Toma de Medidas & Patronaje Artesano',
-    desc: 'Tomamos más de 30 medidas anatómicas de tu cuerpo para construir un patrón único e irrepetible desde cero. No trabajamos sobre tallas preexistentes; cada trazo responde exactamente a tus proporciones.',
+    phase: 'Paso 02 · Dando Forma a tus Sueños',
+    timing: 'Bocetos y Diseño',
+    title: '2. Bocetos y Diseño: Dando Forma a tus Sueños',
+    desc: 'Basándonos en nuestra conversación inicial, comenzamos a esbozar varios diseños que podrían encajar con tu visión. Utilizando técnicas tradicionales, creamos bocetos detallados y seleccionamos una paleta de materiales de alta calidad. Nos aseguramos de que cada diseño tenga en cuenta tu figura, estilo y los elementos que hacen que tu vestido sea único. Discutimos estos bocetos contigo, ajustando y perfeccionando hasta que encontramos el diseño perfecto.',
     highlights: [
-      { label: 'Patrón a medida:', text: 'Desarrollo en papel kraft exclusivo para tu anatomía.' },
-      { label: 'Estudio postural:', text: 'Análisis de caída de hombros, cintura y pisada.' }
+      { label: 'Técnicas tradicionales:', text: 'Bocetos ilustrados al detalle adaptados a tu figura y estilo.' },
+      { label: 'Ajuste y perfección:', text: 'Dialogamos y pulimos juntos cada boceto hasta dar con el diseño perfecto.' }
     ],
     image: 'https://images.unsplash.com/photo-1594552072238-b8a33785b261?auto=format&fit=crop&w=900&q=80',
-    caption: 'Toma de medidas anatómicas',
+    caption: 'Bocetos y técnicas tradicionales de diseño',
     inverted: true
   },
   {
     num: '03',
-    phase: 'Fase 03 · Escultura Textil',
-    timing: 'Mes 3 · Primera Prueba',
-    title: 'La Glaseilla: Primera Prueba en Toile',
-    desc: 'Confeccionamos un prototipo exacto de tu vestido en lienzo de algodón crudo (toile o glaseilla). En esta prueba esculpimos directamente sobre ti las líneas de escote, sisas, entalle y volumen de la falda sin temor a equivocar la seda.',
+    phase: 'Paso 03 · La Elegancia en Cada Puntada',
+    timing: 'Selección de Telas y Detalles',
+    title: '3. Selección de Telas y Detalles: La Elegancia en Cada Puntada',
+    desc: 'La elección de las telas es un paso crucial en nuestro proceso. Trabajamos con una amplia gama de materiales exquisitos, desde encajes delicados y sedas lujosas hasta tules etéreos y organzas brillantes. Te invitamos a tocar y ver las telas, asegurándote de que te enamores de cada elemento de tu vestido. También seleccionamos los detalles finales, como bordados, pedrería y apliques, que añadirán ese toque especial y personalizado.',
     highlights: [
-      { label: 'Prototipo en lienzo:', text: 'Permite cortar, alfilerear y modificar volúmenes en vivo.' },
-      { label: 'Seguridad absoluta:', text: 'Visualizas el vestido sobre tu cuerpo antes de tocar el tejido definitivo.' }
+      { label: 'Telas exquisitas:', text: 'Encajes delicados, sedas lujosas, tules etéreos y organzas brillantes.' },
+      { label: 'Detalles finales:', text: 'Selección a medida de bordados, pedrería y apliques exclusivos.' }
     ],
-    image: 'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=900&q=80',
-    caption: 'Modelado en toile de algodón',
+    image: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=900&q=80',
+    caption: 'Tocar, ver y enamorarse de cada tela',
     inverted: false
   },
   {
     num: '04',
-    phase: 'Fase 04 · Materialización',
-    timing: 'Mes 4-5 · Confección Real',
-    title: 'Confección en Tejido Real & Pruebas de Caída',
-    desc: 'Trasladamos el patrón perfeccionado a las sedas definitivas. Realizamos pruebas con tu calzado de boda para graduar el largo milimétrico, el movimiento de la cola y la colocación de bordados o botones forrados artesanalmente.',
+    phase: 'Paso 04 · Perfeccionando Cada Detalle',
+    timing: 'Creación y Pruebas',
+    title: '4. Creación y Pruebas: Perfeccionando Cada Detalle',
+    desc: 'Una vez que se aprueba el diseño y se seleccionan las telas, comenzamos a dar vida a tu vestido. A lo largo de varias pruebas, ajustamos y refinamos el vestido para asegurar un ajuste perfecto. Estas pruebas son una oportunidad para ver cómo tu vestido evoluciona y para hacer cualquier ajuste necesario para que te sientas cómoda y segura el día de tu boda.',
     highlights: [
-      { label: 'Prueba en movimiento:', text: 'Verificamos el ritmo de paso, soltura de brazos y vuelo de la falda.' },
-      { label: 'Bordados a bastidor:', text: 'Aplicación milimétrica de encajes y micro-pedrería.' }
+      { label: 'Evolución viva:', text: 'Siente la emoción de ver tu vestido materializarse paso a paso.' },
+      { label: 'Ajuste perfecto:', text: 'Adaptación anatómica completa para que te sientas cómoda y segura.' }
     ],
-    image: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=80',
-    caption: 'Prueba de caída en seda natural',
+    image: 'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=900&q=80',
+    caption: 'Refinamiento y ajuste milimétrico',
     inverted: true
   },
   {
     num: '05',
-    phase: 'Fase 05 · Culminación',
-    timing: 'Semana previa · Entrega Final',
-    title: 'Últimos Detalles, Planchado & Entrega',
-    desc: 'El vestido terminado recibe un planchado tradicional sobre maniquí para fijar costuras y caídas. Te lo entregamos en funda transpirable de alta costura, acompañado de las indicaciones necesarias para que luzca perfecto el gran día.',
+    phase: 'Paso 05 · Preparada para tu Gran Día',
+    timing: 'Toques Finales y Entrega',
+    title: '5. Toques Finales y Entrega: Preparada para tu Gran Día',
+    desc: 'Después de las pruebas finales y de asegurarnos de que cada detalle esté impecable, realizamos los toques finales. Planchar, embellecer y preparar el vestido para su gran debut es un proceso que hacemos con la máxima atención y cuidado. Finalmente, te entregamos tu vestido envuelto en amor y listo para ser usado en uno de los días más importantes de tu vida.',
     highlights: [
-      { label: 'Planchado tradicional:', text: 'Sellado a vapor artesanal de cada costura interna.' },
-      { label: 'Entrega sosegada:', text: 'Instrucciones para abotonar y cuidar el tejido en tu día.' }
+      { label: 'Máximo cuidado:', text: 'Planchado a mano, embellecimiento y preparación para su gran debut.' },
+      { label: 'Entrega con amor:', text: 'Tu vestido listo e impecable para uno de los días más importantes de tu vida.' }
     ],
-    image: 'https://images.unsplash.com/photo-1520854221256-17451cc331bf?auto=format&fit=crop&w=900&q=80',
-    caption: 'Vestido finalizado y entrega en atelier',
+    image: 'https://images.unsplash.com/photo-1546804784-896d0dca3805?auto=format&fit=crop&w=900&q=80',
+    caption: 'Toques finales y entrega en el atelier',
     inverted: false
+  },
+  {
+    num: '06',
+    phase: 'Paso 06 · Brilla con Luz Propia',
+    timing: 'Día de la Boda',
+    title: '6. Día de la Boda: Brilla con Luz Propia',
+    desc: 'Nos sentimos honrados de ser parte de tu día especial y ver cómo nuestro trabajo cobra vida cuando caminas hacia el altar. Cada sonrisa, cada mirada de admiración y cada momento de felicidad en tu vestido de novia es el mayor premio para nosotros.',
+    highlights: [
+      { label: 'Tu momento mágico:', text: 'Ver cómo nuestro trabajo cobra vida cuando caminas hacia el altar.' },
+      { label: 'El mayor premio:', text: 'Cada sonrisa, mirada de admiración y momento de felicidad en tu vestido.' }
+    ],
+    image: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=80',
+    caption: 'Brilla con luz propia camino al altar',
+    inverted: true
   }
 ]
 
 const faqs = [
   {
     question: '¿Con cuánta antelación debo pedir mi primera cita?',
-    answer: 'Recomendamos iniciar el proceso entre 5 y 7 meses antes de la fecha de la boda. De este modo disponemos del tiempo necesario para las pruebas de glaseilla, tinturas especiales y bordados a mano sin urgencias.'
+    answer: 'Recomendamos iniciar el proceso entre 4 y 6 meses antes de la fecha de la boda. De este modo disponemos del tiempo necesario para la conceptualización de bocetos, selección de telas nobles y las pruebas personalizadas sin prisas.'
   },
   {
     question: '¿A cuántas personas puedo traer conmigo a las pruebas?',
-    answer: 'En el atelier de María Diezma recomendamos asistir acompañada de un máximo de 2 personas de tu máxima confianza. Un ambiente íntimo favorece la concentración en los detalles y la toma de decisiones serena.'
+    answer: 'En el atelier de María Diezma recomendamos asistir acompañada de 1 o 2 personas de tu máxima confianza. Un ambiente íntimo y acogedor favorece la concentración en los detalles y la toma de decisiones serena.'
   },
   {
-    question: '¿Qué debo llevar a la prueba de la glaseilla (toile)?',
-    answer: 'Para la glaseilla es ideal traer la ropa interior que tengas previsto llevar el día de la boda (o similar en sujeción y tono nude) y, si ya dispones de ellos, los zapatos o unos de altura equivalente.'
+    question: '¿Qué debo llevar a las pruebas del vestido?',
+    answer: 'Es ideal traer la ropa interior que tengas previsto llevar el día de la boda (o similar en sujeción y tono nude) y los zapatos o unos de altura equivalente para ajustar la caída y el largo de la falda con total precisión.'
   },
   {
-    question: '¿Puedo modificar el diseño una vez comenzado el vestido?',
-    answer: 'La fase de glaseilla existe precisamente para explorar y pulir detalles: escotes, volúmenes de falda y larguras. Una vez cortado el tejido definitivo, se realizan ajustes anatómicos de precisión.'
+    question: '¿Puedo incorporar detalles o telas familiares a mi vestido?',
+    answer: 'Por supuesto. En la consulta inicial y en la selección de telas podemos integrar encajes heredados, bordados con valor sentimental o cualquier detalle especial que desees que forme parte de tu diseño único.'
   }
 ]
 </script>
@@ -99,10 +113,10 @@ const faqs = [
     <!-- HERO DE PROCESO -->
     <section class="process-hero">
       <div class="container">
-        <span class="process-eyebrow">Costura Lenta & Sastrería Nupcial</span>
-        <h1 class="process-title">El Arte de Crear un Vestido a Medida</h1>
+        <span class="process-eyebrow">Alta Costura a Medida · Confección Exclusiva</span>
+        <h1 class="process-title">Nuestro proceso: El Arte de Crear Tu Vestido de Novia Perfecto</h1>
         <p class="process-lead">
-          Desde la primera idea esbozada en papel hasta el último botón forrado a mano. Así es la experiencia de crear tu vestido en el atelier de María Diezma.
+          En nuestro atelier, cada vestido de novia es una obra maestra única, creada con amor y atención meticulosa a cada detalle. Nuestro proceso de creación se caracteriza por la colaboración cercana con la novia, garantizando que su vestido no solo refleje su estilo personal, sino que también haga realidad sus sueños más preciados.
         </p>
       </div>
     </section>
@@ -164,10 +178,10 @@ const faqs = [
     <section class="process-cta-section">
       <div class="container">
         <div class="cta-banner-card">
-          <span class="cta-eyebrow">Primer Paso</span>
-          <h2 class="cta-title">Comienza a Crear tu Vestido en Nuestro Atelier</h2>
+          <span class="cta-eyebrow">Tu Vestido de Ensueño</span>
+          <h2 class="cta-title">Crear tu vestido de novia es un viaje de amor, creatividad y precisión</h2>
           <p class="cta-desc">
-            Te esperamos en nuestro espacio de Madrid para escucharte, compartir ideas y diseñar juntos el boceto exclusivo de tu boda.
+            Estamos aquí para hacer realidad tu visión y asegurarnos de que te sientas absolutamente radiante en tu día especial. Gracias por confiar en nosotros para crear el vestido de tus sueños.
           </p>
           <div class="cta-actions">
             <router-link to="/cita" class="btn-primary-large">

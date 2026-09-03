@@ -6,58 +6,166 @@ let activeFilter = 'all';
 
 document.addEventListener('DOMContentLoaded', () => {
   renderCatalogGrid();
-  renderBackofficeCollection();
+  renderCollectionsFromApi();
 });
 
-// Listado de vestidos recuperados desde el Backoffice (Prototipo)
+// Listado de vestidos recuperados desde el Backoffice
 let backofficeDressesList = [];
+
+const BACKOFFICE_API_DRESSES_URL = 'http://localhost:8080/api/v1/vestidos';
 
 /**
  * ==========================================================================
- * RECUPERACIÓN DE DISEÑOS DESDE BACKOFFICE (PROTOTIPO)
+ * LLAMADA A LA API DEL BACKOFFICE PARA RECUPERAR LOS VESTIDOS
+ * Endpoint: http://localhost:8080/api/v1/vestidos
  * ==========================================================================
- * Simula la respuesta del servicio backoffice con la lista de vestidos.
- * Retorna los datos requeridos: id, name, collection, collectionName e imageUrl.
  */
-function getBackofficeDressesData() {
-  if (typeof DRESSES_DATA !== 'undefined' && Array.isArray(DRESSES_DATA)) {
-    return DRESSES_DATA.map(d => ({
-      id: d.id,
-      name: d.name,
-      collection: d.collection,
-      collectionName: d.collectionName || (d.collection === 'siluetas' ? 'Colección Siluetas Puras' : 'Colección Botánica & Bordados'),
-      imageUrl: d.images ? d.images.front : d.imageUrl
-    }));
+async function fetchDressesFromApi() {
+  console.info(`[Backoffice API Request] Realizando llamada GET a ${BACKOFFICE_API_DRESSES_URL}`);
+  try {
+    const response = await fetch(BACKOFFICE_API_DRESSES_URL, {
+      method: 'GET',
+      headers: { 'Accept': 'application/json' }
+    });
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status} - ${response.statusText}`);
+    }
+    const result = await response.json();
+    console.info('[Backoffice API Response] Vestidos recibidos:', result);
+    if (result && result.success && Array.isArray(result.data)) {
+      return result.data;
+    } else if (Array.isArray(result)) {
+      return result;
+    }
+  } catch (error) {
+    console.warn(`[Backoffice API] No se pudo obtener respuesta de ${BACKOFFICE_API_DRESSES_URL}:`, error.message);
+    console.info('[Backoffice API] Usando datos de vestidos de prueba con la respuesta real de la API.');
   }
-  return [];
+
+  // Fallback con los datos de ejemplo del API provistos
+  return [
+    {
+      "id": "30000000-0000-0000-0000-000000000001",
+      "nombre": "Vestido Magnolia",
+      "coleccion": "Romance",
+      "ruta_imagen": "assets/images/romance/MARIA_DIEZMA_001.jpg"
+    },
+    {
+      "id": "30000000-0000-0000-0000-000000000002",
+      "nombre": "Vestido Jazmín",
+      "coleccion": "Romance",
+      "ruta_imagen": "assets/images/romance/MARIA_DIEZMA_004.jpg"
+    },
+    {
+      "id": "30000000-0000-0000-0000-000000000003",
+      "nombre": "Vestido Dalia",
+      "coleccion": "Romance",
+      "ruta_imagen": "assets/images/romance/MARIA_DIEZMA_007.jpg"
+    },
+    {
+      "id": "30000000-0000-0000-0000-000000000004",
+      "nombre": "Vestido Camelia",
+      "coleccion": "Romance",
+      "ruta_imagen": "assets/images/romance/MARIA_DIEZMA_010.jpg"
+    },
+    {
+      "id": "30000000-0000-0000-0000-000000000005",
+      "nombre": "Vestido Azahar",
+      "coleccion": "Romance",
+      "ruta_imagen": "assets/images/romance/MARIA_DIEZMA_013.jpg"
+    },
+    {
+      "id": "30000000-0000-0000-0000-000000000006",
+      "nombre": "Vestido Siena",
+      "coleccion": "Nayade de Gala",
+      "ruta_imagen": "assets/images/nayade/MARIA_DIEZMA_016.jpg"
+    },
+    {
+      "id": "30000000-0000-0000-0000-000000000007",
+      "nombre": "Vestido Aurora",
+      "coleccion": "Nayade de Gala",
+      "ruta_imagen": "assets/images/nayade/MARIA_DIEZMA_019.jpg"
+    },
+    {
+      "id": "30000000-0000-0000-0000-000000000008",
+      "nombre": "Vestido Coral",
+      "coleccion": "Nayade de Gala",
+      "ruta_imagen": "assets/images/nayade/MARIA_DIEZMA_022.jpg"
+    },
+    {
+      "id": "30000000-0000-0000-0000-000000000009",
+      "nombre": "Vestido Terracota",
+      "coleccion": "Nayade de Gala",
+      "ruta_imagen": "assets/images/nayade/MARIA_DIEZMA_025.jpg"
+    },
+    {
+      "id": "30000000-0000-0000-0000-000000000010",
+      "nombre": "Vestido Sol Poniente",
+      "coleccion": "Nayade de Gala",
+      "ruta_imagen": "assets/images/nayade/MARIA_DIEZMA_028.jpg"
+    }
+  ];
+}
+
+// Renderiza los botones de filtrado según las colecciones presentes en los vestidos
+function renderFilterButtons() {
+  const container = document.getElementById('filter-buttons-container') || document.querySelector('.filter-group');
+  if (!container) return;
+
+  const collectionsMap = new Map();
+  backofficeDressesList.forEach(d => {
+    const col = d.collection;
+    collectionsMap.set(col, (collectionsMap.get(col) || 0) + 1);
+  });
+
+  let html = `<span class="filter-label">Colección:</span>`;
+  html += `<button class="filter-btn ${activeFilter === 'all' ? 'active' : ''}" data-filter="all" onclick="filterDresses('all', this)">Todas las Colecciones (${backofficeDressesList.length})</button>`;
+
+  collectionsMap.forEach((count, colName) => {
+    const isActive = activeFilter.toLowerCase() === colName.toLowerCase();
+    html += ` <button class="filter-btn ${isActive ? 'active' : ''}" data-filter="${colName}" onclick="filterDresses('${colName}', this)">${colName} (${count})</button>`;
+  });
+
+  container.innerHTML = html;
 }
 
 // Renderizar la cuadrícula de vestidos recuperada del backoffice (4 columnas)
-function renderCatalogGrid() {
+async function renderCatalogGrid() {
   const grid = document.getElementById('dresses-grid');
   if (!grid) return;
 
-  // 1. Recuperar los diseños desde el Backoffice
+  // 1. Recuperar los diseños desde la API del Backoffice
   if (!backofficeDressesList.length) {
-    backofficeDressesList = getBackofficeDressesData();
+    const rawData = await fetchDressesFromApi();
+    backofficeDressesList = rawData.map(d => ({
+      id: d.id,
+      name: d.nombre || d.name,
+      collection: d.coleccion || d.collection,
+      imageUrl: resolveCollectionImageUrl(d.ruta_imagen || d.imagen || d.imageUrl)
+    }));
+    renderFilterButtons();
   }
 
   grid.innerHTML = '';
 
-  const filtered = backofficeDressesList.filter(d => activeFilter === 'all' || d.collection === activeFilter);
+  const filtered = backofficeDressesList.filter(d => 
+    activeFilter === 'all' || 
+    d.collection.trim().toLowerCase() === activeFilter.trim().toLowerCase()
+  );
+
   const countLabel = document.getElementById('catalog-count-label');
   if (countLabel) {
-    countLabel.textContent = `Mostrando ${filtered.length} vestidos (Backoffice)`;
+    countLabel.textContent = `Mostrando ${filtered.length} vestidos (API Backoffice)`;
   }
 
   filtered.forEach((dress) => {
     const cardLink = document.createElement('a');
-    // Guardamos el id del vestido en el enlace y atributos de datos para la posterior consulta de detalle
-    cardLink.href = `detalle.html?vestido=${encodeURIComponent(dress.id)}`;
+    // Enviamos como parametros GET el nombre del vestido y la coleccion requeridos por el backoffice
+    cardLink.href = `detalle.html?nombre=${encodeURIComponent(dress.name)}&coleccion=${encodeURIComponent(dress.collection)}`;
     cardLink.target = '_blank';
     cardLink.rel = 'noopener noreferrer';
     cardLink.className = 'dress-card-anchor';
-    cardLink.title = `Ver ${dress.name} (${dress.collectionName})`;
+    cardLink.title = `Ver detalles de ${dress.name}`;
     cardLink.setAttribute('data-dress-id', dress.id);
 
     // Mostramos: Imagen, Nombre del vestido y Colección, preservando el id
@@ -65,7 +173,13 @@ function renderCatalogGrid() {
       <article class="dress-card" data-id="${dress.id}" data-dress-id="${dress.id}" data-od-id="card-${dress.id}">
         <!-- 1. IMAGEN -->
         <div class="dress-card-media">
-          <img src="${dress.imageUrl}" alt="${dress.name} - Vista Principal" class="dress-card-img" loading="lazy">
+          <img 
+            src="${dress.imageUrl}" 
+            alt="${dress.name} - Vista Principal" 
+            class="dress-card-img" 
+            loading="lazy"
+            onerror="this.onerror=null; this.src='../assets/images/romance/MARIA_DIEZMA_001.jpg';"
+          >
           <span class="dress-card-tab-badge">
             <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
             Ver Ficha
@@ -75,7 +189,7 @@ function renderCatalogGrid() {
         <div class="dress-card-body">
           <!-- 2. COLECCIÓN -->
           <span class="dress-card-collection-tag" style="font-family: var(--font-mono); font-size: 0.72rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); font-weight: 600;">
-            ${dress.collectionName}
+            ${dress.collection}
           </span>
           
           <!-- 3. NOMBRE DEL VESTIDO -->
@@ -155,74 +269,137 @@ document.addEventListener('keydown', function(e) {
 
 /**
  * ==========================================================================
- * BLOQUE DE RECUPERACIÓN DE BACKOFFICE (PROTOTIPO)
+ * LLAMADA A LA API DEL BACKOFFICE PARA RECUPERAR COLECCIONES
+ * Endpoint: http://localhost:8080/api/v1/colecciones
  * ==========================================================================
- * Simula la obtención de datos de colecciones desde el backoffice sin llamada
- * web HTTP real por tratarse de un prototipo.
  */
-function getBackofficeCollectionData() {
-  // Prototipo: Datos devueltos por el servicio de Backoffice
-  return {
-    id: "capsula-seda-niebla",
-    name: "Colección Cápsula: Seda & Bruma",
-    collectionNumber: "03 / Backoffice",
-    seasonTag: "Edición Limitada 2026",
-    badge: "Sincronizado desde Backoffice",
-    description: "Propuesta exclusiva gestionada directamente desde el backoffice del atelier. Caracterizada por la sutileza de gasas de seda translúcidas superpuestas y una contra parte geométrica que enmarca la espalda en líneas puras y etéreas.",
-    imageUrl: "https://images.unsplash.com/photo-1546804784-896d0dca3805?auto=format&fit=crop&w=1200&q=85",
-    imageAlt: "Colección Cápsula Seda y Bruma - María Diezma Atelier",
-    ctaText: "Solicitar cita para esta colección",
-    ctaUrl: "cita.html?coleccion=seda-bruma"
-  };
+const BACKOFFICE_API_COLLECTIONS_URL = 'http://localhost:8080/api/v1/colecciones';
+
+async function fetchCollectionsFromApi() {
+  console.info(`[Backoffice API Request] Realizando llamada GET a ${BACKOFFICE_API_COLLECTIONS_URL}`);
+  
+  try {
+    const response = await fetch(BACKOFFICE_API_COLLECTIONS_URL, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json'
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status} - ${response.statusText}`);
+    }
+
+    const result = await response.json();
+    console.info('[Backoffice API Response] Respuesta exitosa:', result);
+
+    if (result && result.success && Array.isArray(result.data)) {
+      return result.data;
+    } else if (Array.isArray(result)) {
+      return result;
+    }
+  } catch (error) {
+    console.warn(`[Backoffice API] No se pudo obtener respuesta de ${BACKOFFICE_API_COLLECTIONS_URL}:`, error.message);
+    console.info('[Backoffice API] Usando datos de prueba locales con la misma estructura JSON.');
+  }
+
+  // Datos de respaldo actualizados según la respuesta real de la API
+  return [
+    {
+      id: "20000000-0000-0000-0000-000000000001",
+      nombre: "Romance",
+      imagen: "assets/images/romance/MARIA_DIEZMA_001.jpg",
+      descripcion: "Diseños inspirados en la delicadeza botánica y tonalidades primaverales."
+    },
+    {
+      id: "20000000-0000-0000-0000-000000000002",
+      nombre: "Nayade de Gala",
+      imagen: "assets/images/nayade/MARIA_DIEZMA_016.jpg",
+      descripcion: "Colección cálida con texturas fluidas y tonos terracota y dorados."
+    }
+  ];
 }
 
-function renderBackofficeCollection() {
-  const container = document.getElementById('backoffice-collection-container');
+/**
+ * Resuelve la ruta de la imagen según la ubicación de pages/colecciones.html
+ */
+function resolveCollectionImageUrl(imgPath) {
+  if (!imgPath) return '';
+  if (imgPath.startsWith('http://') || imgPath.startsWith('https://') || imgPath.startsWith('data:')) {
+    return imgPath;
+  }
+  const clean = imgPath.startsWith('/') ? imgPath.slice(1) : imgPath;
+  return '../' + clean;
+}
+
+/**
+ * Renderiza dinámicamente las colecciones recibidas de la API
+ * Cada colección muestra imagen a un lado, y nombre y descripción al otro.
+ */
+async function renderCollectionsFromApi() {
+  const container = document.getElementById('collections-stack') || document.getElementById('backoffice-collection-container');
   if (!container) return;
 
-  // 1. Recuperar los datos del backoffice (prototipo)
-  const collection = getBackofficeCollectionData();
+  // 1. Obtener los datos desde la API
+  const collections = await fetchCollectionsFromApi();
 
-  // 2. Pintar en el DOM únicamente imagen a un lado y nombre/descripción al otro lado
-  container.innerHTML = `
-    <article class="collection-block" data-od-id="collection-block-backoffice">
-      <!-- LADO 1: IMAGEN DE LA COLECCIÓN -->
-      <div class="collection-visual" data-od-id="visual-backoffice">
-        <img 
-          src="${collection.imageUrl}" 
-          alt="${collection.imageAlt}" 
-          class="collection-img"
-          loading="lazy"
-        >
-        <div class="collection-badge-overlay">${collection.badge}</div>
+  if (!collections || !collections.length) {
+    container.innerHTML = `
+      <div style="text-align: center; padding: 3rem; color: var(--muted); font-family: var(--font-mono);">
+        No se encontraron colecciones disponibles en el backoffice.
       </div>
+    `;
+    return;
+  }
 
-      <!-- LADO 2: NOMBRE Y DESCRIPCIÓN DE LA COLECCIÓN -->
-      <div class="collection-content" data-od-id="content-backoffice">
-        <div>
-          <div class="collection-header-meta">
-            <span class="collection-number">${collection.collectionNumber}</span>
-            <span class="collection-season">${collection.seasonTag}</span>
+  // 2. Pintar en el DOM las colecciones: imagen a un lado y nombre/descripción al otro lado
+  container.innerHTML = collections.map((col, index) => {
+    const isReverse = index % 2 === 1;
+    const colNum = String(index + 1).padStart(2, '0');
+    const imgSrc = resolveCollectionImageUrl(col.imagen);
+
+    return `
+      <article class="collection-block ${isReverse ? 'block-reverse' : ''}" data-id="${col.id}" data-od-id="collection-block-${col.id}">
+        <!-- LADO 1: IMAGEN DE LA COLECCIÓN -->
+        <div class="collection-visual" data-od-id="visual-${col.id}">
+          <img 
+            src="${imgSrc}" 
+            alt="Colección ${col.nombre} - María Diezma Atelier" 
+            class="collection-img"
+            loading="lazy"
+            onerror="this.onerror=null; this.src='../assets/images/romance/MARIA_DIEZMA_001.jpg';"
+          >
+          <div class="collection-badge-overlay">Colección ${colNum}</div>
+        </div>
+
+        <!-- LADO 2: NOMBRE Y DESCRIPCIÓN DE LA COLECCIÓN -->
+        <div class="collection-content" data-od-id="content-${col.id}">
+          <div>
+            <div class="collection-header-meta">
+              <span class="collection-number">${colNum} / Colección</span>
+              <span class="collection-season">Atelier María Diezma</span>
+            </div>
+            
+            <h2 class="collection-title">${col.nombre}</h2>
+            
+            <p class="collection-desc">
+              ${col.descripcion}
+            </p>
           </div>
-          
-          <h2 class="collection-title">${collection.name}</h2>
-          
-          <p class="collection-desc">
-            ${collection.description}
-          </p>
-        </div>
 
-        <!-- ACCIONES -->
-        <div class="collection-actions">
-          <a href="${collection.ctaUrl}" class="btn-secondary" data-od-id="btn-cita-backoffice">
-            ${collection.ctaText}
-          </a>
-          <span style="font-size: 0.78rem; color: var(--muted); font-family: var(--font-mono); letter-spacing: 0.05em;">
-            ✦ Registro cargado desde el Backoffice (Prototipo)
-          </span>
+          <!-- ACCIONES -->
+          <div class="collection-actions">
+            <a 
+              href="cita.html?coleccion=${encodeURIComponent(col.id)}" 
+              class="btn-secondary" 
+              data-od-id="btn-cita-${col.id}"
+            >
+              Probar esta línea en el Atelier
+            </a>
+          </div>
         </div>
-      </div>
-    </article>
-  `;
+      </article>
+    `;
+  }).join('');
 }
 

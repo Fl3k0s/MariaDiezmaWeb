@@ -59,128 +59,23 @@
       </p>
     </section>
 
-    <!-- LOS 2 BLOQUES REQUERIDOS (1 POR COLECCIÓN) -->
-    <div class="collections-stack" data-od-id="collections-stack">
-
-      <!-- ==========================================
-           BLOQUE 1: COLECCIÓN SILUETAS PURAS
-           ========================================== -->
-      <article class="collection-block" data-od-id="collection-block-siluetas-puras">
-        
-        <!-- FOTO DE LA COLECCIÓN 1 -->
-        <div class="collection-visual" data-od-id="visual-siluetas-puras">
-          <img 
-            src="https://images.unsplash.com/photo-1594552072238-b8a33785b261?auto=format&fit=crop&w=1200&q=85" 
-            alt="Vestido de novia de la Colección Siluetas Puras de María Diezma" 
-            class="collection-img"
-            loading="lazy"
-          >
-          <div class="collection-badge-overlay">Colección Permanente</div>
-        </div>
-
-        <!-- CONTENIDO: NOMBRE Y PEQUEÑA DESCRIPCIÓN -->
-        <div class="collection-content" data-od-id="content-siluetas-puras">
-          <div>
-            <div class="collection-header-meta">
-              <span class="collection-number">01 / Colección</span>
-              <span class="collection-season">Línea Arquitectónica</span>
-            </div>
-            
-            <h2 class="collection-title">Siluetas Puras</h2>
-            
-            <p class="collection-desc">
-              Una oda al corte magistral, la geometría y la caída natural de los tejidos nobles. Diseñada para novias que buscan una elegancia sobria y atemporal, donde cada línea del patrón responde a la estructura corporal sin añadidos superfluos, logrando una presencia serena y distinguida.
-            </p>
-          </div>
-
-          <!-- ACCIONES -->
-          <div class="collection-actions">
-            <a 
-              href="cita.html?coleccion=siluetas" 
-              class="btn-secondary" 
-              data-od-id="btn-cita-siluetas"
-            >
-              Probar esta línea en el Atelier
-            </a>
-            <a 
-              href="cita.html?coleccion=siluetas" 
-              class="btn-inline-link"
-            >
-              Consultar detalles de confección &rarr;
-            </a>
-          </div>
-        </div>
-
-      </article>
-
-      <!-- ==========================================
-           BLOQUE 2: COLECCIÓN BOTÁNICA & BORDADOS
-           ========================================== -->
-      <article class="collection-block block-reverse" data-od-id="collection-block-botanica-bordados">
-        
-        <!-- FOTO DE LA COLECCIÓN 2 -->
-        <div class="collection-visual" data-od-id="visual-botanica-bordados">
-          <img 
-            src="https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=1200&q=85" 
-            alt="Vestido nupcial con bordados florales de la Colección Botánica & Bordados de María Diezma" 
-            class="collection-img"
-            loading="lazy"
-          >
-          <div class="collection-badge-overlay">Edición Atelier</div>
-        </div>
-
-        <!-- CONTENIDO: NOMBRE Y PEQUEÑA DESCRIPCIÓN -->
-        <div class="collection-content" data-od-id="content-botanica-bordados">
-          <div>
-            <div class="collection-header-meta">
-              <span class="collection-number">02 / Colección</span>
-              <span class="collection-season">Línea Romántica</span>
-            </div>
-            
-            <h2 class="collection-title">Botánica & Bordados</h2>
-            
-            <p class="collection-desc">
-              Inspirada en las formas orgánicas y la riqueza ornamental de la naturaleza. Piezas artesanales enriquecidas con bordados minuciosos en hilo de seda, apliques florales elaborados a mano e incrustaciones de encaje antiguo francés sobre sutiles capas de tul ilusión y organza.
-            </p>
-          </div>
-
-          <!-- ACCIONES -->
-          <div class="collection-actions">
-            <a 
-              href="cita.html?coleccion=botanica" 
-              class="btn-secondary" 
-              data-od-id="btn-cita-botanica"
-            >
-              Probar esta línea en el Atelier
-            </a>
-            <a 
-              href="cita.html?coleccion=botanica" 
-              class="btn-inline-link"
-            >
-              Consultar detalles de confección &rarr;
-            </a>
-          </div>
-        </div>
-
-      </article>
-
-      <!-- ==========================================
-           BLOQUE DINÁMICO: COLECCIÓN RECUPERADA DEL BACKOFFICE (PROTOTIPO)
-           ========================================== -->
-      <div id="backoffice-collection-container" class="backoffice-collection-wrapper">
-        <!-- Renderizado dinámicamente mediante el script del backoffice -->
+    <!-- ==========================================
+         BLOQUES DE COLECCIÓN RECUPERADOS DESDE LA API
+         Endpoint: http://localhost:8080/api/v1/colecciones
+         ========================================== -->
+    <div class="collections-stack" data-od-id="collections-stack" id="collections-stack">
+      <!-- Se carga dinámicamente mediante fetchCollectionsFromApi() en colecciones.js -->
+      <div style="text-align: center; padding: 3rem; color: var(--muted); font-family: var(--font-mono); font-size: 0.85rem;">
+        Cargando colecciones desde el Backoffice (http://localhost:8080/api/v1/colecciones)...
       </div>
-
     </div>
 
     <!-- SECCIÓN CATÁLOGO COMPLETO DE VESTIDOS -->
     <div class="controls-panel" data-od-id="section-filter-controls">
       <div class="controls-card">
-        <div class="filter-group">
+        <div class="filter-group" id="filter-buttons-container">
           <span class="filter-label">Colección:</span>
-          <button class="filter-btn active" data-filter="all" onclick="filterDresses('all', this)">Todas las Colecciones (12)</button>
-          <button class="filter-btn" data-filter="siluetas" onclick="filterDresses('siluetas', this)">Siluetas Puras (6)</button>
-          <button class="filter-btn" data-filter="botanica" onclick="filterDresses('botanica', this)">Botánica & Bordados (6)</button>
+          <button class="filter-btn active" data-filter="all" onclick="filterDresses('all', this)">Todas las Colecciones</button>
         </div>
 
         <div class="view-toggles">

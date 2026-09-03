@@ -30,7 +30,7 @@
           <div class="designer-image-frame">
             <div class="designer-img-wrap">
               <img 
-                src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=1200&q=80" 
+                src="/assets/images/romance/MARIA_DIEZMA_077.jpg" 
                 alt="María Diezma trabajando en el patronaje en su atelier de Madrid" 
                 class="designer-img"
               >
@@ -112,61 +112,8 @@
       </div>
     </section>
 
-    <!-- EL ESPACIO DE CREACIÓN -->
-    <section class="atelier-space-section">
-      <div class="container">
-        <div class="section-head">
-          <span class="eyebrow">El Espacio de Creación</span>
-          <h2 class="section-title">Un rincón de calma y sastrería en el barrio de Salamanca</h2>
-        </div>
 
-        <div class="gallery-triad">
-          <div class="gallery-item">
-            <div class="gallery-img-box">
-              <img src="https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=800&q=80" alt="La Mesa de Patronaje" loading="lazy">
-            </div>
-            <div class="gallery-caption-box">
-              <h3 class="gallery-caption-title">La Mesa de Patronaje</h3>
-              <p class="gallery-caption-meta">Donde cada boceto se convierte en trazos de papel kraft milimetrado.</p>
-            </div>
-          </div>
 
-          <div class="gallery-item">
-            <div class="gallery-img-box">
-              <img src="https://images.unsplash.com/photo-1515886657613-9f3515b0c78f?auto=format&fit=crop&w=800&q=80" alt="El Salón de Pruebas" loading="lazy">
-            </div>
-            <div class="gallery-caption-box">
-              <h3 class="gallery-caption-title">El Salón de Pruebas</h3>
-              <p class="gallery-caption-meta">Luz natural, intimidad absoluta y espejos de cuerpo entero.</p>
-            </div>
-          </div>
-
-          <div class="gallery-item">
-            <div class="gallery-img-box">
-              <img src="https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=800&q=80" alt="Archivo de Bordados" loading="lazy">
-            </div>
-            <div class="gallery-caption-box">
-              <h3 class="gallery-caption-title">Archivo de Bordados</h3>
-              <p class="gallery-caption-meta">Muestrarios de guipur, flores tridimensionales y pedrería sutil.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- BANNER FINAL CTA -->
-    <section class="cta-banner">
-      <div class="container cta-content">
-        <span class="eyebrow-accent">Primer Encuentro</span>
-        <h2 class="cta-banner-title">¿Comenzamos a diseñar tu vestido?</h2>
-        <p class="cta-text">
-          Cada novia recibe una atención absolutamente personalizada en nuestro atelier de Madrid. Reserva tu cita para conocernos, probar tejidos y definir juntos la silueta perfecta.
-        </p>
-        <router-link to="/cita" class="btn-primary" style="padding: 1rem 2.5rem;">
-          Pedir Cita en el Atelier
-        </router-link>
-      </div>
-    </section>
   </div>
 </template>
 

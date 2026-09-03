@@ -1,10 +1,63 @@
 <script setup>
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
-import { DRESSES_DATA } from '../data/dresses'
-import DressCard from '../components/DressCard.vue'
+import { BACKOFFICE_URI } from '../config/env'
 
 const router = useRouter()
-const featuredDresses = DRESSES_DATA.slice(0, 4)
+
+// Colecciones recuperadas desde el Backoffice
+const collections = ref([])
+
+/**
+ * ==========================================================================
+ * PETICIÓN GET AL BACKOFFICE PARA RECUPERAR LAS COLECCIONES (PROTOTIPO)
+ * ==========================================================================
+ * Consulta el listado de colecciones disponibles y limita en código la
+ * publicación a un máximo de 2 elementos.
+ */
+async function fetchBackofficeCollections() {
+  const url = `${BACKOFFICE_URI}/v1/colecciones`
+  console.info(`[HomeView] Consultando colecciones desde: ${url}`)
+
+  try {
+    const response = await fetch(url, { headers: { 'Accept': 'application/json' } })
+    if (response.ok) {
+      const result = await response.json()
+      if (result && result.success && Array.isArray(result.data)) {
+        return result.data.slice(0, 2).map(c => ({
+          id: c.id,
+          name: c.nombre,
+          imageUrl: c.imagen.startsWith('/') ? c.imagen : '/' + c.imagen,
+          link: '/colecciones'
+        }))
+      }
+    }
+  } catch (err) {
+    console.warn('[HomeView] No se pudo conectar a la API, usando datos de respaldo:', err.message)
+  }
+
+  // Datos de respaldo con las colecciones reales devueltas por la API
+  const realCollections = [
+    {
+      id: "20000000-0000-0000-0000-000000000001",
+      name: "Romance",
+      imageUrl: "/assets/images/romance/MARIA_DIEZMA_001.jpg",
+      link: "/colecciones"
+    },
+    {
+      id: "20000000-0000-0000-0000-000000000002",
+      name: "Nayade de Gala",
+      imageUrl: "/assets/images/nayade/MARIA_DIEZMA_016.jpg",
+      link: "/colecciones"
+    }
+  ]
+
+  return realCollections.slice(0, 2)
+}
+
+onMounted(async () => {
+  collections.value = await fetchBackofficeCollections()
+})
 
 function goToBooking() {
   router.push('/cita')
@@ -18,8 +71,8 @@ function goToBooking() {
          ========================================================================== -->
     <section class="hero-fullwidth" data-od-id="hero-section">
       <img 
-        src="https://images.unsplash.com/photo-1594552072238-b8a33785b261?auto=format&fit=crop&w=2200&q=85" 
-        alt="Vestido de novia de alta costura confeccionado a mano en el atelier"
+        src="/assets/images/romance/MARIA_DIEZMA_076.jpg" 
+        alt="Vestido de novia de alta costura confeccionado a mano en el atelier - Colección Náyade"
         class="hero-bg-img"
       >
       <div class="hero-scrim"></div>
@@ -50,7 +103,7 @@ function goToBooking() {
           <div class="designer-media-col">
             <div class="designer-img-frame">
               <img 
-                src="https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=1200&q=85" 
+                src="/assets/images/romance/MARIA_DIEZMA_077.jpg" 
                 alt="María Diezma diseñadora en su mesa de corte y confección en el atelier"
                 class="designer-img"
               >
@@ -103,25 +156,28 @@ function goToBooking() {
         </div>
 
         <div class="collections-grid-two">
-          <!-- Colección 1: Siluetas Puras -->
-          <article class="collection-card">
+          <article 
+            v-for="collection in collections" 
+            :key="collection.id" 
+            class="collection-card"
+          >
+            <!-- 1. IMAGEN -->
             <div class="collection-figure">
               <span class="collection-badge-year">Colección</span>
               <img 
-                src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=85" 
-                alt="Colección Siluetas Puras"
+                :src="collection.imageUrl" 
+                :alt="collection.name"
                 class="collection-img"
+                loading="lazy"
               >
             </div>
+            <!-- 2. NOMBRE DE LA COLECCIÓN -->
             <div class="collection-caption">
               <div class="collection-meta">
-                <h3 class="collection-name">Colección Siluetas Puras</h3>
-                <p class="collection-summary">
-                  Líneas arquitectónicas en crepé de seda pesado, espaldas descubiertas de corte limpio y caídas fluidas que ensalzan el movimiento natural.
-                </p>
+                <h3 class="collection-name">{{ collection.name }}</h3>
               </div>
-              <router-link to="/colecciones" class="collection-action-link">
-                <span>Explorar Siluetas Puras</span>
+              <router-link :to="collection.link || '/colecciones'" class="collection-action-link">
+                <span>Ver colección</span>
                 <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <line x1="5" y1="12" x2="19" y2="12"></line>
                   <polyline points="12 5 19 12 12 19"></polyline>
@@ -129,50 +185,6 @@ function goToBooking() {
               </router-link>
             </div>
           </article>
-
-          <!-- Colección 2: Botánica & Encaje -->
-          <article class="collection-card">
-            <div class="collection-figure">
-              <span class="collection-badge-year">Colección</span>
-              <img 
-                src="https://images.unsplash.com/photo-1532712938310-34cb3982ef74?auto=format&fit=crop&w=1200&q=85" 
-                alt="Colección Botánica & Bordados"
-                class="collection-img"
-              >
-            </div>
-            <div class="collection-caption">
-              <div class="collection-meta">
-                <h3 class="collection-name">Colección Botánica & Bordados</h3>
-                <p class="collection-summary">
-                  Bordados artesanales con motivos florales en relieve, velos de tul plumetti y mangas de organza que evocan la naturaleza y el romanticismo clásico.
-                </p>
-              </div>
-              <router-link to="/colecciones" class="collection-action-link">
-                <span>Explorar Botánica & Bordados</span>
-                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
-              </router-link>
-            </div>
-          </article>
-        </div>
-
-        <!-- Muestra rápida de vestidos -->
-        <div class="featured-dresses-section">
-          <div class="featured-header">
-            <h3 class="featured-title">Selección de Diseños</h3>
-            <router-link to="/colecciones" class="link-editorial-arrow">
-              <span>Ver catálogo completo (12 vestidos)</span>
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <line x1="5" y1="12" x2="19" y2="12"></line>
-                <polyline points="12 5 19 12 12 19"></polyline>
-              </svg>
-            </router-link>
-          </div>
-          <div class="dresses-grid-four">
-            <DressCard v-for="dress in featuredDresses" :key="dress.id" :dress="dress" />
-          </div>
         </div>
       </div>
     </section>
@@ -509,7 +521,7 @@ function goToBooking() {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2.5rem;
-  margin-bottom: 5rem;
+  margin-bottom: 0;
 }
 
 .collection-card {

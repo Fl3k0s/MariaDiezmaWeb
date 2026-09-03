@@ -1,61 +1,167 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue'
 import { DRESSES_DATA } from '../data/dresses'
+import { BACKOFFICE_URI } from '../config/env'
 import DressCard from '../components/DressCard.vue'
 
 const activeFilter = ref('all')
-const backofficeCollection = ref(null)
+const apiCollections = ref([])
 const dresses = ref([])
 
 /**
  * ==========================================================================
- * BLOQUE DE RECUPERACIÓN DE BACKOFFICE (PROTOTIPO)
+ * LLAMADA A LA API DEL BACKOFFICE PARA RECUPERAR COLECCIONES
+ * Endpoint: http://localhost:8080/api/v1/colecciones
  * ==========================================================================
- * Simula la obtención de datos de una colección desde el backoffice del atelier
- * sin llamada web HTTP real por tratarse de un prototipo.
  */
-function fetchBackofficeCollection() {
-  return {
-    id: "capsula-seda-niebla",
-    name: "Colección Cápsula: Seda & Bruma",
-    collectionNumber: "03 / Backoffice",
-    seasonTag: "Edición Limitada 2026",
-    badge: "Sincronizado desde Backoffice",
-    description: "Propuesta exclusiva gestionada directamente desde el backoffice del atelier. Caracterizada por la sutileza de gasas de seda translúcidas superpuestas y una contra parte geométrica que enmarca la espalda en líneas puras y etéreas.",
-    imageUrl: "https://images.unsplash.com/photo-1546804784-896d0dca3805?auto=format&fit=crop&w=1200&q=85",
-    imageAlt: "Colección Cápsula Seda y Bruma - María Diezma Atelier",
-    ctaText: "Solicitar cita para esta colección",
-    ctaUrl: "/cita?coleccion=seda-bruma"
+async function fetchCollectionsFromApi() {
+  const url = `${BACKOFFICE_URI}/v1/colecciones`
+  console.info(`[ColeccionesView] Consultando colecciones desde la API: ${url}`)
+  try {
+    const response = await fetch(url, { headers: { 'Accept': 'application/json' } })
+    if (response.ok) {
+      const result = await response.json()
+      if (result && result.success && Array.isArray(result.data)) {
+        return result.data
+      } else if (Array.isArray(result)) {
+        return result
+      }
+    }
+  } catch (err) {
+    console.warn(`[ColeccionesView] Fallo de conexión con ${url}:`, err.message)
   }
+
+  // Datos de respaldo actualizados según la respuesta real de la API
+  return [
+    {
+      id: "20000000-0000-0000-0000-000000000001",
+      nombre: "Romance",
+      imagen: "assets/images/romance/MARIA_DIEZMA_001.jpg",
+      descripcion: "Diseños inspirados en la delicadeza botánica y tonalidades primaverales."
+    },
+    {
+      id: "20000000-0000-0000-0000-000000000002",
+      nombre: "Nayade de Gala",
+      imagen: "assets/images/nayade/MARIA_DIEZMA_016.jpg",
+      descripcion: "Colección cálida con texturas fluidas y tonos terracota y dorados."
+    }
+  ]
 }
 
 /**
  * ==========================================================================
- * RECUPERACIÓN DE DISEÑOS DESDE BACKOFFICE (PROTOTIPO)
+ * LLAMADA A LA API DEL BACKOFFICE PARA RECUPERAR LOS VESTIDOS
+ * Endpoint: http://localhost:8080/api/v1/vestidos
  * ==========================================================================
- * Simula la respuesta del backoffice con los diseños de vestidos.
- * Retorna: id, name, collection, collectionName e imageUrl.
  */
-function fetchBackofficeDresses() {
-  return DRESSES_DATA.map(d => ({
+async function fetchBackofficeDresses() {
+  const url = `${BACKOFFICE_URI}/v1/vestidos`
+  console.info(`[ColeccionesView] Consultando vestidos desde: ${url}`)
+  try {
+    const response = await fetch(url, { headers: { 'Accept': 'application/json' } })
+    if (response.ok) {
+      const result = await response.json()
+      if (result && result.success && Array.isArray(result.data)) {
+        return result.data.map(d => ({
+          id: d.id,
+          name: d.nombre,
+          collection: d.coleccion,
+          collectionName: d.coleccion,
+          imageUrl: d.ruta_imagen.startsWith('/') ? d.ruta_imagen : '/' + d.ruta_imagen
+        }))
+      }
+    }
+  } catch (err) {
+    console.warn('[ColeccionesView] Fallo de conexión con vestidos API:', err.message)
+  }
+
+  // Fallback con los 10 vestidos devueltos por la API
+  const mockDresses = [
+    {
+      "id": "30000000-0000-0000-0000-000000000001",
+      "nombre": "Vestido Magnolia",
+      "coleccion": "Romance",
+      "ruta_imagen": "assets/images/romance/MARIA_DIEZMA_001.jpg"
+    },
+    {
+      "id": "30000000-0000-0000-0000-000000000002",
+      "nombre": "Vestido Jazmín",
+      "coleccion": "Romance",
+      "ruta_imagen": "assets/images/romance/MARIA_DIEZMA_004.jpg"
+    },
+    {
+      "id": "30000000-0000-0000-0000-000000000003",
+      "nombre": "Vestido Dalia",
+      "coleccion": "Romance",
+      "ruta_imagen": "assets/images/romance/MARIA_DIEZMA_007.jpg"
+    },
+    {
+      "id": "30000000-0000-0000-0000-000000000004",
+      "nombre": "Vestido Camelia",
+      "coleccion": "Romance",
+      "ruta_imagen": "assets/images/romance/MARIA_DIEZMA_010.jpg"
+    },
+    {
+      "id": "30000000-0000-0000-0000-000000000005",
+      "nombre": "Vestido Azahar",
+      "coleccion": "Romance",
+      "ruta_imagen": "assets/images/romance/MARIA_DIEZMA_013.jpg"
+    },
+    {
+      "id": "30000000-0000-0000-0000-000000000006",
+      "nombre": "Vestido Siena",
+      "coleccion": "Nayade de Gala",
+      "ruta_imagen": "assets/images/nayade/MARIA_DIEZMA_016.jpg"
+    },
+    {
+      "id": "30000000-0000-0000-0000-000000000007",
+      "nombre": "Vestido Aurora",
+      "coleccion": "Nayade de Gala",
+      "ruta_imagen": "assets/images/nayade/MARIA_DIEZMA_019.jpg"
+    },
+    {
+      "id": "30000000-0000-0000-0000-000000000008",
+      "nombre": "Vestido Coral",
+      "coleccion": "Nayade de Gala",
+      "ruta_imagen": "assets/images/nayade/MARIA_DIEZMA_022.jpg"
+    },
+    {
+      "id": "30000000-0000-0000-0000-000000000009",
+      "nombre": "Vestido Terracota",
+      "coleccion": "Nayade de Gala",
+      "ruta_imagen": "assets/images/nayade/MARIA_DIEZMA_025.jpg"
+    },
+    {
+      "id": "30000000-0000-0000-0000-000000000010",
+      "nombre": "Vestido Sol Poniente",
+      "coleccion": "Nayade de Gala",
+      "ruta_imagen": "assets/images/nayade/MARIA_DIEZMA_028.jpg"
+    }
+  ]
+
+  return mockDresses.map(d => ({
     id: d.id,
-    name: d.name,
-    collection: d.collection,
-    collectionName: d.collectionName || (d.collection === 'siluetas' ? 'Colección Siluetas Puras' : 'Colección Botánica & Bordados'),
-    imageUrl: d.images?.front
+    name: d.nombre,
+    collection: d.coleccion,
+    collectionName: d.coleccion,
+    imageUrl: d.ruta_imagen.startsWith('/') ? d.ruta_imagen : '/' + d.ruta_imagen
   }))
 }
 
-onMounted(() => {
-  // Recuperar información de la colección destacada desde el backoffice (prototipo)
-  backofficeCollection.value = fetchBackofficeCollection()
-  // Recuperar los diseños de vestidos desde el backoffice (prototipo)
-  dresses.value = fetchBackofficeDresses()
+onMounted(async () => {
+  // Recuperar colecciones desde la API del backoffice
+  apiCollections.value = await fetchCollectionsFromApi()
+  // Recuperar los diseños de vestidos desde la API del backoffice
+  dresses.value = await fetchBackofficeDresses()
+})
+
+const uniqueCollections = computed(() => {
+  return [...new Set(dresses.value.map(d => d.collection).filter(Boolean))]
 })
 
 const filteredDresses = computed(() => {
   if (activeFilter.value === 'all') return dresses.value
-  return dresses.value.filter(d => d.collection === activeFilter.value)
+  return dresses.value.filter(d => d.collection.trim().toLowerCase() === activeFilter.value.trim().toLowerCase())
 })
 
 function setFilter(category) {
@@ -76,47 +182,48 @@ function setFilter(category) {
       </div>
     </section>
 
-    <!-- BLOQUE DINÁMICO: INFORMACIÓN RECUPERADA DEL BACKOFFICE (PROTOTIPO) -->
-    <section v-if="backofficeCollection" class="backoffice-section" data-od-id="section-backoffice-collection">
-      <div class="container">
-        <article class="backoffice-card">
-          
+    <!-- BLOQUES DE COLECCIÓN RECUPERADOS DESDE LA API -->
+    <section v-if="apiCollections.length" class="backoffice-section" data-od-id="section-backoffice-collections">
+      <div class="container" style="display: flex; flex-direction: column; gap: 4rem;">
+        <article 
+          v-for="(col, index) in apiCollections" 
+          :key="col.id" 
+          class="backoffice-card"
+          :class="{ 'block-reverse': index % 2 === 1 }"
+        >
           <!-- LADO 1: IMAGEN DE LA COLECCIÓN -->
           <div class="backoffice-visual">
             <img 
-              :src="backofficeCollection.imageUrl" 
-              :alt="backofficeCollection.imageAlt"
+              :src="col.imagen.startsWith('/') ? col.imagen : '/' + col.imagen" 
+              :alt="`Colección ${col.nombre}`"
               class="backoffice-img"
               loading="lazy"
             >
             <div class="backoffice-badge-overlay">
-              {{ backofficeCollection.badge }}
+              Colección {{ String(index + 1).padStart(2, '0') }}
             </div>
           </div>
 
-          <!-- LADO 2: NOMBRE, DESCRIPCIÓN Y ESPECIFICACIONES -->
+          <!-- LADO 2: NOMBRE Y DESCRIPCIÓN -->
           <div class="backoffice-content">
             <div>
               <div class="backoffice-meta">
-                <span class="backoffice-number">{{ backofficeCollection.collectionNumber }}</span>
-                <span class="backoffice-season">{{ backofficeCollection.seasonTag }}</span>
+                <span class="backoffice-number">{{ String(index + 1).padStart(2, '0') }} / Colección</span>
+                <span class="backoffice-season">Atelier María Diezma</span>
               </div>
 
-              <h2 class="backoffice-title">{{ backofficeCollection.name }}</h2>
+              <h2 class="backoffice-title">{{ col.nombre }}</h2>
 
               <p class="backoffice-desc">
-                {{ backofficeCollection.description }}
+                {{ col.descripcion }}
               </p>
             </div>
 
             <!-- ACCIONES -->
             <div class="backoffice-actions">
-              <router-link :to="backofficeCollection.ctaUrl" class="btn-backoffice-cta">
-                {{ backofficeCollection.ctaText }}
+              <router-link :to="`/cita?coleccion=${encodeURIComponent(col.id)}`" class="btn-backoffice-cta">
+                Probar esta línea en el Atelier
               </router-link>
-              <span class="backoffice-notice">
-                ✦ Registro recuperado del Backoffice (Prototipo)
-              </span>
             </div>
           </div>
 
@@ -138,20 +245,14 @@ function setFilter(category) {
               Todos los Diseños ({{ dresses.length }})
             </button>
             <button 
+              v-for="colName in uniqueCollections" 
+              :key="colName"
               type="button" 
               class="filter-btn" 
-              :class="{ 'active': activeFilter === 'siluetas' }"
-              @click="setFilter('siluetas')"
+              :class="{ 'active': activeFilter.toLowerCase() === colName.toLowerCase() }"
+              @click="setFilter(colName)"
             >
-              Siluetas Puras
-            </button>
-            <button 
-              type="button" 
-              class="filter-btn" 
-              :class="{ 'active': activeFilter === 'botanica' }"
-              @click="setFilter('botanica')"
-            >
-              Botánica & Bordados
+              {{ colName }} ({{ dresses.filter(d => d.collection.toLowerCase() === colName.toLowerCase()).length }})
             </button>
           </div>
 

@@ -1,105 +1,176 @@
 /**
  * María Diezma Atelier - Controlador de la Ficha de Detalle de Vestido
+ * Recupera la información del vestido mediante petición GET a la API del Backoffice:
+ * Endpoint: http://localhost:8080/api/v1/vestidos/detalle?nombre=...&coleccion=...
  */
 
-let currentDressIndex = 0;
+let currentDress = null;
+const BACKOFFICE_API_DRESS_DETAIL_URL = 'http://localhost:8080/api/v1/vestidos/detalle';
 
 document.addEventListener('DOMContentLoaded', () => {
   initDressDetailPage();
 });
 
-function initDressDetailPage() {
-  if (typeof DRESSES_DATA === 'undefined' || !DRESSES_DATA.length) {
-    console.error('DRESSES_DATA no está disponible.');
+/**
+ * Resuelve la ruta de imagen para su visualización desde pages/detalle.html
+ */
+function resolveDetailImageUrl(imgPath) {
+  if (!imgPath) return '../assets/images/romance/MARIA_DIEZMA_001.jpg';
+  if (imgPath.startsWith('http://') || imgPath.startsWith('https://') || imgPath.startsWith('data:')) {
+    return imgPath;
+  }
+  const clean = imgPath.startsWith('/') ? imgPath.slice(1) : imgPath;
+  return '../' + clean;
+}
+
+/**
+ * ==========================================================================
+ * PETICIÓN GET AL BACKOFFICE PARA RECUPERAR DETALLES DEL VESTIDO
+ * Endpoint: http://localhost:8080/api/v1/vestidos/detalle?nombre=...&coleccion=...
+ * ==========================================================================
+ */
+async function fetchBackofficeDressDetail(nombre, coleccion) {
+  const queryParams = new URLSearchParams();
+  if (nombre) queryParams.append('nombre', nombre);
+  if (coleccion) queryParams.append('coleccion', coleccion);
+
+  const requestUrl = `${BACKOFFICE_API_DRESS_DETAIL_URL}?${queryParams.toString()}`;
+  console.info(`[Backoffice API Request] Realizando llamada GET a: ${requestUrl}`);
+
+  try {
+    const response = await fetch(requestUrl, {
+      method: 'GET',
+      headers: {
+        'Accept': 'application/json'
+      }
+    });
+
+    if (!response.ok) {
+      throw new Error(`HTTP ${response.status} - ${response.statusText}`);
+    }
+
+    const result = await response.json();
+    console.info('[Backoffice API Response] Detalle del vestido recibido:', result);
+
+    if (result && result.success && result.data) {
+      return result.data;
+    }
+  } catch (error) {
+    console.warn(`[Backoffice API] No se pudo obtener detalle de ${requestUrl}:`, error.message);
+    console.info('[Backoffice API] Usando datos de respaldo con la estructura del endpoint.');
+  }
+
+  // Fallback con la estructura de respuesta de ejemplo proporcionada
+  return {
+    id: "drs-30000000-0000-0000-0000-000000000001",
+    nombre: nombre || "Vestido Magnolia",
+    coleccion: coleccion || "Esencia Floral",
+    ruta_imagen_1: "assets/images/esencia-floral/MARIA_DIEZMA_001.jpg",
+    ruta_imagen_2: "assets/images/esencia-floral/MARIA_DIEZMA_002.jpg",
+    ruta_imagen_3: "assets/images/esencia-floral/MARIA_DIEZMA_003.jpg",
+    descripcion: "Vestido de corte sirena con bordados florales artesanales en tul y escote corazón."
+  };
+}
+
+async function initDressDetailPage() {
+  // 1. Extraer los datos enviados desde colecciones.html mediante query string
+  const urlParams = new URLSearchParams(window.location.search);
+  const nombreParam = urlParams.get('nombre') || '';
+  const coleccionParam = urlParams.get('coleccion') || '';
+
+  // 2. Ejecutar la petición GET al backoffice con el nombre del vestido y la colección
+  const dress = await fetchBackofficeDressDetail(nombreParam, coleccionParam);
+
+  if (!dress) {
+    console.error('No se pudo recuperar el detalle del vestido desde el backoffice.');
     return;
   }
 
-  // 1. Obtener el vestido solicitado por URL (?vestido=altea)
-  const urlParams = new URLSearchParams(window.location.search);
-  const dressId = urlParams.get('vestido');
+  loadDressIntoShowcase(dress);
+}
 
-  let targetIndex = 0;
-  if (dressId) {
-    const foundIndex = DRESSES_DATA.findIndex(d => d.id.toLowerCase() === dressId.toLowerCase());
-    if (foundIndex !== -1) {
-      targetIndex = foundIndex;
-    }
+function loadDressIntoShowcase(dress) {
+  currentDress = dress;
+
+  const dressName = dress.nombre || 'Vestido de Atelier';
+  const collectionName = dress.coleccion || 'Colección Atelier';
+  const dressDesc = dress.descripcion || 'Diseño exclusivo confeccionado a medida en nuestro atelier de Madrid.';
+  const dressId = dress.id || 'MD-VESTIDO';
+
+  // 1. Actualizar títulos y miga de pan
+  document.title = `${dressName} · ${collectionName} · María Diezma Atelier`;
+  const breadcrumbEl = document.getElementById('breadcrumb-dress-name');
+  if (breadcrumbEl) breadcrumbEl.textContent = dressName;
+
+  const breadcrumbColLink = document.getElementById('breadcrumb-collection-link');
+  if (breadcrumbColLink) {
+    breadcrumbColLink.textContent = `Colección ${collectionName}`;
+    breadcrumbColLink.href = `colecciones.html?filtro=${encodeURIComponent(collectionName)}`;
   }
 
-  // 2. Cargar el vestido
-  loadDressIntoShowcase(targetIndex);
-}
+  // 2. Actualizar textos informativos
+  const nameEl = document.getElementById('detail-dress-name');
+  if (nameEl) nameEl.textContent = dressName;
 
-function loadDressIntoShowcase(index) {
-  currentDressIndex = index;
-  const dress = DRESSES_DATA[index];
+  const descEl = document.getElementById('detail-dress-description');
+  if (descEl) descEl.textContent = dressDesc;
 
-  // Actualizar títulos y miga de pan
-  document.title = `${dress.name} · María Diezma Atelier`;
-  const breadcrumbEl = document.getElementById('breadcrumb-dress-name');
-  if (breadcrumbEl) breadcrumbEl.textContent = dress.name;
+  const kickerEl = document.getElementById('detail-collection-kicker');
+  if (kickerEl) kickerEl.textContent = `Colección ${collectionName} · Atelier María Diezma`;
 
-  // Actualizar textos informativos
-  document.getElementById('detail-dress-name').textContent = dress.name;
-  document.getElementById('detail-dress-description').textContent = dress.description;
-  document.getElementById('detail-collection-kicker').textContent = `${dress.collectionName} · Atelier María Diezma`;
-  document.getElementById('showcase-model-id').textContent = `REF. ${dress.ref}`;
-  document.getElementById('detail-fabric').textContent = dress.fabric;
-  document.getElementById('detail-back').textContent = dress.back;
-  document.getElementById('detail-silhouette').textContent = dress.silhouette;
-  document.getElementById('detail-time').textContent = dress.time;
-  document.getElementById('model-step-counter').textContent = `${index + 1} de ${DRESSES_DATA.length}`;
-  document.getElementById('btn-detail-book-appointment').href = `cita.html?vestido=${dress.id}`;
+  // Botón de pedir cita
+  const ctaBtn = document.getElementById('btn-detail-book-appointment');
+  if (ctaBtn) {
+    ctaBtn.href = `cita.html?vestido=${encodeURIComponent(dressId)}&nombre=${encodeURIComponent(dressName)}&coleccion=${encodeURIComponent(collectionName)}`;
+  }
 
-  // Actualizar imagen principal grande
+  // 3. Resolver imágenes (ruta_imagen_1, ruta_imagen_2, ruta_imagen_3)
+  const img1 = resolveDetailImageUrl(dress.ruta_imagen_1);
+  const img2 = resolveDetailImageUrl(dress.ruta_imagen_2 || dress.ruta_imagen_1);
+  const img3 = resolveDetailImageUrl(dress.ruta_imagen_3 || dress.ruta_imagen_1);
+
+  // 4. Imagen principal grande (sin pie de foto)
   const mainImg = document.getElementById('main-dress-image');
-  mainImg.src = dress.images.front;
-  mainImg.alt = `${dress.name} - Vista Principal Delantera`;
-  document.getElementById('main-view-label').textContent = 'Vista Delantera · Silueta Principal';
+  if (mainImg) {
+    mainImg.src = img1;
+    mainImg.alt = `${dressName} - Vista Principal`;
+    mainImg.onerror = function() {
+      this.onerror = null;
+      this.src = '../assets/images/romance/MARIA_DIEZMA_001.jpg';
+    };
+  }
 
-  // Actualizar miniaturas de contraparte y vistas
+  // 5. Miniaturas interactivas (3 imágenes reducidas: DELANTERA, ZOOM y TRASERA)
   const thumbsContainer = document.getElementById('thumbnails-container');
-  thumbsContainer.innerHTML = `
-    <button class="thumb-btn active" onclick="switchLargeImage('${dress.images.front}', 'Vista Delantera · Silueta Principal', this)" title="Ver vista delantera">
-      <img src="${dress.images.front}" alt="Vista delantera">
-      <span class="thumb-caption">Delantera</span>
-    </button>
-    <button class="thumb-btn is-contraparte" onclick="switchLargeImage('${dress.images.back}', 'Contra Parte · Espalda & Escote Trasero', this)" title="Ver contra parte (espalda)">
-      <img src="${dress.images.back}" alt="Contra parte trasera">
-      <span class="thumb-caption">Contra Parte</span>
-    </button>
-    <button class="thumb-btn" onclick="switchLargeImage('${dress.images.detail}', 'Detalle de Tejido & Acabados', this)" title="Ver detalle de costura">
-      <img src="${dress.images.detail}" alt="Detalle de tejido">
-      <span class="thumb-caption">Tejido</span>
-    </button>
-    <button class="thumb-btn" onclick="switchLargeImage('${dress.images.movement}', 'Silueta en Movimiento & Caída', this)" title="Ver caída y movimiento">
-      <img src="${dress.images.movement}" alt="Caída y movimiento">
-      <span class="thumb-caption">Caída</span>
-    </button>
-  `;
-
-  // Sincronizar URL del navegador de forma limpia sin recargar
-  const newUrl = `${window.location.pathname}?vestido=${dress.id}`;
-  window.history.replaceState({ dressId: dress.id }, '', newUrl);
+  if (thumbsContainer) {
+    thumbsContainer.innerHTML = `
+      <button class="thumb-btn active" onclick="switchLargeImage('${img1}', this)" title="Ver vista delantera">
+        <img src="${img1}" alt="Vista delantera" onerror="this.src='../assets/images/romance/MARIA_DIEZMA_001.jpg'">
+        <span class="thumb-caption">DELANTERA</span>
+      </button>
+      <button class="thumb-btn" onclick="switchLargeImage('${img2}', this)" title="Ver zoom del vestido">
+        <img src="${img2}" alt="Vista zoom" onerror="this.src='../assets/images/romance/MARIA_DIEZMA_002.jpg'">
+        <span class="thumb-caption">ZOOM</span>
+      </button>
+      <button class="thumb-btn" onclick="switchLargeImage('${img3}', this)" title="Ver vista trasera">
+        <img src="${img3}" alt="Vista trasera" onerror="this.src='../assets/images/romance/MARIA_DIEZMA_003.jpg'">
+        <span class="thumb-caption">TRASERA</span>
+      </button>
+    `;
+  }
 }
 
-function switchLargeImage(src, captionText, thumbBtn) {
+function switchLargeImage(src, thumbBtn) {
   const mainImg = document.getElementById('main-dress-image');
+  if (!mainImg) return;
+
   mainImg.style.opacity = '0.3';
   
   setTimeout(() => {
     mainImg.src = src;
     mainImg.style.opacity = '1';
-    document.getElementById('main-view-label').textContent = captionText;
   }, 150);
 
   document.querySelectorAll('.thumb-btn').forEach(b => b.classList.remove('active'));
   if (thumbBtn) thumbBtn.classList.add('active');
-}
-
-function navigateDress(direction) {
-  let next = currentDressIndex + direction;
-  if (next < 0) next = DRESSES_DATA.length - 1;
-  if (next >= DRESSES_DATA.length) next = 0;
-  loadDressIntoShowcase(next);
 }

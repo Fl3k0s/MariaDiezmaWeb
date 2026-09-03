@@ -49,9 +49,7 @@
       <nav class="breadcrumb" aria-label="Migas de pan">
         <a href="../index.html">Inicio</a>
         <span>/</span>
-        <a href="colecciones.html">Colecciones</a>
-        <span>/</span>
-        <a href="catalogo.html">Catálogo</a>
+        <a href="colecciones.html" id="breadcrumb-collection-link">Colecciones</a>
         <span>/</span>
         <span id="breadcrumb-dress-name" style="color: var(--accent);">Cargando vestido...</span>
       </nav>
@@ -64,13 +62,11 @@
           <div class="showcase-header">
             <div class="showcase-eyebrow-box">
               <span class="showcase-eyebrow">Vista Detallada de Vestido & Contra Parte</span>
-              <span style="color: var(--border);">|</span>
-              <span id="showcase-model-id" style="font-family: var(--font-mono); font-size: 0.75rem; color: var(--accent);">REF. MD-01</span>
             </div>
 
-            <a href="catalogo.html" class="btn-back-to-catalog" title="Volver al catálogo completo de vestidos">
+            <a href="colecciones.html" class="btn-back-to-catalog" title="Volver a las colecciones de vestidos">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-              <span>Volver al Catálogo</span>
+              <span>Volver a Colecciones</span>
             </a>
           </div>
 
@@ -81,14 +77,12 @@
             <div class="dress-gallery-left">
               <div class="main-image-viewport">
                 <img id="main-dress-image" src="" alt="Vestido seleccionado" class="main-active-img">
-                <div id="main-view-label" class="main-view-badge">Vista Delantera · Silueta Principal</div>
               </div>
 
               <!-- Below in small: the counterpart (contra parte) and other angles -->
               <div class="counterpart-thumbnails-block">
                 <div class="thumbnails-label">
-                  <span>Selecciona la vista para proyectar en grande:</span>
-                  <span style="color: var(--accent); font-size: 0.7rem;">★ Contra Parte disponible</span>
+                  <span>Selecciona una vista:</span>
                 </div>
                 <div class="thumbnails-grid" id="thumbnails-container">
                   <!-- Injected via JavaScript based on selected dress -->
@@ -96,7 +90,7 @@
               </div>
             </div>
 
-            <!-- RIGHT COLUMN: Large Dress Name + Short Description + Specifications -->
+            <!-- RIGHT COLUMN: Large Dress Name + Short Description -->
             <div class="dress-info-right">
               <div class="collection-kicker" id="detail-collection-kicker">Colección Siluetas Puras · Edición Atelier</div>
               
@@ -105,26 +99,6 @@
 
               <!-- Short Description beneath the name -->
               <p id="detail-dress-description" class="detail-dress-description"></p>
-
-              <!-- Technical specifications -->
-              <div class="specs-card">
-                <div class="spec-item">
-                  <span class="spec-label">Tejido Principal</span>
-                  <span class="spec-value" id="detail-fabric"></span>
-                </div>
-                <div class="spec-item">
-                  <span class="spec-label">Contra Parte (Espalda)</span>
-                  <span class="spec-value" id="detail-back"></span>
-                </div>
-                <div class="spec-item">
-                  <span class="spec-label">Silueta & Patronaje</span>
-                  <span class="spec-value" id="detail-silhouette"></span>
-                </div>
-                <div class="spec-item">
-                  <span class="spec-label">Tiempo de Confección</span>
-                  <span class="spec-value" id="detail-time"></span>
-                </div>
-              </div>
 
               <div class="detail-actions-group">
                 <a id="btn-detail-book-appointment" href="cita.html" class="btn-primary-action" data-od-id="cta-probar-vestido">
@@ -140,18 +114,7 @@
                 </div>
               </div>
 
-              <!-- Model Next/Previous switcher -->
-              <div class="model-navigation-bar">
-                <button class="nav-model-btn" onclick="navigateDress(-1)" title="Ver vestido anterior">
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-                  <span>Vestido Anterior</span>
-                </button>
-                <span id="model-step-counter" style="font-family: var(--font-mono); font-size: 0.8125rem; color: var(--muted);"></span>
-                <button class="nav-model-btn" onclick="navigateDress(1)" title="Ver siguiente vestido">
-                  <span>Siguiente Vestido</span>
-                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                </button>
-              </div>
+
 
             </div>
 
