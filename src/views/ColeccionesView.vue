@@ -1,13 +1,61 @@
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { DRESSES_DATA } from '../data/dresses'
 import DressCard from '../components/DressCard.vue'
 
 const activeFilter = ref('all')
+const backofficeCollection = ref(null)
+const dresses = ref([])
+
+/**
+ * ==========================================================================
+ * BLOQUE DE RECUPERACIÓN DE BACKOFFICE (PROTOTIPO)
+ * ==========================================================================
+ * Simula la obtención de datos de una colección desde el backoffice del atelier
+ * sin llamada web HTTP real por tratarse de un prototipo.
+ */
+function fetchBackofficeCollection() {
+  return {
+    id: "capsula-seda-niebla",
+    name: "Colección Cápsula: Seda & Bruma",
+    collectionNumber: "03 / Backoffice",
+    seasonTag: "Edición Limitada 2026",
+    badge: "Sincronizado desde Backoffice",
+    description: "Propuesta exclusiva gestionada directamente desde el backoffice del atelier. Caracterizada por la sutileza de gasas de seda translúcidas superpuestas y una contra parte geométrica que enmarca la espalda en líneas puras y etéreas.",
+    imageUrl: "https://images.unsplash.com/photo-1546804784-896d0dca3805?auto=format&fit=crop&w=1200&q=85",
+    imageAlt: "Colección Cápsula Seda y Bruma - María Diezma Atelier",
+    ctaText: "Solicitar cita para esta colección",
+    ctaUrl: "/cita?coleccion=seda-bruma"
+  }
+}
+
+/**
+ * ==========================================================================
+ * RECUPERACIÓN DE DISEÑOS DESDE BACKOFFICE (PROTOTIPO)
+ * ==========================================================================
+ * Simula la respuesta del backoffice con los diseños de vestidos.
+ * Retorna: id, name, collection, collectionName e imageUrl.
+ */
+function fetchBackofficeDresses() {
+  return DRESSES_DATA.map(d => ({
+    id: d.id,
+    name: d.name,
+    collection: d.collection,
+    collectionName: d.collectionName || (d.collection === 'siluetas' ? 'Colección Siluetas Puras' : 'Colección Botánica & Bordados'),
+    imageUrl: d.images?.front
+  }))
+}
+
+onMounted(() => {
+  // Recuperar información de la colección destacada desde el backoffice (prototipo)
+  backofficeCollection.value = fetchBackofficeCollection()
+  // Recuperar los diseños de vestidos desde el backoffice (prototipo)
+  dresses.value = fetchBackofficeDresses()
+})
 
 const filteredDresses = computed(() => {
-  if (activeFilter.value === 'all') return DRESSES_DATA
-  return DRESSES_DATA.filter(d => d.collection === activeFilter.value)
+  if (activeFilter.value === 'all') return dresses.value
+  return dresses.value.filter(d => d.collection === activeFilter.value)
 })
 
 function setFilter(category) {
@@ -28,6 +76,54 @@ function setFilter(category) {
       </div>
     </section>
 
+    <!-- BLOQUE DINÁMICO: INFORMACIÓN RECUPERADA DEL BACKOFFICE (PROTOTIPO) -->
+    <section v-if="backofficeCollection" class="backoffice-section" data-od-id="section-backoffice-collection">
+      <div class="container">
+        <article class="backoffice-card">
+          
+          <!-- LADO 1: IMAGEN DE LA COLECCIÓN -->
+          <div class="backoffice-visual">
+            <img 
+              :src="backofficeCollection.imageUrl" 
+              :alt="backofficeCollection.imageAlt"
+              class="backoffice-img"
+              loading="lazy"
+            >
+            <div class="backoffice-badge-overlay">
+              {{ backofficeCollection.badge }}
+            </div>
+          </div>
+
+          <!-- LADO 2: NOMBRE, DESCRIPCIÓN Y ESPECIFICACIONES -->
+          <div class="backoffice-content">
+            <div>
+              <div class="backoffice-meta">
+                <span class="backoffice-number">{{ backofficeCollection.collectionNumber }}</span>
+                <span class="backoffice-season">{{ backofficeCollection.seasonTag }}</span>
+              </div>
+
+              <h2 class="backoffice-title">{{ backofficeCollection.name }}</h2>
+
+              <p class="backoffice-desc">
+                {{ backofficeCollection.description }}
+              </p>
+            </div>
+
+            <!-- ACCIONES -->
+            <div class="backoffice-actions">
+              <router-link :to="backofficeCollection.ctaUrl" class="btn-backoffice-cta">
+                {{ backofficeCollection.ctaText }}
+              </router-link>
+              <span class="backoffice-notice">
+                ✦ Registro recuperado del Backoffice (Prototipo)
+              </span>
+            </div>
+          </div>
+
+        </article>
+      </div>
+    </section>
+
     <!-- BARRA DE FILTROS & CATÁLOGO -->
     <section class="catalog-section">
       <div class="container">
@@ -39,7 +135,7 @@ function setFilter(category) {
               :class="{ 'active': activeFilter === 'all' }"
               @click="setFilter('all')"
             >
-              Todos los Diseños ({{ DRESSES_DATA.length }})
+              Todos los Diseños ({{ dresses.length }})
             </button>
             <button 
               type="button" 
@@ -123,6 +219,181 @@ function setFilter(category) {
   margin: 0 auto;
 }
 
+/* ==========================================================================
+   ESTILOS DEL BLOQUE BACKOFFICE (LADO IMAGEN / LADO NOMBRE Y DESCRIPCIÓN)
+   ========================================================================== */
+.backoffice-section {
+  padding: 3.5rem 0 1rem;
+  background-color: var(--bg);
+}
+
+.backoffice-card {
+  background-color: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  box-shadow: 0 8px 26px rgba(0, 0, 0, 0.04);
+  transition: border-color var(--transition-base), box-shadow var(--transition-base);
+}
+
+.backoffice-card:hover {
+  border-color: #c9bfb6;
+  box-shadow: 0 12px 34px rgba(44, 37, 35, 0.08);
+}
+
+/* LADO 1: IMAGEN */
+.backoffice-visual {
+  position: relative;
+  min-height: 520px;
+  background-color: #f0ebe5;
+  overflow: hidden;
+}
+
+.backoffice-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.backoffice-card:hover .backoffice-img {
+  transform: scale(1.03);
+}
+
+.backoffice-badge-overlay {
+  position: absolute;
+  top: 1.5rem;
+  left: 1.5rem;
+  background: rgba(255, 255, 255, 0.94);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid var(--border);
+  padding: 0.4rem 1rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+  border-radius: 2px;
+}
+
+/* LADO 2: NOMBRE, DESCRIPCIÓN Y ESPECIFICACIONES */
+.backoffice-content {
+  padding: 3.5rem 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-left: 1px solid var(--border);
+}
+
+.backoffice-meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.25rem;
+  padding-bottom: 0.85rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.backoffice-number {
+  font-size: 0.76rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.backoffice-season {
+  font-size: 0.74rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+}
+
+.backoffice-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.8rem, 2.8vw, 2.5rem);
+  font-weight: 400;
+  line-height: 1.25;
+  color: var(--fg);
+  margin-bottom: 1.25rem;
+}
+
+.backoffice-desc {
+  font-size: 0.98rem;
+  line-height: 1.8;
+  color: var(--muted);
+  margin-bottom: 2rem;
+}
+
+.backoffice-specs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.25rem;
+  padding: 1.5rem 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 2.25rem;
+}
+
+.spec-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.spec-label {
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--muted);
+  font-weight: 600;
+}
+
+.spec-value {
+  font-size: 0.88rem;
+  color: var(--fg);
+}
+
+.backoffice-actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.btn-backoffice-cta {
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--fg);
+  color: #ffffff;
+  padding: 0.85rem 1.8rem;
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 500;
+  border-radius: 2px;
+  transition: var(--transition-base);
+}
+
+.btn-backoffice-cta:hover {
+  background-color: var(--accent);
+  color: #ffffff;
+}
+
+.backoffice-notice {
+  font-size: 0.75rem;
+  color: var(--muted);
+  font-family: monospace;
+}
+
+/* ==========================================================================
+   CATÁLOGO GENERAL & GRID
+   ========================================================================== */
 .catalog-section {
   padding: 4rem 0 6rem;
   background-color: var(--bg);
@@ -262,10 +533,20 @@ function setFilter(category) {
 }
 
 @media (max-width: 868px) {
+  .backoffice-card {
+    grid-template-columns: 1fr;
+  }
+  .backoffice-content {
+    padding: 2.5rem 1.75rem;
+    border-left: none;
+    border-top: 1px solid var(--border);
+  }
+  .backoffice-visual {
+    min-height: 380px;
+  }
   .dresses-grid {
     grid-template-columns: repeat(2, 1fr);
   }
-
   .collections-cta-box {
     flex-direction: column;
     align-items: flex-start;
@@ -274,6 +555,9 @@ function setFilter(category) {
 }
 
 @media (max-width: 550px) {
+  .backoffice-specs {
+    grid-template-columns: 1fr;
+  }
   .dresses-grid {
     grid-template-columns: 1fr;
   }

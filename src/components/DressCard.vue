@@ -1,25 +1,38 @@
 <script setup>
-defineProps({
+import { computed } from 'vue'
+
+const props = defineProps({
   dress: {
     type: Object,
     required: true
   }
 })
+
+const dressImage = computed(() => {
+  return props.dress.imageUrl || props.dress.images?.front || ''
+})
+
+const dressCollection = computed(() => {
+  return props.dress.collectionName || (props.dress.collection === 'siluetas' ? 'Colección Siluetas Puras' : 'Colección Botánica & Bordados')
+})
 </script>
 
 <template>
-  <router-link :to="`/vestido/${dress.id}`" class="dress-card-anchor" :title="`Ver detalles de ${dress.name}`">
-    <article class="dress-card">
+  <router-link 
+    :to="`/vestido/${dress.id}`" 
+    class="dress-card-anchor" 
+    :title="`Ver detalles de ${dress.name}`"
+    :data-dress-id="dress.id"
+  >
+    <article class="dress-card" :data-id="dress.id">
+      <!-- 1. IMAGEN -->
       <div class="dress-card-media">
         <img 
-          :src="dress.images.front" 
+          :src="dressImage" 
           :alt="`${dress.name} - Vista Principal`" 
           class="dress-card-img" 
           loading="lazy"
         >
-        <span class="dress-card-tag">
-          {{ dress.collection === 'siluetas' ? 'Siluetas Puras' : 'Botánica' }}
-        </span>
         <span class="dress-card-badge">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
@@ -29,12 +42,16 @@ defineProps({
           Ver Ficha
         </span>
       </div>
+
+      <!-- 2. COLECCIÓN Y 3. NOMBRE DEL VESTIDO (GUARDANDO EL ID) -->
       <div class="dress-card-body">
-        <div class="dress-ref">{{ dress.ref }}</div>
+        <span class="dress-card-collection">
+          {{ dressCollection }}
+        </span>
         <h3 class="dress-card-name">{{ dress.name }}</h3>
-        <p class="dress-card-meta">{{ dress.fabric }}</p>
+        
         <div class="dress-card-action">
-          <span>Ver imagen y contra parte</span>
+          <span>Ver detalles</span>
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <line x1="5" y1="12" x2="19" y2="12"></line>
             <polyline points="12 5 19 12 12 19"></polyline>
@@ -88,21 +105,6 @@ defineProps({
   transform: scale(1.04);
 }
 
-.dress-card-tag {
-  position: absolute;
-  top: 1rem;
-  left: 1rem;
-  background: rgba(255, 255, 255, 0.92);
-  backdrop-filter: blur(8px);
-  font-size: 0.72rem;
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  padding: 0.35rem 0.75rem;
-  border-radius: 2px;
-  color: var(--fg);
-  font-weight: 500;
-}
-
 .dress-card-badge {
   position: absolute;
   bottom: 1rem;
@@ -134,7 +136,8 @@ defineProps({
   flex-grow: 1;
 }
 
-.dress-ref {
+.dress-card-collection {
+  font-family: var(--font-mono);
   font-size: 0.72rem;
   letter-spacing: 0.12em;
   color: var(--accent);
@@ -145,21 +148,10 @@ defineProps({
 
 .dress-card-name {
   font-family: var(--font-display);
-  font-size: 1.2rem;
+  font-size: 1.25rem;
   font-weight: 400;
   color: var(--fg);
-  margin-bottom: 0.4rem;
-}
-
-.dress-card-meta {
-  font-size: 0.82rem;
-  color: var(--muted);
-  line-height: 1.45;
-  margin-bottom: 1rem;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  margin-bottom: 0.75rem;
   flex-grow: 1;
 }
 
