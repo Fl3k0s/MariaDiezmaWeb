@@ -507,6 +507,227 @@
       gap: 10px;
     }
 
+    /* ─── CONTROLES Y FILTROS DEL CATÁLOGO ─── */
+    .controls-panel {
+      max-width: 1320px;
+      margin: 80px auto 0;
+      padding: 0 0 2rem 0;
+    }
+
+    .controls-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      padding: 1.25rem 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: center;
+      gap: 1.25rem;
+      border-radius: var(--radius-sm);
+    }
+
+    .filter-group {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-label {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+      margin-right: 0.5rem;
+    }
+
+    .filter-btn {
+      padding: 0.5rem 1rem;
+      border: 1px solid var(--border);
+      background: var(--bg);
+      font-size: 0.875rem;
+      color: var(--fg);
+      border-radius: var(--radius-sm);
+      transition: all var(--transition-fast);
+      cursor: pointer;
+    }
+
+    .filter-btn:hover {
+      border-color: var(--fg);
+    }
+
+    .filter-btn.active {
+      background: var(--fg);
+      color: #fff;
+      border-color: var(--fg);
+    }
+
+    .view-toggles {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .tab-instruction-badge {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--accent);
+      background: oklch(52% 0.10 28 / 0.08);
+      padding: 0.35rem 0.75rem;
+      border-radius: var(--radius-sm);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    /* ─── RETÍCULA DE 4 COLUMNAS DEL CATÁLOGO ─── */
+    .catalog-section {
+      max-width: 1320px;
+      margin: 0 auto;
+      padding: 0 0 40px 0;
+    }
+
+    .section-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.75rem;
+      margin-bottom: 2rem;
+    }
+
+    .section-headline {
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 400;
+    }
+
+    .count-indicator {
+      font-family: var(--font-mono);
+      font-size: 0.8125rem;
+      color: var(--muted);
+    }
+
+    .dresses-grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2rem 1.5rem;
+    }
+
+    .dress-card-anchor {
+      text-decoration: none;
+      color: inherit;
+      display: block;
+    }
+
+    .dress-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+      cursor: pointer;
+      position: relative;
+      border-radius: var(--radius-sm);
+    }
+
+    .dress-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--fg);
+      box-shadow: 0 12px 24px -10px oklch(20% 0.018 70 / 0.12);
+    }
+
+    .dress-card-media {
+      position: relative;
+      aspect-ratio: 3 / 4;
+      overflow: hidden;
+      background: oklch(95% 0.005 95);
+    }
+
+    .dress-card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .dress-card:hover .dress-card-img {
+      transform: scale(1.05);
+    }
+
+    .dress-card-tag {
+      position: absolute;
+      top: 0.75rem;
+      left: 0.75rem;
+      background: var(--surface);
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      padding: 0.3rem 0.6rem;
+      border: 1px solid var(--border);
+      color: var(--fg);
+    }
+
+    .dress-card-tab-badge {
+      position: absolute;
+      bottom: 0.75rem;
+      right: 0.75rem;
+      background: oklch(20% 0.018 70 / 0.85);
+      backdrop-filter: blur(4px);
+      color: #fff;
+      font-family: var(--font-mono);
+      font-size: 0.6875rem;
+      padding: 0.35rem 0.7rem;
+      border-radius: 2px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+      opacity: 0;
+      transform: translateY(4px);
+      transition: all 0.2s ease;
+    }
+
+    .dress-card:hover .dress-card-tab-badge {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .dress-card-body {
+      padding: 1.25rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+      flex-grow: 1;
+      border-top: 1px solid var(--border);
+    }
+
+    .dress-card-name {
+      font-family: var(--font-display);
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: var(--fg);
+      line-height: 1.2;
+    }
+
+    .dress-card-meta {
+      font-size: 0.8125rem;
+      color: var(--muted);
+      line-height: 1.4;
+    }
+
+    .dress-card-action {
+      margin-top: auto;
+      padding-top: 0.75rem;
+      font-size: 0.8125rem;
+      color: var(--accent);
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
     /* SECCIÓN INFERIOR ATELIER / PROCESO A MEDIDA */
     .custom-couture-banner {
       margin-top: 100px;
@@ -551,83 +772,79 @@
       text-align: right;
     }
 
-    /* PIE DE PÁGINA */
+    /* ─── PIE DE PÁGINA ─── */
     .site-footer {
-      background-color: var(--surface);
+      background: var(--surface);
       border-top: 1px solid var(--border);
-      padding: 80px 32px 40px 32px;
+      padding: 4.5rem 0 2.5rem;
     }
 
-    .footer-container {
-      max-width: 1320px;
-      margin: 0 auto;
+    .footer-grid {
       display: grid;
-      grid-template-columns: 2fr 1fr 1fr 1.5fr;
-      gap: 48px;
-      margin-bottom: 60px;
-    }
-
-    .footer-brand h4 {
-      font-family: var(--font-display);
-      font-size: 1.4rem;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      margin-bottom: 14px;
+      grid-template-columns: 1.5fr 1fr 1fr 1.2fr;
+      gap: 3.5rem;
+      margin-bottom: 3.5rem;
     }
 
     .footer-brand p {
-      font-size: 0.92rem;
-      color: var(--muted);
+      font-size: 0.9rem;
+      color: var(--fg-muted);
+      margin-top: 1rem;
       line-height: 1.7;
-      max-width: 340px;
-      margin-bottom: 20px;
     }
 
-    .footer-col h5 {
+    .footer-col-title {
       font-family: var(--font-mono);
-      font-size: 0.76rem;
-      letter-spacing: 0.18em;
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
-      color: var(--accent);
-      margin-bottom: 20px;
+      color: var(--fg);
+      margin-bottom: 1.2rem;
     }
 
-    .footer-col ul {
+    .footer-links {
       list-style: none;
       display: flex;
       flex-direction: column;
-      gap: 10px;
+      gap: 0.75rem;
     }
 
-    .footer-col a {
+    .footer-links a {
       font-size: 0.88rem;
-      color: var(--muted);
-      transition: color var(--transition-fast);
+      color: var(--fg-muted);
+      transition: var(--transition);
     }
 
-    .footer-col a:hover {
+    .footer-links a:hover {
+      color: var(--accent);
+      padding-left: 0.25rem;
+    }
+
+    .footer-contact-info {
+      font-size: 0.88rem;
+      color: var(--fg-muted);
+      line-height: 1.7;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+    }
+
+    .footer-contact-info strong {
       color: var(--fg);
     }
 
-    .atelier-address-list {
-      font-size: 0.88rem;
-      color: var(--muted);
-      line-height: 1.7;
-    }
-
     .footer-bottom {
-      max-width: 1320px;
-      margin: 0 auto;
-      padding-top: 32px;
       border-top: 1px solid var(--border-subtle);
+      padding-top: 2rem;
       display: flex;
-      align-items: center;
       justify-content: space-between;
+      align-items: center;
       font-family: var(--font-mono);
-      font-size: 0.74rem;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-      color: var(--muted);
+      font-size: 0.72rem;
+      color: var(--fg-muted);
+      flex-wrap: wrap;
+      gap: 1rem;
     }
 
     /* MODAL DE CITA PREVIA */
@@ -818,6 +1035,9 @@
       .collection-visual {
         min-height: 460px;
       }
+      .dresses-grid-4 {
+        grid-template-columns: repeat(2, 1fr);
+      }
       .custom-couture-banner {
         grid-template-columns: 1fr;
         padding: 40px 32px;
@@ -829,15 +1049,19 @@
       .atelier-address-tag {
         text-align: left;
       }
-      .footer-container {
+      .footer-grid {
         grid-template-columns: 1fr 1fr;
+        gap: 2.5rem;
       }
     }
 
     @media (max-width: 768px) {
-      .top-announcement {
-        font-size: 0.68rem;
-        padding: 6px 12px;
+      .dresses-grid-4 {
+        grid-template-columns: 1fr;
+      }
+      .controls-card {
+        flex-direction: column;
+        align-items: stretch;
       }
       .nav-menu {
         display: none;
@@ -872,9 +1096,9 @@
         grid-template-columns: 1fr;
         gap: 0;
       }
-      .footer-container {
+      .footer-grid {
         grid-template-columns: 1fr;
-        gap: 36px;
+        gap: 2rem;
       }
       .footer-bottom {
         flex-direction: column;

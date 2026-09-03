@@ -206,6 +206,38 @@
 
     </div>
 
+    <!-- SECCIÓN CATÁLOGO COMPLETO DE VESTIDOS -->
+    <div class="controls-panel" data-od-id="section-filter-controls">
+      <div class="controls-card">
+        <div class="filter-group">
+          <span class="filter-label">Colección:</span>
+          <button class="filter-btn active" data-filter="all" onclick="filterDresses('all', this)">Todas las Colecciones (12)</button>
+          <button class="filter-btn" data-filter="siluetas" onclick="filterDresses('siluetas', this)">Siluetas Puras (6)</button>
+          <button class="filter-btn" data-filter="botanica" onclick="filterDresses('botanica', this)">Botánica & Bordados (6)</button>
+        </div>
+
+        <div class="view-toggles">
+          <span class="tab-instruction-badge">
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+            Haz clic en cualquier vestido para abrir su ficha en nueva ventana
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CUADRÍCULA DE 4 COLUMNAS DE VESTIDOS -->
+    <section class="catalog-section" data-od-id="section-catalog-grid">
+      <div class="section-header-row">
+        <h2 class="section-headline">Todos los Vestidos de las Colecciones</h2>
+        <span class="count-indicator" id="catalog-count-label">Mostrando 12 vestidos</span>
+      </div>
+
+      <!-- 4-COLUMN RETICULA -->
+      <div class="dresses-grid-4" id="dresses-grid" data-od-id="grid-4-columns">
+        <!-- Rendered dynamically from DRESSES_DATA -->
+      </div>
+    </section>
+
     <!-- BANNER DE CONFECCIÓN EXCLUSIVA Y CITA -->
     <section class="custom-couture-banner" data-od-id="section-custom-banner">
       <div class="banner-content">
@@ -225,56 +257,56 @@
 
   </main>
 
-  <!-- PIE DE PÁGINA -->
-  <footer class="site-footer" data-od-id="site-footer">
-    <div class="footer-container">
-      <div class="footer-brand">
-        <img src="../assets/images/logo-maria-diezma.png" alt="MARÍA DIEZMA" style="height: 36px; width: auto; object-fit: contain; margin-bottom: 1.25rem; display: block;">
-        <p>
-          Atelier de alta costura nupcial en el corazón de Madrid. Vestidos de novia hechos a medida mediante procesos artesanales y dedicación exclusiva.
-        </p>
-        <div style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase;">
-          Atelier de autor · C/ de Goya, 69, Madrid
+  <!-- ─── PIE DE PÁGINA ─── -->
+  <footer class="site-footer" data-od-id="footer-main">
+    <div class="container">
+      <div class="footer-grid">
+        
+        <div class="footer-brand">
+          <img src="../assets/images/logo-maria-diezma.png" alt="María Diezma Atelier" style="height: 36px; width: auto; object-fit: contain; margin-bottom: 1.25rem; display: block;">
+          <p>
+            Atelier dedicado en exclusiva al diseño y confección artesanal de vestidos de novia a medida. Sastrería lenta y siluetas atemporales.
+          </p>
         </div>
-      </div>
 
-      <div class="footer-col">
-        <h5>Navegación</h5>
-        <ul>
-          <li><a href="../index.html">Inicio</a></li>
-          <li><a href="conoceme.html">Conóceme</a></li>
-          <li><a href="colecciones.html" style="color: var(--fg); font-weight: 500;">Colecciones</a></li>
-          <li><a href="proceso.html">Nuestro Proceso</a></li>
-          <li><a href="cita.html">Pedir Cita</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <h5>Colecciones</h5>
-        <ul>
-          <li><a href="#collection-block-siluetas-puras">01 Siluetas Puras</a></li>
-          <li><a href="#collection-block-botanica-bordados">02 Botánica & Bordados</a></li>
-          <li><a href="#custom-couture-banner">Diseño a Medida</a></li>
-          <li><a href="conoceme.html">El Atelier</a></li>
-        </ul>
-      </div>
-
-      <div class="footer-col">
-        <h5>Contacto & Citas</h5>
-        <div class="atelier-address-list">
-          <p style="color: var(--fg); font-weight: 500; margin-bottom: 4px;">Atelier María Diezma</p>
-          <p>Calle de Goya, 69, 1º Dcha</p>
-          <p>28001 Madrid (Barrio de Salamanca)</p>
-          <p style="margin-top: 10px;">Metro: Goya (L2, L4) / Velázquez (L4)</p>
-          <p style="margin-top: 10px; color: var(--accent);">+34 912 345 678</p>
-          <p>citas@mariadiezma.com</p>
+        <div>
+          <h4 class="footer-col-title">Navegación</h4>
+          <ul class="footer-links">
+            <li><a href="../index.html">Inicio</a></li>
+            <li><a href="conoceme.html">Conóceme</a></li>
+            <li><a href="colecciones.html">Colecciones</a></li>
+            <li><a href="proceso.html">Nuestro Proceso</a></li>
+            <li><a href="cita.html">Pedir Cita</a></li>
+          </ul>
         </div>
-      </div>
-    </div>
 
-    <div class="footer-bottom">
-      <div>&copy; 2026 María Diezma Atelier. Todos los derechos reservados.</div>
-      <div>Alta Costura Nupcial a Medida · Madrid</div>
+        <div>
+          <h4 class="footer-col-title">Atelier</h4>
+          <div class="footer-contact-info">
+            <p><strong>Dirección:</strong><br>C/ de Goya, 69<br>28001 Madrid</p>
+            <p><strong>Cita previa:</strong><br>Mar – Sáb: 10:00 – 19:30</p>
+          </div>
+        </div>
+
+        <div>
+          <h4 class="footer-col-title">Contacto</h4>
+          <div class="footer-contact-info">
+            <p><strong>Teléfono:</strong> <a href="tel:+34629675583" style="color: inherit;">+34 629 675 583</a></p>
+            <p><strong>Email:</strong> <a href="mailto:mariadiezmanovias@yahoo.es" style="color: inherit;">mariadiezmanovias@yahoo.es</a></p>
+            <p style="margin-top: 0.5rem;">
+              <a href="https://maps.google.com/?q=Calle+de+Goya+69+Madrid" target="_blank" rel="noopener noreferrer" style="color: var(--accent); text-decoration: underline;">
+                Ver en Google Maps →
+              </a>
+            </p>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="footer-bottom">
+        <div>© 2025 María Diezma Atelier. Todos los derechos reservados.</div>
+        <div>Hecho a mano en Madrid · Alta Costura Nupcial</div>
+      </div>
     </div>
   </footer>
 
@@ -349,6 +381,7 @@
   </div>
 
   <!-- SCRIPT DE CONTROL E INTERACTIVIDAD -->
+  <script src="../assets/js/dresses-data.js"></script>
   <script src="../assets/js/colecciones.js"></script>
 </body>
 </html>
