@@ -1,31 +1,7 @@
 // Endpoint de la API de prensa
 const API_PRENSA_URL = 'http://localhost:8080/api/v1/prensa';
 
-// Datos de respaldo en caso de que el backend local no esté activo durante pruebas
-const FALLBACK_ARTICLES = [
-  {
-    id: "50000000-0000-0000-0000-000000000002",
-    nombre_revista: "Lucia Se Casa",
-    fecha_publicacion: "Septiembre 2021",
-    titular: "La sencillez y el corte clásico son signos de elegancia",
-    descripcion: "La diseñadora María Diezma lleva la costura en sus genes. Heredera de las técnicas de su madre y de su abuela, manejaba las agujas desde muy temprana edad, y ya en su niñez disfrutaba bordando con bastidor, hilvanando o rematando sus diseños.",
-    pequena_descripcion: "La diseñadora María Diezma lleva la costura en sus genes. Heredera de las técnicas de su madre y de su abuela, manejaba las agujas desde muy temprana edad, y ya en su niñez disfrutaba bordando con bastidor, hilvanando o rematando sus diseños.",
-    enlace_articulo: "https://luciasecasa.com/novia/vestidos-de-novia/protagonistas-maria-diezma-la-sencillez-y-el-corte-clasico-son-signos-de-elegancia/",
-    enlace: "https://luciasecasa.com/novia/vestidos-de-novia/protagonistas-maria-diezma-la-sencillez-y-el-corte-clasico-son-signos-de-elegancia/"
-  },
-  {
-    id: "50000000-0000-0000-0000-000000000001",
-    nombre_revista: "El Español",
-    fecha_publicacion: "Marzo 2026",
-    titular: "Arranca en Albacete \"CLM es Moda\" con los desfiles de Félix Ramiro",
-    descripcion: "Este lunes ha tenido lugar la inauguración oficial de la III edición de CLM es Moda en la Fábrica de Harinas de Albacete de la exposición \"Materia y Moda. De los oficios artesanos a la moda contemporánea\", una muestra que pone en diálogo la tradición artesanal y la creación contemporánea, acercando al público el valor de los oficios y su influencia en el diseño actual.",
-    pequena_descripcion: "Este lunes ha tenido lugar la inauguración oficial de la III edición de CLM es Moda en la Fábrica de Harinas de Albacete de la exposición \"Materia y Moda. De los oficios artesanos a la moda contemporánea\", una muestra que pone en diálogo la tradición artesanal y la creación contemporánea, acercando al público el valor de los oficios y su influencia en el diseño actual.",
-    enlace_articulo: "https://www.elespanol.com/eldigitalcastillalamancha/region/albacete/20260525/arranca-albacete-clm-moda-desfiles-felix-ramiro-raquel-lopez-carmen-alba-maria-diezma/1003744259085_0.html",
-    enlace: "https://www.elespanol.com/eldigitalcastillalamancha/region/albacete/20260525/arranca-albacete-clm-moda-desfiles-felix-ramiro-raquel-lopez-carmen-alba-maria-diezma/1003744259085_0.html"
-  }
-];
-
-// Estado global de artículos cargados
+// Estado global de artículos cargados (exclusivamente desde la API)
 let articlesData = [];
 
 // Utilidad para escapar texto HTML
@@ -148,7 +124,7 @@ function sortArticlesByDateDesc(list) {
 }
 
 /**
- * Renderiza el listado dinámico de artículos
+ * Renderiza el listado dinámico de artículos obtenidos de la API
  * @param {Array} list - Lista de artículos
  */
 function renderArticles(list) {
@@ -164,13 +140,13 @@ function renderArticles(list) {
     return;
   }
 
-  // Generación dinámica de la plantilla según el número de elementos del array
+  // Generación dinámica de la plantilla según los elementos obtenidos exclusivamente del API
   const html = list.map((art, idx) => articleTemplate(art, idx)).join('');
   container.innerHTML = html;
 }
 
 /**
- * Realiza la petición GET a la API y renderiza los datos ordenados
+ * Realiza la petición GET a la API y renderiza exclusivamente los datos devueltos
  */
 async function fetchPrensaArticles() {
   const container = document.getElementById('articlesContainer');
@@ -190,21 +166,21 @@ async function fetchPrensaArticles() {
 
     const payload = await response.json();
 
-    if (payload && payload.success && Array.isArray(payload.data) && payload.data.length > 0) {
+    if (payload && payload.success && Array.isArray(payload.data)) {
       articlesData = sortArticlesByDateDesc(payload.data);
       renderArticles(articlesData);
       return;
     }
 
-    throw new Error('Formato de respuesta no válido o lista vacía');
+    throw new Error('Formato de respuesta no válido');
   } catch (err) {
-    console.warn('[Prensa API] No se pudo obtener datos de ' + API_PRENSA_URL + ', usando datos de respaldo:', err);
-    articlesData = sortArticlesByDateDesc(FALLBACK_ARTICLES);
-    renderArticles(articlesData);
+    console.error('[Prensa API] No se pudo recuperar los artículos de ' + API_PRENSA_URL + ':', err);
+    articlesData = [];
+    renderArticles([]);
   }
 }
 
-// Modal de lectura de artículo
+// Modal de lectura de artículo (si se requiere uso programático)
 function openArticleModal(index) {
   const data = articlesData[index];
   if (!data) return;
@@ -222,7 +198,7 @@ function openArticleModal(index) {
   const bodyElem = document.getElementById('modalBody');
 
   if (outletElem) outletElem.textContent = revista;
-  if (titleElem) titleElem.textContent = `«${titular}»`;
+  if (titleElem) titleElem.textContent = titular ? `«${titular}»` : '';
   if (dateElem) dateElem.textContent = fecha;
   if (authorElem) authorElem.textContent = 'Publicación Oficial';
 

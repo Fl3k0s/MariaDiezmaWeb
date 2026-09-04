@@ -25,9 +25,24 @@
 
     let currentTypeIndex = 0;
     let selectedTime = '10:00 - 11:30';
-    let selectedDate = new Date(2026, 8, 10); // 10 Septiembre 2026 por defecto
-    let currentMonth = 8; // Septiembre (0-indexed)
-    let currentYear = 2026;
+
+    // Fecha actual a medianoche (para deshabilitar el día de hoy y días pasados)
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    // Obtener la primera fecha válida seleccionable (a partir de mañana, excluyendo domingos)
+    function getFirstAvailableDate() {
+      const d = new Date(today);
+      d.setDate(d.getDate() + 1); // Como mínimo mañana
+      while (d.getDay() === 0) { // Si es domingo, pasar al lunes
+        d.setDate(d.getDate() + 1);
+      }
+      return d;
+    }
+
+    let selectedDate = getFirstAvailableDate();
+    let currentMonth = selectedDate.getMonth();
+    let currentYear = selectedDate.getFullYear();
 
     const MONTH_NAMES = [
       'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
@@ -39,6 +54,7 @@
     // INICIALIZACIÓN
     document.addEventListener('DOMContentLoaded', () => {
       renderCalendar();
+      updateTimeSlotsAvailability();
       updateSummary();
     });
 
@@ -91,6 +107,9 @@
 
     // GESTIÓN DE TRAMOS HORARIOS (4 TRAMOS)
     function selectTimeSlot(slotString, btnElement) {
+      if (btnElement && (btnElement.disabled || btnElement.classList.contains('disabled'))) {
+        return;
+      }
       selectedTime = slotString;
       
       // Quitar clase selected a los demás
@@ -105,6 +124,56 @@
       updateSummary();
     }
 
+    // DISPONIBILIDAD DE TRAMOS HORARIOS SEGÚN EL DÍA (SÁBADOS SOLO MAÑANAS)
+    function updateTimeSlotsAvailability() {
+      if (!selectedDate) return;
+      const isSaturday = selectedDate.getDay() === 6;
+      const afternoonSlotIds = ['slot-3', 'slot-4'];
+
+      afternoonSlotIds.forEach(id => {
+        const btn = document.getElementById(id);
+        if (!btn) return;
+        const tag = btn.querySelector('.slot-tag');
+
+        if (isSaturday) {
+          btn.disabled = true;
+          btn.classList.add('disabled');
+          btn.setAttribute('aria-disabled', 'true');
+          if (tag) {
+            tag.textContent = 'No disponible';
+            tag.classList.add('tag-disabled');
+          }
+          btn.title = 'Los sábados solo abrimos en horario de mañana';
+        } else {
+          btn.disabled = false;
+          btn.classList.remove('disabled');
+          btn.removeAttribute('aria-disabled');
+          if (tag) {
+            tag.textContent = 'Disponible';
+            tag.classList.remove('tag-disabled');
+          }
+          btn.removeAttribute('title');
+        }
+      });
+
+      // Mostrar/ocultar aviso informativo para los sábados
+      const saturdayNotice = document.getElementById('saturday-notice');
+      if (saturdayNotice) {
+        saturdayNotice.style.display = isSaturday ? 'block' : 'none';
+      }
+
+      // Si es sábado y el turno actual es de tarde, cambiar al primer turno de mañana
+      if (isSaturday && (selectedTime === '17:00 - 18:30' || selectedTime === '18:30 - 20:00')) {
+        const morningSlotBtn = document.getElementById('slot-1');
+        if (morningSlotBtn) {
+          selectTimeSlot('10:00 - 11:30', morningSlotBtn);
+        } else {
+          selectedTime = '10:00 - 11:30';
+          updateSummary();
+        }
+      }
+    }
+
     // CALENDARIO MENSUAL
     function renderCalendar() {
       const label = document.getElementById('calendar-month-label');
@@ -113,6 +182,27 @@
 
       label.textContent = `${MONTH_NAMES[currentMonth]} ${currentYear}`;
       grid.innerHTML = '';
+
+      // Actualizar estado interactivo del botón de mes anterior
+      const prevBtn = document.getElementById('prev-month-btn');
+      if (prevBtn) {
+        const isCurrentOrPastMonth = (currentYear < today.getFullYear()) ||
+          (currentYear === today.getFullYear() && currentMonth <= today.getMonth());
+        prevBtn.disabled = isCurrentOrPastMonth;
+        prevBtn.style.opacity = isCurrentOrPastMonth ? '0.35' : '1';
+        prevBtn.style.cursor = isCurrentOrPastMonth ? 'not-allowed' : 'pointer';
+      }
+
+      // Actualizar estado interactivo del botón de mes siguiente (máximo 1 mes desde el actual)
+      const nextBtn = document.getElementById('next-month-btn');
+      if (nextBtn) {
+        const maxAllowedMonthDate = new Date(today.getFullYear(), today.getMonth() + 1, 1);
+        const isMaxMonth = (currentYear > maxAllowedMonthDate.getFullYear()) ||
+          (currentYear === maxAllowedMonthDate.getFullYear() && currentMonth >= maxAllowedMonthDate.getMonth());
+        nextBtn.disabled = isMaxMonth;
+        nextBtn.style.opacity = isMaxMonth ? '0.35' : '1';
+        nextBtn.style.cursor = isMaxMonth ? 'not-allowed' : 'pointer';
+      }
 
       const firstDayOfMonth = new Date(currentYear, currentMonth, 1);
       const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
@@ -132,24 +222,38 @@
       // Días del mes
       for (let day = 1; day <= daysInMonth; day++) {
         const dateObj = new Date(currentYear, currentMonth, day);
+        dateObj.setHours(0, 0, 0, 0);
+
         const dayOfWeek = dateObj.getDay(); // 0 = Domingo
         const isSunday = dayOfWeek === 0;
+        const isToday = dateObj.getTime() === today.getTime();
+        const isPastOrToday = dateObj.getTime() <= today.getTime();
 
         const dayBtn = document.createElement('button');
         dayBtn.type = 'button';
         dayBtn.className = 'calendar-day';
         dayBtn.textContent = day;
 
+        if (isToday) {
+          dayBtn.classList.add('today');
+        }
+
         const isSelected = selectedDate && 
                            selectedDate.getDate() === day && 
                            selectedDate.getMonth() === currentMonth && 
                            selectedDate.getFullYear() === currentYear;
 
-        if (isSelected) {
+        if (isSelected && !isPastOrToday && !isSunday) {
           dayBtn.classList.add('selected');
         }
 
-        if (isSunday) {
+        if (isPastOrToday) {
+          dayBtn.classList.add('disabled', 'past-day');
+          dayBtn.disabled = true;
+          dayBtn.title = isToday
+            ? 'No es posible solicitar cita para el día actual'
+            : 'Fecha pasada no disponible';
+        } else if (isSunday) {
           dayBtn.classList.add('sunday');
           dayBtn.disabled = true;
           dayBtn.title = 'Domingo cerrado';
@@ -157,6 +261,7 @@
           dayBtn.onclick = () => {
             selectedDate = dateObj;
             renderCalendar();
+            updateTimeSlotsAvailability();
             updateSummary();
           };
         }
@@ -166,6 +271,12 @@
     }
 
     function prevMonth() {
+      const prevDate = new Date(currentYear, currentMonth - 1, 1);
+      const currentMonthStart = new Date(today.getFullYear(), today.getMonth(), 1);
+      if (prevDate < currentMonthStart) {
+        return; // No permitir retroceder a meses anteriores al actual
+      }
+
       currentMonth--;
       if (currentMonth < 0) {
         currentMonth = 11;
@@ -175,6 +286,12 @@
     }
 
     function nextMonth() {
+      const maxAllowedMonthDate = new Date(today.getFullYear(), today.getMonth() + 1, 1);
+      const nextMonthDate = new Date(currentYear, currentMonth + 1, 1);
+      if (nextMonthDate > maxAllowedMonthDate) {
+        return; // No permitir avanzar más de 1 mes desde el actual
+      }
+
       currentMonth++;
       if (currentMonth > 11) {
         currentMonth = 0;
@@ -266,7 +383,11 @@
       document.getElementById('appointment-form').reset();
       document.getElementById('appointment-form').style.display = 'block';
       document.getElementById('confirmation-screen').style.display = 'none';
+      selectedDate = getFirstAvailableDate();
       setAppointmentType(0);
+      renderCalendar();
+      updateTimeSlotsAvailability();
+      updateSummary();
       document.getElementById('booking-form').scrollIntoView({ behavior: 'smooth' });
     }
 

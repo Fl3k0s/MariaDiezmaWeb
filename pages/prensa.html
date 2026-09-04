@@ -4,6 +4,9 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Prensa · María Diezma · Vestidos de Novia a Medida</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="../assets/css/prensa.css">
 </head>
 <body>
@@ -37,13 +40,17 @@
   <!-- Contenido Principal -->
   <main class="page-main" id="content">
 
-    <!-- Encabezado Editorial Simple -->
+    <!-- Encabezado Editorial -->
     <header class="page-header" data-od-id="prensa-page-header">
-      <span class="kicker">Archivo de Comunicación & Medios</span>
-      <h1 class="page-title">Prensa</h1>
-      <p class="page-subtitle">
-        Una selección de reportajes, piezas audiovisuales y conversaciones con publicaciones de referencia sobre la filosofía y el oficio del atelier de María Diezma.
-      </p>
+      <div class="page-title-wrap">
+        <div>
+          <span class="eyebrow">Archivo de Comunicación & Medios</span>
+          <h1 class="page-title">Prensa</h1>
+        </div>
+        <p class="page-subtitle">
+          Una selección de reportajes, piezas audiovisuales y conversaciones con publicaciones de referencia sobre la filosofía y el oficio del atelier de María Diezma.
+        </p>
+      </div>
     </header>
 
     <!-- Sección de Video -->
@@ -82,11 +89,11 @@
       <button class="modal-close-btn" onclick="closeArticleModal()" aria-label="Cerrar modal">
         ✕
       </button>
-      <span class="modal-outlet-badge" id="modalOutlet">Vogue Novias</span>
-      <h2 class="modal-title" id="modalTitle">Título del Reportaje</h2>
+      <span class="modal-outlet-badge" id="modalOutlet"></span>
+      <h2 class="modal-title" id="modalTitle"></h2>
       <div class="modal-meta">
-        <span id="modalDate">Fecha de publicación</span>
-        <span id="modalAuthor">Edición Impresa</span>
+        <span id="modalDate"></span>
+        <span id="modalAuthor"></span>
       </div>
       <div class="modal-body" id="modalBody">
         <!-- Contenido inyectado dinámicamente -->

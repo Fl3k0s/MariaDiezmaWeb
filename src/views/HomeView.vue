@@ -33,26 +33,10 @@ async function fetchBackofficeCollections() {
       }
     }
   } catch (err) {
-    console.warn('[HomeView] No se pudo conectar a la API, usando datos de respaldo:', err.message)
+    console.error('[HomeView] Error al conectar con la API de colecciones:', err.message)
   }
 
-  // Datos de respaldo con las colecciones reales devueltas por la API
-  const realCollections = [
-    {
-      id: "20000000-0000-0000-0000-000000000001",
-      name: "Romance",
-      imageUrl: "/assets/images/romance/MARIA_DIEZMA_001.jpg",
-      link: "/colecciones"
-    },
-    {
-      id: "20000000-0000-0000-0000-000000000002",
-      name: "Nayade de Gala",
-      imageUrl: "/assets/images/nayade/MARIA_DIEZMA_016.jpg",
-      link: "/colecciones"
-    }
-  ]
-
-  return realCollections.slice(0, 2)
+  return []
 }
 
 onMounted(async () => {
@@ -145,7 +129,7 @@ function goToBooking() {
     <!-- ==========================================================================
          3. SECCIÓN COLECCIONES DESTACADAS
          ========================================================================== -->
-    <section class="section-collections">
+    <section v-if="collections.length > 0" class="section-collections">
       <div class="container">
         <div class="collections-header">
           <span class="eyebrow-label">Colecciones del Atelier</span>

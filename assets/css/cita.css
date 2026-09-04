@@ -576,11 +576,14 @@
       background-color: currentColor;
     }
 
-    .calendar-day.disabled {
+    .calendar-day.disabled,
+    .calendar-day.past-day {
       background: transparent;
       color: oklch(75% 0.005 85);
-      cursor: not-allowed;
+      cursor: not-allowed !important;
       border-color: transparent;
+      opacity: 0.45;
+      pointer-events: none;
     }
 
     .calendar-day.sunday {
@@ -690,6 +693,42 @@
     .time-slot-btn.selected .slot-tag {
       background: var(--accent);
       color: #fff;
+    }
+
+    .time-slot-btn:disabled,
+    .time-slot-btn.disabled {
+      opacity: 0.45;
+      cursor: not-allowed !important;
+      pointer-events: none;
+      background: var(--surface-subtle);
+      border-color: var(--border);
+      box-shadow: none;
+    }
+
+    .time-slot-btn:disabled .slot-time-text,
+    .time-slot-btn.disabled .slot-time-text {
+      color: var(--muted);
+    }
+
+    .time-slot-btn:disabled .slot-meta,
+    .time-slot-btn.disabled .slot-meta {
+      color: var(--muted);
+    }
+
+    .slot-tag.tag-disabled {
+      background: rgba(0, 0, 0, 0.06);
+      color: var(--muted);
+    }
+
+    .saturday-notice {
+      font-size: 0.8rem;
+      color: var(--accent);
+      font-style: italic;
+      margin-top: 0.85rem;
+      padding: 0.6rem 0.9rem;
+      background: var(--accent-light);
+      border-radius: var(--radius-sm);
+      border-left: 3px solid var(--accent);
     }
 
     /* BANNER DE RESUMEN SELECCIÓN */

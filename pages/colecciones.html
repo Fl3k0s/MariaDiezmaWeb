@@ -67,7 +67,7 @@
     <div class="collections-stack" data-od-id="collections-stack" id="collections-stack">
       <!-- Se carga dinámicamente mediante fetchCollectionsFromApi() en colecciones.js -->
       <div style="text-align: center; padding: 3rem; color: var(--muted); font-family: var(--font-mono); font-size: 0.85rem;">
-        Cargando colecciones desde el Backoffice (http://localhost:8080/api/v1/colecciones)...
+        Cargando colecciones...
       </div>
     </div>
 
@@ -92,12 +92,12 @@
     <section class="catalog-section" data-od-id="section-catalog-grid">
       <div class="section-header-row">
         <h2 class="section-headline">Todos los Vestidos de las Colecciones</h2>
-        <span class="count-indicator" id="catalog-count-label">Mostrando 12 vestidos</span>
+        <span class="count-indicator" id="catalog-count-label">Cargando vestidos...</span>
       </div>
 
       <!-- 4-COLUMN RETICULA -->
       <div class="dresses-grid-4" id="dresses-grid" data-od-id="grid-4-columns">
-        <!-- Rendered dynamically from DRESSES_DATA -->
+        <!-- Rendered dynamically from Backoffice API -->
       </div>
     </section>
 
@@ -245,7 +245,6 @@
   </div>
 
   <!-- SCRIPT DE CONTROL E INTERACTIVIDAD -->
-  <script src="../assets/js/dresses-data.js"></script>
   <script src="../assets/js/colecciones.js"></script>
 </body>
 </html>

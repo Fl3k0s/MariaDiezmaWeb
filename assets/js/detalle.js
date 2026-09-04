@@ -56,20 +56,10 @@ async function fetchBackofficeDressDetail(nombre, coleccion) {
       return result.data;
     }
   } catch (error) {
-    console.warn(`[Backoffice API] No se pudo obtener detalle de ${requestUrl}:`, error.message);
-    console.info('[Backoffice API] Usando datos de respaldo con la estructura del endpoint.');
+    console.error(`[Backoffice API] Error al obtener detalle de ${requestUrl}:`, error.message);
   }
 
-  // Fallback con la estructura de respuesta de ejemplo proporcionada
-  return {
-    id: "drs-30000000-0000-0000-0000-000000000001",
-    nombre: nombre || "Vestido Magnolia",
-    coleccion: coleccion || "Esencia Floral",
-    ruta_imagen_1: "assets/images/esencia-floral/MARIA_DIEZMA_001.jpg",
-    ruta_imagen_2: "assets/images/esencia-floral/MARIA_DIEZMA_002.jpg",
-    ruta_imagen_3: "assets/images/esencia-floral/MARIA_DIEZMA_003.jpg",
-    descripcion: "Vestido de corte sirena con bordados florales artesanales en tul y escote corazón."
-  };
+  return null;
 }
 
 async function initDressDetailPage() {

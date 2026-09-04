@@ -151,7 +151,7 @@
           <div class="calendar-container">
             <div class="calendar-month-nav">
               <button type="button" class="month-nav-btn" onclick="prevMonth()" aria-label="Mes anterior" id="prev-month-btn">‹</button>
-              <div class="calendar-month-title" id="calendar-month-label">Septiembre 2026</div>
+              <div class="calendar-month-title" id="calendar-month-label"></div>
               <button type="button" class="month-nav-btn" onclick="nextMonth()" aria-label="Mes siguiente" id="next-month-btn">›</button>
             </div>
 
@@ -256,6 +256,10 @@
             </button>
           </div>
 
+          <p class="saturday-notice" id="saturday-notice" style="display: none;">
+            * Los sábados el atelier solo dispone de citas en horario de mañana (10:00 a 13:00).
+          </p>
+
           <!-- Resumen reactivo de la cita seleccionada -->
           <div class="selection-summary-bar">
             <div class="summary-item">
@@ -264,7 +268,7 @@
             </div>
             <div class="summary-item">
               <span class="summary-label">Fecha</span>
-              <span class="summary-value" id="summary-date">Jueves, 10 de Septiembre 2026</span>
+              <span class="summary-value" id="summary-date"></span>
             </div>
             <div class="summary-item">
               <span class="summary-label">Horario</span>

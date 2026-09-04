@@ -30,10 +30,10 @@ const APPOINTMENT_TYPES = [
 ]
 
 const TIME_SLOTS = [
-  { slot: '10:00 - 11:30', period: 'Mañana' },
-  { slot: '12:00 - 13:30', period: 'Mediodía' },
-  { slot: '16:30 - 18:00', period: 'Tarde' },
-  { slot: '18:15 - 19:45', period: 'Atardecer' }
+  { slot: '10:00 - 11:30', period: 'Mañana · 1er Turno', isMorning: true },
+  { slot: '11:30 - 13:00', period: 'Mañana · 2º Turno', isMorning: true },
+  { slot: '17:00 - 18:30', period: 'Tarde · 1er Turno', isMorning: false },
+  { slot: '18:30 - 20:00', period: 'Tarde · 2º Turno', isMorning: false }
 ]
 
 const MONTH_NAMES = [
@@ -44,11 +44,24 @@ const MONTH_NAMES = [
 const DAYS_ES = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado']
 
 // ESTADO REACTIVO
+const now = new Date()
+const today = new Date(now.getFullYear(), now.getMonth(), now.getDate())
+
+function getInitialAvailableDate() {
+  const d = new Date(today)
+  d.setDate(d.getDate() + 1)
+  while (d.getDay() === 0) {
+    d.setDate(d.getDate() + 1)
+  }
+  return d
+}
+
+const initialDate = getInitialAvailableDate()
 const currentTypeIndex = ref(0)
 const selectedTime = ref('10:00 - 11:30')
-const selectedDate = ref(new Date(2026, 8, 10)) // Septiembre 2026
-const currentMonth = ref(8)
-const currentYear = ref(2026)
+const selectedDate = ref(initialDate)
+const currentMonth = ref(initialDate.getMonth())
+const currentYear = ref(initialDate.getFullYear())
 
 const currentType = computed(() => APPOINTMENT_TYPES[currentTypeIndex.value])
 
@@ -77,7 +90,18 @@ onMounted(() => {
   }
 })
 
-// Lógica de Calendario
+const canGoPrevMonth = computed(() => {
+  const prevDate = new Date(currentYear.value, currentMonth.value - 1, 1)
+  const currentMonthStart = new Date(today.getFullYear(), today.getMonth(), 1)
+  return prevDate >= currentMonthStart
+})
+
+const canGoNextMonth = computed(() => {
+  const nextDate = new Date(currentYear.value, currentMonth.value + 1, 1)
+  const maxAllowedDate = new Date(today.getFullYear(), today.getMonth() + 1, 1)
+  return nextDate <= maxAllowedDate
+})
+
 const daysInCurrentMonth = computed(() => {
   const days = []
   const date = new Date(currentYear.value, currentMonth.value, 1)
@@ -96,7 +120,11 @@ const daysInCurrentMonth = computed(() => {
   const totalDays = new Date(currentYear.value, currentMonth.value + 1, 0).getDate()
   for (let d = 1; d <= totalDays; d++) {
     const dayDate = new Date(currentYear.value, currentMonth.value, d)
+    dayDate.setHours(0, 0, 0, 0)
+
     const isSunday = dayDate.getDay() === 0
+    const isToday = dayDate.getTime() === today.getTime()
+    const isPastOrToday = dayDate.getTime() <= today.getTime()
     const isSelected = selectedDate.value && 
       selectedDate.value.getDate() === d &&
       selectedDate.value.getMonth() === currentMonth.value &&
@@ -107,7 +135,9 @@ const daysInCurrentMonth = computed(() => {
       day: d,
       date: dayDate,
       isSunday,
-      isSelected,
+      isToday,
+      isPastOrToday,
+      isSelected: isSelected && !isPastOrToday && !isSunday,
       id: `day-${d}`
     })
   }
@@ -116,6 +146,7 @@ const daysInCurrentMonth = computed(() => {
 })
 
 function prevMonth() {
+  if (!canGoPrevMonth.value) return
   if (currentMonth.value === 0) {
     currentMonth.value = 11
     currentYear.value--
@@ -125,6 +156,7 @@ function prevMonth() {
 }
 
 function nextMonth() {
+  if (!canGoNextMonth.value) return
   if (currentMonth.value === 11) {
     currentMonth.value = 0
     currentYear.value++
@@ -133,9 +165,30 @@ function nextMonth() {
   }
 }
 
+const isSaturday = computed(() => {
+  return selectedDate.value ? selectedDate.value.getDay() === 6 : false
+})
+
+function isSlotDisabled(slot) {
+  return isSaturday.value && !slot.isMorning
+}
+
+function selectTimeSlot(slot) {
+  if (isSlotDisabled(slot)) return
+  selectedTime.value = slot.slot
+}
+
 function selectDay(dayObj) {
-  if (dayObj.blank || dayObj.isSunday) return
+  if (dayObj.blank || dayObj.isSunday || dayObj.isPastOrToday) return
   selectedDate.value = dayObj.date
+
+  // Si se selecciona un sábado y el turno seleccionado es de tarde, cambiar al primer turno de mañana
+  if (dayObj.date.getDay() === 6) {
+    const currentSlot = TIME_SLOTS.find(s => s.slot === selectedTime.value)
+    if (currentSlot && !currentSlot.isMorning) {
+      selectedTime.value = '10:00 - 11:30'
+    }
+  }
 }
 
 const formattedSelectedDate = computed(() => {
@@ -153,6 +206,9 @@ function handleSubmit() {
 
 function resetBooking() {
   isSubmitted.value = false
+  selectedDate.value = getInitialAvailableDate()
+  currentTypeIndex.value = 0
+  selectedTime.value = '10:00 - 11:30'
   formData.value = {
     fullName: '',
     email: '',
@@ -252,7 +308,14 @@ function resetBooking() {
 
                 <div class="calendar-widget">
                   <div class="calendar-nav">
-                    <button type="button" class="cal-nav-btn" @click="prevMonth" aria-label="Mes anterior">
+                    <button 
+                      type="button" 
+                      class="cal-nav-btn" 
+                      :disabled="!canGoPrevMonth"
+                      :style="{ opacity: !canGoPrevMonth ? '0.35' : '1', cursor: !canGoPrevMonth ? 'not-allowed' : 'pointer' }"
+                      @click="prevMonth" 
+                      aria-label="Mes anterior"
+                    >
                       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <polyline points="15 18 9 12 15 6"></polyline>
                       </svg>
@@ -260,7 +323,14 @@ function resetBooking() {
                     <span class="cal-month-title">
                       {{ MONTH_NAMES[currentMonth] }} {{ currentYear }}
                     </span>
-                    <button type="button" class="cal-nav-btn" @click="nextMonth" aria-label="Mes siguiente">
+                    <button 
+                      type="button" 
+                      class="cal-nav-btn" 
+                      :disabled="!canGoNextMonth"
+                      :style="{ opacity: !canGoNextMonth ? '0.35' : '1', cursor: !canGoNextMonth ? 'not-allowed' : 'pointer' }"
+                      @click="nextMonth" 
+                      aria-label="Mes siguiente"
+                    >
                       <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                         <polyline points="9 18 15 12 9 6"></polyline>
                       </svg>
@@ -284,9 +354,11 @@ function resetBooking() {
                       class="cal-day-cell"
                       :class="{
                         'is-blank': d.blank,
-                        'is-disabled': d.isSunday,
-                        'is-selected': d.isSelected
+                        'is-disabled': d.isSunday || d.isPastOrToday,
+                        'is-selected': d.isSelected,
+                        'is-today': d.isToday
                       }"
+                      :title="d.isPastOrToday ? (d.isToday ? 'No es posible solicitar cita para el día actual' : 'Fecha pasada no disponible') : (d.isSunday ? 'Domingo cerrado' : '')"
                       @click="selectDay(d)"
                     >
                       <span v-if="!d.blank">{{ d.day }}</span>
@@ -312,13 +384,22 @@ function resetBooking() {
                     :key="slot.slot"
                     type="button" 
                     class="time-slot-card"
-                    :class="{ 'selected': selectedTime === slot.slot }"
-                    @click="selectedTime = slot.slot"
+                    :class="{ 
+                      'selected': selectedTime === slot.slot && !isSlotDisabled(slot),
+                      'is-disabled': isSlotDisabled(slot)
+                    }"
+                    :disabled="isSlotDisabled(slot)"
+                    :title="isSlotDisabled(slot) ? 'Los sábados solo abrimos en horario de mañana' : ''"
+                    @click="selectTimeSlot(slot)"
                   >
                     <span class="slot-period">{{ slot.period }}</span>
                     <span class="slot-hours">{{ slot.slot }}</span>
+                    <span v-if="isSlotDisabled(slot)" class="slot-tag-disabled">No disponible sábados</span>
                   </button>
                 </div>
+                <p v-if="isSaturday" class="saturday-notice">
+                  * Los sábados el atelier solo dispone de citas en horario de mañana (10:00 a 13:00).
+                </p>
               </div>
 
               <!-- PASO 4: DATOS DE CONTACTO -->
@@ -680,7 +761,8 @@ function resetBooking() {
   background: #f0ebe5;
   color: #b8aea5;
   cursor: not-allowed;
-  opacity: 0.6;
+  opacity: 0.45;
+  pointer-events: none;
 }
 
 .cal-day-cell.is-selected {
@@ -741,6 +823,44 @@ function resetBooking() {
   font-size: 1.1rem;
   font-weight: 500;
   color: var(--fg);
+}
+
+.time-slot-card:disabled,
+.time-slot-card.is-disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+  background: #f0ebe5;
+  border-color: #e5dfd8;
+}
+
+.time-slot-card:disabled .slot-period,
+.time-slot-card.is-disabled .slot-period,
+.time-slot-card:disabled .slot-hours,
+.time-slot-card.is-disabled .slot-hours {
+  color: var(--muted);
+}
+
+.slot-tag-disabled {
+  font-size: 0.65rem;
+  font-family: var(--font-mono);
+  color: var(--muted);
+  text-transform: uppercase;
+  background: rgba(0, 0, 0, 0.05);
+  padding: 0.15rem 0.45rem;
+  border-radius: 2px;
+  margin-top: 0.2rem;
+}
+
+.saturday-notice {
+  font-size: 0.8rem;
+  color: var(--accent);
+  font-style: italic;
+  margin-top: 0.85rem;
+  padding: 0.6rem 0.9rem;
+  background: #fbf5f2;
+  border-radius: 4px;
+  border-left: 3px solid var(--accent);
 }
 
 /* FORMULARIO */

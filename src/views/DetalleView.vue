@@ -50,28 +50,10 @@ async function fetchBackofficeDressDetail(nombre, coleccion) {
       }
     }
   } catch (err) {
-    console.warn('[DetalleView] Fallo de conexión con la API de detalle:', err.message)
+    console.error('[DetalleView] Error al consultar la API de detalle:', err.message)
   }
 
-  // Fallback con la respuesta de ejemplo provista
-  return {
-    id: "drs-30000000-0000-0000-0000-000000000001",
-    name: nombre || "Vestido Magnolia",
-    collection: coleccion || "Esencia Floral",
-    collectionName: `Colección ${coleccion || 'Esencia Floral'}`,
-    description: "Vestido de corte sirena con bordados florales artesanales en tul y escote corazón.",
-    ref: "drs-30000000-0000-0000-0000-000000000001",
-    fabric: "Seda natural & bordados botánicos",
-    back: "Contra parte con espalda artesanal a medida",
-    silhouette: "Patronaje estructural adaptado a la silueta",
-    time: "4 a 6 meses de confección en atelier",
-    images: {
-      front: "/assets/images/esencia-floral/MARIA_DIEZMA_001.jpg",
-      back: "/assets/images/esencia-floral/MARIA_DIEZMA_002.jpg",
-      detail: "/assets/images/esencia-floral/MARIA_DIEZMA_003.jpg",
-      movement: "/assets/images/esencia-floral/MARIA_DIEZMA_003.jpg"
-    }
-  }
+  return null
 }
 
 async function loadDressData() {
@@ -209,6 +191,9 @@ watch(() => [route.query.nombre, route.query.coleccion], () => {
         </div>
       </div>
     </section>
+  </div>
+  <div v-else class="container" style="text-align: center; padding: 6rem 0; color: #a89f99; font-family: var(--font-mono); font-size: 0.95rem;">
+    No se ha encontrado la ficha del vestido solicitado.
   </div>
 </template>
 

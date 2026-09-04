@@ -6,13 +6,6 @@
     <!-- CABECERA DE LA PÁGINA -->
     <section class="page-hero">
       <div class="container">
-        <nav class="breadcrumb" aria-label="Miga de pan">
-          <router-link to="/">Inicio</router-link>
-          <span>/</span>
-          <span>Atelier</span>
-          <span>/</span>
-          <span class="current">Conóceme</span>
-        </nav>
         <span class="page-eyebrow">La diseñadora y el alma del atelier</span>
         <h1 class="page-title">Conóceme</h1>
         <p class="page-quote">

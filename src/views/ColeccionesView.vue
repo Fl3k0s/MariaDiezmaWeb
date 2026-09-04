@@ -28,24 +28,10 @@ async function fetchCollectionsFromApi() {
       }
     }
   } catch (err) {
-    console.warn(`[ColeccionesView] Fallo de conexión con ${url}:`, err.message)
+    console.error(`[ColeccionesView] Error al conectar con ${url}:`, err.message)
   }
 
-  // Datos de respaldo actualizados según la respuesta real de la API
-  return [
-    {
-      id: "20000000-0000-0000-0000-000000000001",
-      nombre: "Romance",
-      imagen: "assets/images/romance/MARIA_DIEZMA_001.jpg",
-      descripcion: "Diseños inspirados en la delicadeza botánica y tonalidades primaverales."
-    },
-    {
-      id: "20000000-0000-0000-0000-000000000002",
-      nombre: "Nayade de Gala",
-      imagen: "assets/images/nayade/MARIA_DIEZMA_016.jpg",
-      descripcion: "Colección cálida con texturas fluidas y tonos terracota y dorados."
-    }
-  ]
+  return []
 }
 
 /**
@@ -72,80 +58,10 @@ async function fetchBackofficeDresses() {
       }
     }
   } catch (err) {
-    console.warn('[ColeccionesView] Fallo de conexión con vestidos API:', err.message)
+    console.error('[ColeccionesView] Error al conectar con vestidos API:', err.message)
   }
 
-  // Fallback con los 10 vestidos devueltos por la API
-  const mockDresses = [
-    {
-      "id": "30000000-0000-0000-0000-000000000001",
-      "nombre": "Vestido Magnolia",
-      "coleccion": "Romance",
-      "ruta_imagen": "assets/images/romance/MARIA_DIEZMA_001.jpg"
-    },
-    {
-      "id": "30000000-0000-0000-0000-000000000002",
-      "nombre": "Vestido Jazmín",
-      "coleccion": "Romance",
-      "ruta_imagen": "assets/images/romance/MARIA_DIEZMA_004.jpg"
-    },
-    {
-      "id": "30000000-0000-0000-0000-000000000003",
-      "nombre": "Vestido Dalia",
-      "coleccion": "Romance",
-      "ruta_imagen": "assets/images/romance/MARIA_DIEZMA_007.jpg"
-    },
-    {
-      "id": "30000000-0000-0000-0000-000000000004",
-      "nombre": "Vestido Camelia",
-      "coleccion": "Romance",
-      "ruta_imagen": "assets/images/romance/MARIA_DIEZMA_010.jpg"
-    },
-    {
-      "id": "30000000-0000-0000-0000-000000000005",
-      "nombre": "Vestido Azahar",
-      "coleccion": "Romance",
-      "ruta_imagen": "assets/images/romance/MARIA_DIEZMA_013.jpg"
-    },
-    {
-      "id": "30000000-0000-0000-0000-000000000006",
-      "nombre": "Vestido Siena",
-      "coleccion": "Nayade de Gala",
-      "ruta_imagen": "assets/images/nayade/MARIA_DIEZMA_016.jpg"
-    },
-    {
-      "id": "30000000-0000-0000-0000-000000000007",
-      "nombre": "Vestido Aurora",
-      "coleccion": "Nayade de Gala",
-      "ruta_imagen": "assets/images/nayade/MARIA_DIEZMA_019.jpg"
-    },
-    {
-      "id": "30000000-0000-0000-0000-000000000008",
-      "nombre": "Vestido Coral",
-      "coleccion": "Nayade de Gala",
-      "ruta_imagen": "assets/images/nayade/MARIA_DIEZMA_022.jpg"
-    },
-    {
-      "id": "30000000-0000-0000-0000-000000000009",
-      "nombre": "Vestido Terracota",
-      "coleccion": "Nayade de Gala",
-      "ruta_imagen": "assets/images/nayade/MARIA_DIEZMA_025.jpg"
-    },
-    {
-      "id": "30000000-0000-0000-0000-000000000010",
-      "nombre": "Vestido Sol Poniente",
-      "coleccion": "Nayade de Gala",
-      "ruta_imagen": "assets/images/nayade/MARIA_DIEZMA_028.jpg"
-    }
-  ]
-
-  return mockDresses.map(d => ({
-    id: d.id,
-    name: d.nombre,
-    collection: d.coleccion,
-    collectionName: d.coleccion,
-    imageUrl: d.ruta_imagen.startsWith('/') ? d.ruta_imagen : '/' + d.ruta_imagen
-  }))
+  return []
 }
 
 onMounted(async () => {
@@ -262,7 +178,10 @@ function setFilter(category) {
         </div>
 
         <!-- GRID REACTIVO -->
-        <transition-group name="dress-grid" tag="div" class="dresses-grid">
+        <div v-if="filteredDresses.length === 0" style="text-align: center; padding: 4rem 0; color: #a89f99; font-family: var(--font-mono); font-size: 0.9rem;">
+          No se han encontrado vestidos disponibles en este momento.
+        </div>
+        <transition-group v-else name="dress-grid" tag="div" class="dresses-grid">
           <div v-for="dress in filteredDresses" :key="dress.id" class="grid-item">
             <DressCard :dress="dress" />
           </div>

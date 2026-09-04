@@ -3,28 +3,7 @@ import { ref, onMounted, onUnmounted } from 'vue'
 
 const API_PRENSA_URL = 'http://localhost:8080/api/v1/prensa'
 
-const FALLBACK_ARTICLES = [
-  {
-    id: "50000000-0000-0000-0000-000000000002",
-    nombre_revista: "Lucia Se Casa",
-    fecha_publicacion: "Septiembre 2021",
-    titular: "La sencillez y el corte clásico son signos de elegancia",
-    descripcion: "La diseñadora María Diezma lleva la costura en sus genes. Heredera de las técnicas de su madre y de su abuela, manejaba las agujas desde muy temprana edad, y ya en su niñez disfrutaba bordando con bastidor, hilvanando o rematando sus diseños.",
-    pequena_descripcion: "La diseñadora María Diezma lleva la costura en sus genes. Heredera de las técnicas de su madre y de su abuela, manejaba las agujas desde muy temprana edad, y ya en su niñez disfrutaba bordando con bastidor, hilvanando o rematando sus diseños.",
-    enlace_articulo: "https://luciasecasa.com/novia/vestidos-de-novia/protagonistas-maria-diezma-la-sencillez-y-el-corte-clasico-son-signos-de-elegancia/",
-    enlace: "https://luciasecasa.com/novia/vestidos-de-novia/protagonistas-maria-diezma-la-sencillez-y-el-corte-clasico-son-signos-de-elegancia/"
-  },
-  {
-    id: "50000000-0000-0000-0000-000000000001",
-    nombre_revista: "El Español",
-    fecha_publicacion: "Marzo 2026",
-    titular: "Arranca en Albacete \"CLM es Moda\" con los desfiles de Félix Ramiro",
-    descripcion: "Este lunes ha tenido lugar la inauguración oficial de la III edición de CLM es Moda en la Fábrica de Harinas de Albacete de la exposición \"Materia y Moda. De los oficios artesanos a la moda contemporánea\", una muestra que pone en diálogo la tradición artesanal y la creación contemporánea, acercando al público el valor de los oficios y su influencia en el diseño actual.",
-    pequena_descripcion: "Este lunes ha tenido lugar la inauguración oficial de la III edición de CLM es Moda en la Fábrica de Harinas de Albacete de la exposición \"Materia y Moda. De los oficios artesanos a la moda contemporánea\", una muestra que pone en diálogo la tradición artesanal y la creación contemporánea, acercando al público el valor de los oficios y su influencia en el diseño actual.",
-    enlace_articulo: "https://www.elespanol.com/eldigitalcastillalamancha/region/albacete/20260525/arranca-albacete-clm-moda-desfiles-felix-ramiro-raquel-lopez-carmen-alba-maria-diezma/1003744259085_0.html",
-    enlace: "https://www.elespanol.com/eldigitalcastillalamancha/region/albacete/20260525/arranca-albacete-clm-moda-desfiles-felix-ramiro-raquel-lopez-carmen-alba-maria-diezma/1003744259085_0.html"
-  }
-]
+
 
 const articles = ref([])
 const isLoading = ref(true)
@@ -96,14 +75,14 @@ async function fetchArticles() {
       throw new Error(`HTTP ${res.status}: ${res.statusText}`)
     }
     const json = await res.json()
-    if (json && json.success && Array.isArray(json.data) && json.data.length > 0) {
+    if (json && json.success && Array.isArray(json.data)) {
       articles.value = sortArticlesByDateDesc(json.data)
       return
     }
-    throw new Error('Respuesta no válida o lista vacía')
+    throw new Error('Respuesta no válida')
   } catch (err) {
-    console.warn('[Prensa API] No se pudo obtener datos de ' + API_PRENSA_URL + ', usando datos de respaldo:', err)
-    articles.value = sortArticlesByDateDesc(FALLBACK_ARTICLES)
+    console.error('[Prensa API] No se pudo obtener datos de ' + API_PRENSA_URL + ':', err)
+    articles.value = []
   } finally {
     isLoading.value = false
   }
@@ -152,13 +131,17 @@ onUnmounted(() => {
   <div class="prensa-view">
     <div class="page-main container">
 
-      <!-- Encabezado Editorial Simple -->
+      <!-- Encabezado Editorial -->
       <header class="page-header" data-od-id="prensa-page-header">
-        <span class="kicker">Archivo de Comunicación & Medios</span>
-        <h1 class="page-title">Prensa</h1>
-        <p class="page-subtitle">
-          Una selección de reportajes, piezas audiovisuales y conversaciones con publicaciones de referencia sobre la filosofía y el oficio del atelier de María Diezma.
-        </p>
+        <div class="page-title-wrap">
+          <div>
+            <span class="eyebrow">Archivo de Comunicación & Medios</span>
+            <h1 class="page-title">Prensa</h1>
+          </div>
+          <p class="page-subtitle">
+            Una selección de reportajes, piezas audiovisuales y conversaciones con publicaciones de referencia sobre la filosofía y el oficio del atelier de María Diezma.
+          </p>
+        </div>
       </header>
 
       <!-- Sección de Video -->
@@ -282,38 +265,49 @@ onUnmounted(() => {
   padding: 3.5rem 1.5rem 5rem;
 }
 
-/* Encabezado Editorial Simple */
+/* Encabezado Editorial */
 .page-header {
-  margin-bottom: 3rem;
-  padding-bottom: 1.75rem;
+  margin-bottom: 3.5rem;
+  padding-bottom: 2rem;
   border-bottom: 1px solid var(--border);
 }
 
+.page-title-wrap {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+}
+
+.eyebrow,
 .kicker {
   font-family: var(--font-mono, monospace);
-  font-size: 0.78rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.16em;
   text-transform: uppercase;
-  letter-spacing: 0.14em;
   color: var(--accent);
-  margin-bottom: 0.6rem;
-  display: block;
+  display: inline-block;
+  margin-bottom: 0.5rem;
 }
 
 .page-title {
   font-family: var(--font-brand, 'Playfair Display', Georgia, serif);
-  font-size: clamp(2.2rem, 4vw, 3rem);
+  font-size: clamp(2.4rem, 4.5vw, 3.6rem);
   font-weight: 400;
-  line-height: 1.2;
+  line-height: 1.15;
   color: var(--fg);
   letter-spacing: -0.01em;
-  margin-bottom: 0.75rem;
 }
 
 .page-subtitle {
-  color: var(--muted);
+  max-width: 480px;
   font-size: 1.05rem;
-  max-width: 620px;
-  line-height: 1.6;
+  color: var(--muted);
+  font-style: italic;
+  font-family: var(--font-brand, 'Playfair Display', Georgia, serif);
+  line-height: 1.5;
 }
 
 /* Sección de Video */

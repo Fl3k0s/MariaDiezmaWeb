@@ -38,73 +38,10 @@ async function fetchDressesFromApi() {
       return result;
     }
   } catch (error) {
-    console.warn(`[Backoffice API] No se pudo obtener respuesta de ${BACKOFFICE_API_DRESSES_URL}:`, error.message);
-    console.info('[Backoffice API] Usando datos de vestidos de prueba con la respuesta real de la API.');
+    console.error(`[Backoffice API] Error al obtener vestidos de ${BACKOFFICE_API_DRESSES_URL}:`, error.message);
   }
 
-  // Fallback con los datos de ejemplo del API provistos
-  return [
-    {
-      "id": "30000000-0000-0000-0000-000000000001",
-      "nombre": "Vestido Magnolia",
-      "coleccion": "Romance",
-      "ruta_imagen": "assets/images/romance/MARIA_DIEZMA_001.jpg"
-    },
-    {
-      "id": "30000000-0000-0000-0000-000000000002",
-      "nombre": "Vestido Jazmín",
-      "coleccion": "Romance",
-      "ruta_imagen": "assets/images/romance/MARIA_DIEZMA_004.jpg"
-    },
-    {
-      "id": "30000000-0000-0000-0000-000000000003",
-      "nombre": "Vestido Dalia",
-      "coleccion": "Romance",
-      "ruta_imagen": "assets/images/romance/MARIA_DIEZMA_007.jpg"
-    },
-    {
-      "id": "30000000-0000-0000-0000-000000000004",
-      "nombre": "Vestido Camelia",
-      "coleccion": "Romance",
-      "ruta_imagen": "assets/images/romance/MARIA_DIEZMA_010.jpg"
-    },
-    {
-      "id": "30000000-0000-0000-0000-000000000005",
-      "nombre": "Vestido Azahar",
-      "coleccion": "Romance",
-      "ruta_imagen": "assets/images/romance/MARIA_DIEZMA_013.jpg"
-    },
-    {
-      "id": "30000000-0000-0000-0000-000000000006",
-      "nombre": "Vestido Siena",
-      "coleccion": "Nayade de Gala",
-      "ruta_imagen": "assets/images/nayade/MARIA_DIEZMA_016.jpg"
-    },
-    {
-      "id": "30000000-0000-0000-0000-000000000007",
-      "nombre": "Vestido Aurora",
-      "coleccion": "Nayade de Gala",
-      "ruta_imagen": "assets/images/nayade/MARIA_DIEZMA_019.jpg"
-    },
-    {
-      "id": "30000000-0000-0000-0000-000000000008",
-      "nombre": "Vestido Coral",
-      "coleccion": "Nayade de Gala",
-      "ruta_imagen": "assets/images/nayade/MARIA_DIEZMA_022.jpg"
-    },
-    {
-      "id": "30000000-0000-0000-0000-000000000009",
-      "nombre": "Vestido Terracota",
-      "coleccion": "Nayade de Gala",
-      "ruta_imagen": "assets/images/nayade/MARIA_DIEZMA_025.jpg"
-    },
-    {
-      "id": "30000000-0000-0000-0000-000000000010",
-      "nombre": "Vestido Sol Poniente",
-      "coleccion": "Nayade de Gala",
-      "ruta_imagen": "assets/images/nayade/MARIA_DIEZMA_028.jpg"
-    }
-  ];
+  return [];
 }
 
 // Renderiza los botones de filtrado según las colecciones presentes en los vestidos
@@ -156,6 +93,15 @@ async function renderCatalogGrid() {
   const countLabel = document.getElementById('catalog-count-label');
   if (countLabel) {
     countLabel.textContent = `Mostrando ${filtered.length} vestidos (API Backoffice)`;
+  }
+
+  if (filtered.length === 0) {
+    grid.innerHTML = `
+      <div style="grid-column: 1 / -1; text-align: center; padding: 4rem 0; color: var(--muted); font-family: var(--font-mono); font-size: 0.9rem;">
+        No se han encontrado vestidos disponibles en este momento.
+      </div>
+    `;
+    return;
   }
 
   filtered.forEach((dress) => {
@@ -297,27 +243,11 @@ async function fetchCollectionsFromApi() {
       return result.data;
     } else if (Array.isArray(result)) {
       return result;
-    }
   } catch (error) {
-    console.warn(`[Backoffice API] No se pudo obtener respuesta de ${BACKOFFICE_API_COLLECTIONS_URL}:`, error.message);
-    console.info('[Backoffice API] Usando datos de prueba locales con la misma estructura JSON.');
+    console.error(`[Backoffice API] Error al obtener colecciones de ${BACKOFFICE_API_COLLECTIONS_URL}:`, error.message);
   }
 
-  // Datos de respaldo actualizados según la respuesta real de la API
-  return [
-    {
-      id: "20000000-0000-0000-0000-000000000001",
-      nombre: "Romance",
-      imagen: "assets/images/romance/MARIA_DIEZMA_001.jpg",
-      descripcion: "Diseños inspirados en la delicadeza botánica y tonalidades primaverales."
-    },
-    {
-      id: "20000000-0000-0000-0000-000000000002",
-      nombre: "Nayade de Gala",
-      imagen: "assets/images/nayade/MARIA_DIEZMA_016.jpg",
-      descripcion: "Colección cálida con texturas fluidas y tonos terracota y dorados."
-    }
-  ];
+  return [];
 }
 
 /**
@@ -345,8 +275,8 @@ async function renderCollectionsFromApi() {
 
   if (!collections || !collections.length) {
     container.innerHTML = `
-      <div style="text-align: center; padding: 3rem; color: var(--muted); font-family: var(--font-mono);">
-        No se encontraron colecciones disponibles en el backoffice.
+      <div style="text-align: center; padding: 3rem; color: var(--muted); font-family: var(--font-mono); font-size: 0.9rem;">
+        No se han encontrado colecciones disponibles en este momento.
       </div>
     `;
     return;
