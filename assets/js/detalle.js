@@ -115,14 +115,31 @@ function loadDressIntoShowcase(dress) {
   }
 
   // 3. Resolver imágenes (ruta_imagen_1, ruta_imagen_2, ruta_imagen_3)
-  const img1 = resolveDetailImageUrl(dress.ruta_imagen_1);
-  const img2 = resolveDetailImageUrl(dress.ruta_imagen_2 || dress.ruta_imagen_1);
-  const img3 = resolveDetailImageUrl(dress.ruta_imagen_3 || dress.ruta_imagen_1);
+  const raw1 = dress.ruta_imagen_1 || '';
+  const raw2 = dress.ruta_imagen_2 || '';
+  const raw3 = dress.ruta_imagen_3 || '';
+
+  // Determinar vista trasera y zoom según convenciones del atelier (002 = zoom / detalle, 003 = trasera / contra parte)
+  let rawTrasera = raw3 || raw2 || raw1;
+  let rawZoom = raw2 || raw3 || raw1;
+
+  if (raw2.includes('003') || raw2.toLowerCase().includes('trasera') || raw2.toLowerCase().includes('back') || raw2.toLowerCase().includes('espalda')) {
+    rawTrasera = raw2;
+    rawZoom = raw3 || raw2;
+  } else if (raw3.includes('003') || raw3.toLowerCase().includes('trasera') || raw3.toLowerCase().includes('back') || raw3.toLowerCase().includes('espalda') ||
+             raw2.includes('002') || raw2.toLowerCase().includes('zoom') || raw2.toLowerCase().includes('detalle')) {
+    rawTrasera = raw3;
+    rawZoom = raw2;
+  }
+
+  const imgDelantera = resolveDetailImageUrl(raw1);
+  const imgTrasera = resolveDetailImageUrl(rawTrasera);
+  const imgZoom = resolveDetailImageUrl(rawZoom);
 
   // 4. Imagen principal grande (sin pie de foto)
   const mainImg = document.getElementById('main-dress-image');
   if (mainImg) {
-    mainImg.src = img1;
+    mainImg.src = imgDelantera;
     mainImg.alt = `${dressName} - Vista Principal`;
     mainImg.onerror = function() {
       this.onerror = null;
@@ -130,21 +147,21 @@ function loadDressIntoShowcase(dress) {
     };
   }
 
-  // 5. Miniaturas interactivas (3 imágenes reducidas: DELANTERA, ZOOM y TRASERA)
+  // 5. Miniaturas interactivas (3 imágenes reducidas: DELANTERA, TRASERA y ZOOM)
   const thumbsContainer = document.getElementById('thumbnails-container');
   if (thumbsContainer) {
     thumbsContainer.innerHTML = `
-      <button class="thumb-btn active" onclick="switchLargeImage('${img1}', this)" title="Ver vista delantera">
-        <img src="${img1}" alt="Vista delantera" onerror="this.src='../assets/images/romance/MARIA_DIEZMA_001.jpg'">
+      <button class="thumb-btn active" onclick="switchLargeImage('${imgDelantera}', this)" title="Ver vista delantera">
+        <img src="${imgDelantera}" alt="Vista delantera" onerror="this.src='../assets/images/romance/MARIA_DIEZMA_001.jpg'">
         <span class="thumb-caption">DELANTERA</span>
       </button>
-      <button class="thumb-btn" onclick="switchLargeImage('${img2}', this)" title="Ver zoom del vestido">
-        <img src="${img2}" alt="Vista zoom" onerror="this.src='../assets/images/romance/MARIA_DIEZMA_002.jpg'">
-        <span class="thumb-caption">ZOOM</span>
-      </button>
-      <button class="thumb-btn" onclick="switchLargeImage('${img3}', this)" title="Ver vista trasera">
-        <img src="${img3}" alt="Vista trasera" onerror="this.src='../assets/images/romance/MARIA_DIEZMA_003.jpg'">
+      <button class="thumb-btn is-contraparte" onclick="switchLargeImage('${imgTrasera}', this)" title="Ver vista trasera">
+        <img src="${imgTrasera}" alt="Vista trasera" onerror="this.src='../assets/images/romance/MARIA_DIEZMA_003.jpg'">
         <span class="thumb-caption">TRASERA</span>
+      </button>
+      <button class="thumb-btn" onclick="switchLargeImage('${imgZoom}', this)" title="Ver zoom del vestido">
+        <img src="${imgZoom}" alt="Vista zoom" onerror="this.src='../assets/images/romance/MARIA_DIEZMA_002.jpg'">
+        <span class="thumb-caption">ZOOM</span>
       </button>
     `;
   }

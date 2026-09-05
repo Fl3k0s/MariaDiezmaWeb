@@ -40,12 +40,32 @@ async function fetchBackofficeDressDetail(nombre, coleccion) {
           back: 'Contra parte con espalda artesanal a medida',
           silhouette: 'Patronaje estructural adaptado a la silueta',
           time: '4 a 6 meses de confección en atelier',
-          images: {
-            front: d.ruta_imagen_1?.startsWith('/') ? d.ruta_imagen_1 : '/' + d.ruta_imagen_1,
-            back: d.ruta_imagen_2?.startsWith('/') ? d.ruta_imagen_2 : '/' + d.ruta_imagen_2,
-            detail: d.ruta_imagen_3?.startsWith('/') ? d.ruta_imagen_3 : '/' + d.ruta_imagen_3,
-            movement: d.ruta_imagen_3?.startsWith('/') ? d.ruta_imagen_3 : '/' + d.ruta_imagen_3
-          }
+          images: (() => {
+            const raw1 = d.ruta_imagen_1 || '';
+            const raw2 = d.ruta_imagen_2 || '';
+            const raw3 = d.ruta_imagen_3 || '';
+
+            let rawTrasera = raw3 || raw2 || raw1;
+            let rawZoom = raw2 || raw3 || raw1;
+
+            if (raw2.includes('003') || raw2.toLowerCase().includes('trasera') || raw2.toLowerCase().includes('back') || raw2.toLowerCase().includes('espalda')) {
+              rawTrasera = raw2;
+              rawZoom = raw3 || raw2;
+            } else if (raw3.includes('003') || raw3.toLowerCase().includes('trasera') || raw3.toLowerCase().includes('back') || raw3.toLowerCase().includes('espalda') ||
+                       raw2.includes('002') || raw2.toLowerCase().includes('zoom') || raw2.toLowerCase().includes('detalle')) {
+              rawTrasera = raw3;
+              rawZoom = raw2;
+            }
+
+            const clean = (p) => p ? (p.startsWith('/') ? p : '/' + p) : '';
+
+            return {
+              front: clean(raw1),
+              back: clean(rawTrasera),
+              detail: clean(rawZoom),
+              movement: clean(rawZoom)
+            };
+          })()
         }
       }
     }
@@ -128,7 +148,7 @@ watch(() => [route.query.nombre, route.query.coleccion], () => {
               >
             </div>
 
-            <!-- BOTONES DE MINIATURA (3 IMÁGENES: DELANTERA, ZOOM Y TRASERA) -->
+            <!-- BOTONES DE MINIATURA (3 IMÁGENES: DELANTERA, TRASERA Y ZOOM) -->
             <div class="thumbnails-bar">
               <button 
                 class="thumb-btn" 
@@ -140,21 +160,21 @@ watch(() => [route.query.nombre, route.query.coleccion], () => {
               </button>
 
               <button 
-                class="thumb-btn" 
-                :class="{ 'active': activeImageKey === 'detail' }"
-                @click="selectImage('detail', 'Vista Detalle & Zoom de Costura')"
-              >
-                <img :src="dress.images.detail" alt="Vista Zoom">
-                <span class="thumb-label">ZOOM</span>
-              </button>
-
-              <button 
                 class="thumb-btn is-contraparte" 
                 :class="{ 'active': activeImageKey === 'back' }"
                 @click="selectImage('back', 'Contra Parte · Espalda & Vista Trasera')"
               >
                 <img :src="dress.images.back" alt="Vista Trasera">
                 <span class="thumb-label">TRASERA</span>
+              </button>
+
+              <button 
+                class="thumb-btn" 
+                :class="{ 'active': activeImageKey === 'detail' }"
+                @click="selectImage('detail', 'Vista Detalle & Zoom de Costura')"
+              >
+                <img :src="dress.images.detail" alt="Vista Zoom">
+                <span class="thumb-label">ZOOM</span>
               </button>
             </div>
           </div>
