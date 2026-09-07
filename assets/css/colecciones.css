@@ -325,24 +325,22 @@
       order: 1;
     }
 
-    /* VISUAL / FOTO DE LA COLECCIÓN */
+    /* VISUAL / FOTO DE LA COLECCIÓN (Contenedor ajustado al tamaño exacto de la imagen) */
     .collection-visual {
       position: relative;
-      background-color: var(--surface-subtle);
       overflow: hidden;
-      min-height: 580px;
+      width: 100%;
+      line-height: 0;
     }
 
     .collection-img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center top;
-      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      height: auto;
+      display: block;
     }
 
     .collection-block:hover .collection-img {
-      transform: scale(1.025);
+      transform: none;
     }
 
     .collection-badge-overlay {
@@ -640,20 +638,19 @@
 
     .dress-card-media {
       position: relative;
-      aspect-ratio: 3 / 4;
+      width: 100%;
       overflow: hidden;
-      background: oklch(95% 0.005 95);
+      line-height: 0;
     }
 
     .dress-card-img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      height: auto;
+      display: block;
     }
 
     .dress-card:hover .dress-card-img {
-      transform: scale(1.05);
+      transform: none;
     }
 
     .dress-card-tag {
@@ -1033,7 +1030,7 @@
         border-top: 1px solid var(--border-subtle);
       }
       .collection-visual {
-        min-height: 460px;
+        min-height: auto;
       }
       .dresses-grid-4 {
         grid-template-columns: repeat(2, 1fr);
@@ -1083,7 +1080,7 @@
         padding: 32px 20px;
       }
       .collection-visual {
-        min-height: 380px;
+        min-height: auto;
       }
       .specs-grid {
         grid-template-columns: 1fr;

@@ -87,7 +87,7 @@ function goToBooking() {
           <div class="designer-media-col">
             <div class="designer-img-frame">
               <img 
-                src="/assets/images/romance/MARIA_DIEZMA_077.jpg" 
+                src="/assets/images/MariaDiezma.jpg" 
                 alt="María Diezma diseñadora en su mesa de corte y confección en el atelier"
                 class="designer-img"
               >
@@ -103,12 +103,9 @@ function goToBooking() {
             <h2 class="section-heading">Artesanía, tiempo y devoción por cada puntada</h2>
             
             <p class="designer-desc-text">
-              Tras más de una década dedicada al patronaje de alta costura y el bordado tradicional, fundé este atelier con un propósito honesto: alejar a la novia de la producción masiva para devolverle el valor a la costura pausada, íntima y rigurosamente personalizada.
+              Con más de 30 años de experiencia, Maria Diezma ha dedicado su vida a la creación de sus propios diseños, fundando este atelier con un propósito honesto: alejar a la novia de la producción masiva para devolverle el valor a la costura pausada, íntima y rigurosamente personalizada.
             </p>
 
-            <p class="designer-desc-text">
-              Aquí no existen dos vestidos iguales porque no hay dos mujeres idénticas. Escucho tus ideas, estudio tus proporciones y dibujamos juntas un boceto inicial en gasa y lino hasta hallar esa armonía perfecta que te hace sentir tú misma, bella e inolvidable en tu día.
-            </p>
 
             <blockquote class="designer-quote">
               «Un vestido a medida no solo viste un cuerpo: abriga la emoción de uno de los días más significativos de tu vida.»
@@ -421,9 +418,16 @@ function goToBooking() {
   align-items: center;
 }
 
+.designer-media-col {
+  display: flex;
+  justify-content: center;
+}
+
 .designer-img-frame {
   position: relative;
-  aspect-ratio: 4 / 5;
+  width: 100%;
+  max-width: 440px;
+  aspect-ratio: 3 / 4;
   border-radius: 4px;
   overflow: hidden;
   box-shadow: 0 20px 45px rgba(44, 37, 35, 0.12);
@@ -433,6 +437,8 @@ function goToBooking() {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 20%;
+  display: block;
 }
 
 .designer-badge-tag {
@@ -551,19 +557,19 @@ function goToBooking() {
 
 .collection-figure {
   position: relative;
-  aspect-ratio: 16 / 10;
+  width: 100%;
   overflow: hidden;
+  line-height: 0;
 }
 
 .collection-img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  height: auto;
+  display: block;
 }
 
 .collection-card:hover .collection-img {
-  transform: scale(1.03);
+  transform: none;
 }
 
 .collection-badge-year {

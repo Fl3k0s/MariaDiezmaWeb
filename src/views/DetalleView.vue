@@ -301,17 +301,18 @@ watch(() => [route.query.nombre, route.query.coleccion], () => {
 
 .main-image-viewport {
   position: relative;
-  aspect-ratio: 3 / 4;
+  width: 100%;
   background: #f0ebe5;
   border-radius: 4px;
   overflow: hidden;
+  line-height: 0;
   box-shadow: 0 16px 40px rgba(44, 37, 35, 0.08);
 }
 
 .large-dress-image {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  height: auto;
+  display: block;
   transition: opacity 0.18s ease;
 }
 

@@ -23,7 +23,7 @@
           <div class="designer-image-frame">
             <div class="designer-img-wrap">
               <img 
-                src="/assets/images/romance/MARIA_DIEZMA_077.jpg" 
+                src="/assets/images/MariaDiezma.jpg" 
                 alt="María Diezma trabajando en el patronaje en su atelier de Madrid" 
                 class="designer-img"
               >
@@ -32,8 +32,7 @@
               </div>
             </div>
             <div class="designer-caption">
-              <span>Atelier C/ Goya, 69 · Madrid</span>
-              <span>Confección a mano</span>
+              <span>Atelier Couture, Real fabrica de tapices</span>
             </div>
           </div>
         </div>
@@ -48,7 +47,7 @@
 
           <div class="bio-paragraphs">
             <p>
-              Tras más de una década dedicada al patronaje de alta costura y el bordado tradicional, fundé este atelier con un propósito honesto: alejar a la novia de la producción masiva para devolverle el valor a la costura pausada, íntima y rigurosamente personalizada.
+              Con más de 30 años de experiencia, Maria Diezma ha dedicado su vida a la creación de sus propios diseños, fundando este atelier con un propósito honesto: alejar a la novia de la producción masiva para devolverle el valor a la costura pausada, íntima y rigurosamente personalizada.
             </p>
             <p>
               Aquí no existen dos vestidos iguales porque no hay dos mujeres idénticas. Escucho tus ideas, estudio tus proporciones y dibujamos juntas un boceto inicial en gasa y lino hasta hallar esa armonía perfecta que te hace sentir tú misma, bella e inolvidable en tu día.
@@ -190,13 +189,17 @@
 
 .designer-img-wrap {
   position: relative;
-  aspect-ratio: 4 / 5;
+  overflow: hidden;
+  width: 100%;
+  aspect-ratio: 3 / 4;
 }
 
 .designer-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center 20%;
+  display: block;
 }
 
 .designer-badge-tag {

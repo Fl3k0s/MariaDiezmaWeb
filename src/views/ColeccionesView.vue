@@ -266,21 +266,19 @@ function setFilter(category) {
 /* LADO 1: IMAGEN */
 .backoffice-visual {
   position: relative;
-  min-height: 520px;
-  background-color: #f0ebe5;
+  width: 100%;
   overflow: hidden;
+  line-height: 0;
 }
 
 .backoffice-img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center top;
-  transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  height: auto;
+  display: block;
 }
 
 .backoffice-card:hover .backoffice-img {
-  transform: scale(1.03);
+  transform: none;
 }
 
 .backoffice-badge-overlay {
@@ -562,7 +560,7 @@ function setFilter(category) {
     border-top: 1px solid var(--border);
   }
   .backoffice-visual {
-    min-height: 380px;
+    min-height: auto;
   }
   .dresses-grid {
     grid-template-columns: repeat(2, 1fr);

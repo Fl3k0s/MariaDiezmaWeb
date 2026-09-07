@@ -12,7 +12,7 @@ const steps = [
       { label: 'Encuentro íntimo:', text: 'Dedicamos todo el tiempo necesario a conocerte y explorar tus deseos.' },
       { label: 'Esencia a medida:', text: 'Definimos estilos de inspiración y las telas que amas para crear una pieza única.' }
     ],
-    image: 'https://images.unsplash.com/photo-1558769132-cb1aea458c5e?auto=format&fit=crop&w=900&q=80',
+    image: '/assets/images/atelier/MariaDiezmaAtelier0.jpg',
     caption: 'Consulta personalizada en nuestro estudio',
     inverted: false
   },
@@ -26,7 +26,7 @@ const steps = [
       { label: 'Técnicas tradicionales:', text: 'Bocetos ilustrados al detalle adaptados a tu figura y estilo.' },
       { label: 'Ajuste y perfección:', text: 'Dialogamos y pulimos juntos cada boceto hasta dar con el diseño perfecto.' }
     ],
-    image: 'https://images.unsplash.com/photo-1594552072238-b8a33785b261?auto=format&fit=crop&w=900&q=80',
+    image: '/assets/images/atelier/MariaDiezmaAtelier1.jpg',
     caption: 'Bocetos y técnicas tradicionales de diseño',
     inverted: true
   },
@@ -40,7 +40,7 @@ const steps = [
       { label: 'Telas exquisitas:', text: 'Encajes delicados, sedas lujosas, tules etéreos y organzas brillantes.' },
       { label: 'Detalles finales:', text: 'Selección a medida de bordados, pedrería y apliques exclusivos.' }
     ],
-    image: 'https://images.unsplash.com/photo-1594938298603-c8148c4dae35?auto=format&fit=crop&w=900&q=80',
+    image: '/assets/images/atelier/MariaDiezmaAtelier2.jpg',
     caption: 'Tocar, ver y enamorarse de cada tela',
     inverted: false
   },
@@ -54,7 +54,7 @@ const steps = [
       { label: 'Evolución viva:', text: 'Siente la emoción de ver tu vestido materializarse paso a paso.' },
       { label: 'Ajuste perfecto:', text: 'Adaptación anatómica completa para que te sientas cómoda y segura.' }
     ],
-    image: 'https://images.unsplash.com/photo-1539109136881-3be0616acf4b?auto=format&fit=crop&w=900&q=80',
+    image: '/assets/images/atelier/MariaDiezmaAtelier4.jpg',
     caption: 'Refinamiento y ajuste milimétrico',
     inverted: true
   },
@@ -68,7 +68,7 @@ const steps = [
       { label: 'Máximo cuidado:', text: 'Planchado a mano, embellecimiento y preparación para su gran debut.' },
       { label: 'Entrega con amor:', text: 'Tu vestido listo e impecable para uno de los días más importantes de tu vida.' }
     ],
-    image: 'https://images.unsplash.com/photo-1546804784-896d0dca3805?auto=format&fit=crop&w=900&q=80',
+    image: '/assets/images/atelier/MariaDiezmaAtelier5.jpg',
     caption: 'Toques finales y entrega en el atelier',
     inverted: false
   },
@@ -82,7 +82,7 @@ const steps = [
       { label: 'Tu momento mágico:', text: 'Ver cómo nuestro trabajo cobra vida cuando caminas hacia el altar.' },
       { label: 'El mayor premio:', text: 'Cada sonrisa, mirada de admiración y momento de felicidad en tu vestido.' }
     ],
-    image: 'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=900&q=80',
+    image: '/assets/images/atelier/MariaDiezmaAtelier6.jpg',
     caption: 'Brilla con luz propia camino al altar',
     inverted: true
   }

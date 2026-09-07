@@ -297,10 +297,16 @@
 
     .designer-media-col {
       position: relative;
+      display: flex;
+      justify-content: center;
     }
 
     .designer-img-frame {
       position: relative;
+      width: 100%;
+      max-width: 440px;
+      margin: 0 auto;
+      aspect-ratio: 3 / 4;
       border-radius: 2px;
       overflow: hidden;
       background-color: #eae5e0;
@@ -309,15 +315,15 @@
 
     .designer-img {
       width: 100%;
-      aspect-ratio: 4 / 5;
+      height: 100%;
       object-fit: cover;
       object-position: center 20%;
+      display: block;
       filter: saturate(0.95);
-      transition: transform 0.6s ease;
     }
 
     .designer-img-frame:hover .designer-img {
-      transform: scale(1.025);
+      transform: none;
     }
 
     .designer-badge-tag {
@@ -449,21 +455,19 @@
     .collection-figure {
       position: relative;
       width: 100%;
-      aspect-ratio: 3 / 4;
       overflow: hidden;
+      line-height: 0;
       background-color: #e5dfd8;
     }
 
     .collection-img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center;
-      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+      height: auto;
+      display: block;
     }
 
     .collection-card:hover .collection-img {
-      transform: scale(1.04);
+      transform: none;
     }
 
     .collection-badge-year {

@@ -89,20 +89,19 @@ const dressCollection = computed(() => {
 
 .dress-card-media {
   position: relative;
-  aspect-ratio: 3 / 4;
+  width: 100%;
   overflow: hidden;
-  background-color: #f5f1ed;
+  line-height: 0;
 }
 
 .dress-card-img {
   width: 100%;
-  height: 100%;
-  object-fit: cover;
-  transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+  height: auto;
+  display: block;
 }
 
 .dress-card:hover .dress-card-img {
-  transform: scale(1.04);
+  transform: none;
 }
 
 .dress-card-badge {

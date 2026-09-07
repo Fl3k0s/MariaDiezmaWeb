@@ -366,20 +366,19 @@
 
     .dress-card-media {
       position: relative;
-      aspect-ratio: 3 / 4;
+      width: 100%;
       overflow: hidden;
-      background: oklch(95% 0.005 95);
+      line-height: 0;
     }
 
     .dress-card-img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+      height: auto;
+      display: block;
     }
 
     .dress-card:hover .dress-card-img {
-      transform: scale(1.05);
+      transform: none;
     }
 
     .dress-card-tag {
@@ -529,17 +528,18 @@
 
     .main-image-viewport {
       position: relative;
-      aspect-ratio: 3 / 4;
+      width: 100%;
       background: oklch(96% 0.004 95);
       border: 1px solid var(--border);
       overflow: hidden;
+      line-height: 0;
     }
 
     .main-active-img {
       width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: opacity 0.3s ease, transform 0.4s ease;
+      height: auto;
+      display: block;
+      transition: opacity 0.3s ease;
     }
 
     .main-view-badge {
