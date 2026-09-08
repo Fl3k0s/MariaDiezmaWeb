@@ -1,7 +1,8 @@
 <script setup>
 import { ref, onMounted, onUnmounted } from 'vue'
+import { BACKOFFICE_URI } from '../config/env'
 
-const API_PRENSA_URL = 'http://localhost:8080/api/v1/prensa'
+const API_PRENSA_URL = `${BACKOFFICE_URI.replace(/\/$/, '')}/v1/prensa`
 
 
 

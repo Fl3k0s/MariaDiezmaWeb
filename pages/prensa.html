@@ -74,7 +74,7 @@
       <div class="section-label">Listado de Artículos & Reportajes</div>
 
       <div class="articles-list" id="articlesContainer">
-        <!-- Renderizado dinámico vía API (http://localhost:8080/api/v1/prensa) -->
+        <!-- Renderizado dinámico vía API (${VITE_BACKOFFICE_URI}/v1/prensa) -->
         <div style="padding: 2.5rem 0; text-align: center; color: var(--muted); font-family: var(--font-mono); font-size: 0.88rem;">
           Cargando artículos de prensa...
         </div>
@@ -153,6 +153,9 @@
     </div>
   </footer>
 
-  <script src="../assets/js/prensa.js"></script>
+  <script>
+    window.VITE_BACKOFFICE_URI = '%VITE_BACKOFFICE_URI%';
+  </script>
+  <script type="module" src="../assets/js/prensa.js"></script>
 </body>
 </html>

@@ -1,5 +1,11 @@
+// Obtener URI base del Backoffice (Vite / Window / Fallback)
+const VITE_BACKOFFICE_URI =
+  (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_BACKOFFICE_URI) ||
+  (typeof window !== 'undefined' && window.VITE_BACKOFFICE_URI && !window.VITE_BACKOFFICE_URI.startsWith('%') ? window.VITE_BACKOFFICE_URI : null) ||
+  'http://localhost:8080/api';
+
 // Endpoint de la API de prensa
-const API_PRENSA_URL = 'http://localhost:8080/api/v1/prensa';
+const API_PRENSA_URL = `${VITE_BACKOFFICE_URI.replace(/\/$/, '')}/v1/prensa`;
 
 // Estado global de artículos cargados (exclusivamente desde la API)
 let articlesData = [];
@@ -244,6 +250,13 @@ document.addEventListener('keydown', (e) => {
     closeArticleModal();
   }
 });
+
+// Exponer funciones globales para eventos onclick del HTML
+if (typeof window !== 'undefined') {
+  window.openArticleModal = openArticleModal;
+  window.closeArticleModal = closeArticleModal;
+  window.handleBackdropClick = handleBackdropClick;
+}
 
 // Inicialización al cargar el documento
 if (document.readyState === 'loading') {
