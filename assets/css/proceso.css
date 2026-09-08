@@ -155,6 +155,9 @@
       color: var(--fg-muted);
       padding: 0.5rem 0;
       position: relative;
+      white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
       transition: var(--transition);
       text-decoration: none;
     }
@@ -951,6 +954,16 @@
     }
 
     /* RESPONSIVE MEDIA QUERIES */
+    @media (max-width: 1120px) {
+      .nav-menu {
+        gap: 1.25rem;
+      }
+      .nav-link {
+        font-size: 0.8rem;
+        letter-spacing: 0.04em;
+      }
+    }
+
     @media (max-width: 960px) {
       .timeline-spine {
         left: 24px;

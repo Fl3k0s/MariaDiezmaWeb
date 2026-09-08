@@ -140,6 +140,10 @@ watch(() => route.path, () => {
   color: var(--fg);
   position: relative;
   padding: 0.35rem 0;
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
   transition: var(--transition-base);
 }
 
@@ -192,6 +196,36 @@ watch(() => route.path, () => {
   color: var(--fg);
 }
 
+@media (max-width: 1120px) {
+  .site-nav {
+    gap: 1.5rem;
+  }
+
+  .nav-link {
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+  }
+
+  .nav-link-cta {
+    padding: 0.45rem 0.95rem;
+  }
+}
+
+@media (max-width: 980px) {
+  .site-nav {
+    gap: 1.1rem;
+  }
+
+  .nav-link {
+    font-size: 0.78rem;
+    letter-spacing: 0.05em;
+  }
+
+  .nav-link-cta {
+    padding: 0.4rem 0.85rem;
+  }
+}
+
 @media (max-width: 868px) {
   .mobile-menu-btn {
     display: flex;
@@ -209,6 +243,7 @@ watch(() => route.path, () => {
     flex-direction: column;
     padding: 2rem 1.5rem;
     gap: 1.5rem;
+    align-items: center;
     border-bottom: 1px solid var(--border);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
   }
