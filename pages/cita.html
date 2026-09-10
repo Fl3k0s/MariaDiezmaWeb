@@ -125,6 +125,24 @@
               </div>
             </div>
 
+            <!-- Subapartado específico para Fiesta / Madrina -->
+            <div class="fiesta-subtype-container" id="fiesta-subtype-container" style="display: none;">
+              <div class="fiesta-subtype-header">
+                <span class="fiesta-subtype-title">¿Cuál es tu papel en el evento?</span>
+                <span class="fiesta-subtype-hint">Elige tu modalidad en Fiesta</span>
+              </div>
+              <div class="fiesta-subtype-grid" role="radiogroup" aria-label="Especialidad de fiesta">
+                <button type="button" class="fiesta-subtype-btn active" id="sub-madrina-btn" onclick="setFiestaSubtype('Madrina')" role="radio" aria-checked="true">
+                  <span class="sub-btn-title">Madrina de Boda</span>
+                  <span class="sub-btn-desc">Vestido o traje a medida para madrina</span>
+                </button>
+                <button type="button" class="fiesta-subtype-btn" id="sub-fiesta-btn" onclick="setFiestaSubtype('Fiesta')" role="radio" aria-checked="false">
+                  <span class="sub-btn-title">Invitada de Honor / Gala</span>
+                  <span class="sub-btn-desc">Diseño exclusivo para fiesta y eventos</span>
+                </button>
+              </div>
+            </div>
+
             <!-- Ficha Descriptiva Dinámica según la posición del slider -->
             <div class="type-detail-card" id="type-detail-box">
               <div class="type-detail-title" id="type-detail-title">
@@ -204,7 +222,8 @@
             <button type="button" 
                     class="time-slot-btn selected" 
                     id="slot-1" 
-                    onclick="selectTimeSlot('10:00 - 11:30', this)" 
+                    data-franja="Mañana (10:00 - 11:30)"
+                    onclick="selectTimeSlot('10:00 - 11:30', this, 'Mañana (10:00 - 11:30)')" 
                     role="radio" 
                     aria-checked="true">
               <span class="slot-time-text">10:00 - 11:30</span>
@@ -218,7 +237,8 @@
             <button type="button" 
                     class="time-slot-btn" 
                     id="slot-2" 
-                    onclick="selectTimeSlot('11:30 - 13:00', this)" 
+                    data-franja="Mañana (11:30 - 13:00)"
+                    onclick="selectTimeSlot('11:30 - 13:00', this, 'Mañana (11:30 - 13:00)')" 
                     role="radio" 
                     aria-checked="false">
               <span class="slot-time-text">11:30 - 13:00</span>
@@ -232,7 +252,8 @@
             <button type="button" 
                     class="time-slot-btn" 
                     id="slot-3" 
-                    onclick="selectTimeSlot('17:00 - 18:30', this)" 
+                    data-franja="Tarde (17:00 - 18:30)"
+                    onclick="selectTimeSlot('17:00 - 18:30', this, 'Tarde (17:00 - 18:30)')" 
                     role="radio" 
                     aria-checked="false">
               <span class="slot-time-text">17:00 - 18:30</span>
@@ -246,7 +267,8 @@
             <button type="button" 
                     class="time-slot-btn" 
                     id="slot-4" 
-                    onclick="selectTimeSlot('18:30 - 20:00', this)" 
+                    data-franja="Tarde (18:30 - 20:00)"
+                    onclick="selectTimeSlot('18:30 - 20:00', this, 'Tarde (18:30 - 20:00)')" 
                     role="radio" 
                     aria-checked="false">
               <span class="slot-time-text">18:30 - 20:00</span>
@@ -324,7 +346,7 @@
             </div>
 
             <!-- Campo Obligatorio: Email -->
-            <div class="form-group full-width">
+            <div class="form-group">
               <label for="client-email" class="form-label">
                 <span>Correo Electrónico <span class="req-mark">*</span></span>
               </label>
@@ -337,6 +359,18 @@
                      autocomplete="email">
             </div>
 
+            <!-- Campo Opcional: Fecha Estimada de la Boda / Evento -->
+            <div class="form-group">
+              <label for="client-event-date" class="form-label">
+                <span>Fecha Estimada del Evento</span>
+                <span class="optional-mark">(Opcional)</span>
+              </label>
+              <input type="date" 
+                     id="client-event-date" 
+                     name="fecha_estimada" 
+                     class="form-input">
+            </div>
+
             <!-- Campo No Obligatorio: Observaciones y Dudas -->
             <div class="form-group full-width">
               <label for="client-notes" class="form-label">
@@ -346,7 +380,7 @@
               <textarea id="client-notes" 
                         name="observaciones" 
                         class="form-textarea" 
-                        placeholder="Cuéntanos cualquier detalle sobre tu boda o evento, fecha aproximada del enlace, número de acompañantes o inquietudes previas..."></textarea>
+                        placeholder="Cuéntanos cualquier detalle sobre tu vestido, boda o evento, número de acompañantes o inquietudes previas..."></textarea>
             </div>
 
             <!-- Campo Obligatorio: Aceptación de Términos y Condiciones -->
@@ -356,6 +390,9 @@
                 He leído y acepto los <a href="#terminos" class="terms-link" onclick="openTermsModal(event)">términos y condiciones</a> del atelier y la política de privacidad de María Diezma para la gestión de mi cita previa <span class="req-mark">*</span>
               </label>
             </div>
+
+            <!-- Mensaje de Error si falla la API -->
+            <div id="booking-error-alert" class="booking-error-alert full-width" style="display: none;" role="alert"></div>
 
             <!-- Botón de Enviar -->
             <div class="submit-btn-wrap">
@@ -402,6 +439,10 @@
           <div class="confirm-row">
             <span class="confirm-cell-label">Teléfono</span>
             <span class="confirm-cell-val" id="res-phone">+34 629 675 583</span>
+          </div>
+          <div class="confirm-row">
+            <span class="confirm-cell-label">Email</span>
+            <span class="confirm-cell-val" id="res-email">carmen.gomez@ejemplo.com</span>
           </div>
           <div class="confirm-row">
             <span class="confirm-cell-label">Lugar</span>

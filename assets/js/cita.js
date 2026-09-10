@@ -1,116 +1,172 @@
+// CONFIGURACIÓN DE API DEL BACKOFFICE
+const VITE_BACKOFFICE_URI =
+  (typeof import.meta !== 'undefined' && import.meta.env && import.meta.env.VITE_BACKOFFICE_URI) ||
+  (typeof window !== 'undefined' && window.VITE_BACKOFFICE_URI && !window.VITE_BACKOFFICE_URI.startsWith('%') ? window.VITE_BACKOFFICE_URI : null) ||
+  'http://localhost:8080/api';
+
+function getApiBaseUrl() {
+  const base = (typeof window !== 'undefined' && window.VITE_BACKOFFICE_URI) || VITE_BACKOFFICE_URI;
+  const clean = base.replace(/\/$/, '');
+  return clean.endsWith('/api') ? clean : `${clean}/api`;
+}
+
+// Endpoint de creación de citas: {{url}}/api/v1/citas
+const API_CITAS_URL = (typeof window !== 'undefined' && window.API_CITAS_URL) || `${getApiBaseUrl()}/v1/citas`;
+
 // ESTADO DE LA RESERVA
-    const APPOINTMENT_TYPES = [
-      {
-        id: 'novia',
-        title: 'Novia',
-        fullTitle: 'Vestido de Novia a Medida',
-        duration: '1h 30min',
-        description: 'Encuentro privado para la novia y sus acompañantes. Modelado sobre silueta, elección de sedas naturales (crepé, mikado, organza) y diseño exclusivo de alta costura nupcial.'
-      },
-      {
-        id: 'fiesta',
-        title: 'Fiesta',
-        fullTitle: 'Vestido de Fiesta, Gala & Madrina',
-        duration: '1h 30min',
-        description: 'Asesoramiento personalizado para madrinas e invitadas de honor. Elección de cortes favorecedores, pedrerías artesanales y tejidos fluidos con patronaje a medida.'
-      },
-      {
-        id: 'comunion',
-        title: 'Comunión',
-        fullTitle: 'Vestido de Primera Comunión a Medida',
-        duration: '1h 30min',
-        description: 'Creaciones delicadas para niñas confeccionadas en linos rústicos, sedas naturales y encajes de valenciennes. Un trato dulce y sosegado para la protagonista.'
-      }
-    ];
+const APPOINTMENT_TYPES = [
+  {
+    id: 'novia',
+    title: 'Novia',
+    fullTitle: 'Vestido de Novia a Medida',
+    duration: '1h 30min',
+    description: 'Encuentro privado para la novia y sus acompañantes. Modelado sobre silueta, elección de sedas naturales (crepé, mikado, organza) y diseño exclusivo de alta costura nupcial.'
+  },
+  {
+    id: 'fiesta',
+    title: 'Fiesta',
+    fullTitle: 'Vestido de Fiesta, Gala & Madrina',
+    duration: '1h 30min',
+    description: 'Asesoramiento personalizado para madrinas e invitadas de honor. Elección de cortes favorecedores, pedrerías artesanales y tejidos fluidos con patronaje a medida.'
+  },
+  {
+    id: 'comunion',
+    title: 'Comunión',
+    fullTitle: 'Vestido de Primera Comunión a Medida',
+    duration: '1h 30min',
+    description: 'Creaciones delicadas para niñas confeccionadas en linos rústicos, sedas naturales y encajes de valenciennes. Un trato dulce y sosegado para la protagonista.'
+  }
+];
 
-    let currentTypeIndex = 0;
-    let selectedTime = '10:00 - 11:30';
+let currentTypeIndex = 0;
+let fiestaSubtype = 'Madrina'; // 'Madrina' | 'Fiesta' dentro de Fiesta
+let selectedTime = '10:00 - 11:30';
+let selectedFranja = 'Mañana (10:00 - 11:30)';
 
-    // Fecha actual a medianoche (para deshabilitar el día de hoy y días pasados)
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
+// Fecha actual a medianoche (para deshabilitar el día de hoy y días pasados)
+const today = new Date();
+today.setHours(0, 0, 0, 0);
 
-    // Obtener la primera fecha válida seleccionable (a partir de mañana, excluyendo domingos)
-    function getFirstAvailableDate() {
-      const d = new Date(today);
-      d.setDate(d.getDate() + 1); // Como mínimo mañana
-      while (d.getDay() === 0) { // Si es domingo, pasar al lunes
-        d.setDate(d.getDate() + 1);
-      }
-      return d;
+// Obtener la primera fecha válida seleccionable (a partir de mañana, excluyendo domingos)
+function getFirstAvailableDate() {
+  const d = new Date(today);
+  d.setDate(d.getDate() + 1); // Como mínimo mañana
+  while (d.getDay() === 0) { // Si es domingo, pasar al lunes
+    d.setDate(d.getDate() + 1);
+  }
+  return d;
+}
+
+let selectedDate = getFirstAvailableDate();
+let currentMonth = selectedDate.getMonth();
+let currentYear = selectedDate.getFullYear();
+
+const MONTH_NAMES = [
+  'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+  'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+];
+
+const DAYS_ES = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+
+// INICIALIZACIÓN
+document.addEventListener('DOMContentLoaded', () => {
+  renderCalendar();
+  updateTimeSlotsAvailability();
+  updateTypeDetailContent();
+  updateSummary();
+});
+
+// GESTIÓN DEL SLIDER DE TIPO DE CITA
+function setAppointmentType(index) {
+  currentTypeIndex = parseInt(index, 10);
+  
+  // Actualizar control range
+  const rangeEl = document.getElementById('appointment-range');
+  if (rangeEl) rangeEl.value = currentTypeIndex;
+  
+  // Mover la píldora indicadora
+  const indicator = document.getElementById('slider-indicator');
+  if (indicator) {
+    indicator.style.transform = `translateX(${currentTypeIndex * 100}%)`;
+  }
+
+  // Actualizar clases activas en botones tab
+  ['tab-novia', 'tab-fiesta', 'tab-comunion'].forEach((tabId, idx) => {
+    const btn = document.getElementById(tabId);
+    if (btn) {
+      const isActive = idx === currentTypeIndex;
+      btn.classList.toggle('active', isActive);
+      btn.setAttribute('aria-checked', isActive.toString());
     }
+  });
 
-    let selectedDate = getFirstAvailableDate();
-    let currentMonth = selectedDate.getMonth();
-    let currentYear = selectedDate.getFullYear();
+  // Mostrar u ocultar el subapartado de Madrina dentro de Fiesta
+  const fiestaSubtypeContainer = document.getElementById('fiesta-subtype-container');
+  const isFiesta = currentTypeIndex === 1;
+  if (fiestaSubtypeContainer) {
+    fiestaSubtypeContainer.style.display = isFiesta ? 'block' : 'none';
+  }
 
-    const MONTH_NAMES = [
-      'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
-      'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
-    ];
+  updateTypeDetailContent();
+  updateSummary();
+}
 
-    const DAYS_ES = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+function setFiestaSubtype(subtype) {
+  fiestaSubtype = subtype; // 'Madrina' o 'Fiesta'
 
-    // INICIALIZACIÓN
-    document.addEventListener('DOMContentLoaded', () => {
-      renderCalendar();
-      updateTimeSlotsAvailability();
-      updateSummary();
-    });
+  const madrinaBtn = document.getElementById('sub-madrina-btn');
+  const fiestaBtn = document.getElementById('sub-fiesta-btn');
 
-    // GESTIÓN DEL SLIDER DE TIPO DE CITA
-    function setAppointmentType(index) {
-      currentTypeIndex = parseInt(index, 10);
-      
-      // Actualizar control range
-      const rangeEl = document.getElementById('appointment-range');
-      if (rangeEl) rangeEl.value = currentTypeIndex;
-      
-      // Mover la píldora indicadora
-      const indicator = document.getElementById('slider-indicator');
-      if (indicator) {
-        indicator.style.transform = `translateX(${currentTypeIndex * 100}%)`;
-      }
+  if (madrinaBtn) {
+    const isMadrina = subtype === 'Madrina';
+    madrinaBtn.classList.toggle('active', isMadrina);
+    madrinaBtn.setAttribute('aria-checked', isMadrina.toString());
+  }
 
-      // Actualizar clases activas en botones tab
-      ['tab-novia', 'tab-fiesta', 'tab-comunion'].forEach((tabId, idx) => {
-        const btn = document.getElementById(tabId);
-        if (btn) {
-          const isActive = idx === currentTypeIndex;
-          btn.classList.toggle('active', isActive);
-          btn.setAttribute('aria-checked', isActive.toString());
-        }
-      });
+  if (fiestaBtn) {
+    const isFiesta = subtype === 'Fiesta';
+    fiestaBtn.classList.toggle('active', isFiesta);
+    fiestaBtn.setAttribute('aria-checked', isFiesta.toString());
+  }
 
-      // Actualizar etiqueta pill
-      const pill = document.getElementById('active-type-pill');
-      if (pill) pill.textContent = APPOINTMENT_TYPES[currentTypeIndex].title;
+  updateTypeDetailContent();
+  updateSummary();
+}
 
-      // Actualizar tarjeta descriptiva
-      const detail = APPOINTMENT_TYPES[currentTypeIndex];
-      const titleEl = document.getElementById('type-detail-title');
-      const textEl = document.getElementById('type-detail-text');
-      
-      if (titleEl) {
-        titleEl.innerHTML = `${detail.fullTitle} <span>${detail.duration}</span>`;
-      }
-      if (textEl) {
-        textEl.textContent = detail.description;
-      }
+function updateTypeDetailContent() {
+  const pill = document.getElementById('active-type-pill');
+  const titleEl = document.getElementById('type-detail-title');
+  const textEl = document.getElementById('type-detail-text');
+  const detail = APPOINTMENT_TYPES[currentTypeIndex];
 
-      updateSummary();
+  if (currentTypeIndex === 1) {
+    if (fiestaSubtype === 'Madrina') {
+      if (pill) pill.textContent = 'Fiesta · Madrina';
+      if (titleEl) titleEl.innerHTML = 'Vestido de Madrina & Gala a Medida <span>1h 30min</span>';
+      if (textEl) textEl.textContent = 'Asesoramiento exclusivo para madrinas y acompañantes principales. Elección de cortes favorecedores, pedrerías artesanales y tejidos nobles con patronaje a medida.';
+    } else {
+      if (pill) pill.textContent = 'Fiesta · Invitada';
+      if (titleEl) titleEl.innerHTML = 'Vestido de Fiesta e Invitada de Gala <span>1h 30min</span>';
+      if (textEl) textEl.textContent = 'Creaciones exclusivas de alta costura para invitadas distinguidas y eventos de gala, confeccionadas artesanalmente en nuestro taller de Madrid.';
     }
+  } else {
+    if (pill) pill.textContent = detail.title;
+    if (titleEl) titleEl.innerHTML = `${detail.fullTitle} <span>${detail.duration}</span>`;
+    if (textEl) textEl.textContent = detail.description;
+  }
+}
 
-    function onRangeSliderChange(val) {
-      setAppointmentType(val);
-    }
+function onRangeSliderChange(val) {
+  setAppointmentType(val);
+}
 
     // GESTIÓN DE TRAMOS HORARIOS (4 TRAMOS)
-    function selectTimeSlot(slotString, btnElement) {
+    function selectTimeSlot(slotString, btnElement, franjaString) {
       if (btnElement && (btnElement.disabled || btnElement.classList.contains('disabled'))) {
         return;
       }
       selectedTime = slotString;
+      selectedFranja = franjaString || (btnElement && btnElement.getAttribute('data-franja')) || (slotString.startsWith('10') || slotString.startsWith('11') ? `Mañana (${slotString})` : `Tarde (${slotString})`);
       
       // Quitar clase selected a los demás
       document.querySelectorAll('.time-slot-btn').forEach(btn => {
@@ -118,8 +174,10 @@
         btn.setAttribute('aria-checked', 'false');
       });
       
-      btnElement.classList.add('selected');
-      btnElement.setAttribute('aria-checked', 'true');
+      if (btnElement) {
+        btnElement.classList.add('selected');
+        btnElement.setAttribute('aria-checked', 'true');
+      }
       
       updateSummary();
     }
@@ -166,9 +224,10 @@
       if (isSaturday && (selectedTime === '17:00 - 18:30' || selectedTime === '18:30 - 20:00')) {
         const morningSlotBtn = document.getElementById('slot-1');
         if (morningSlotBtn) {
-          selectTimeSlot('10:00 - 11:30', morningSlotBtn);
+          selectTimeSlot('10:00 - 11:30', morningSlotBtn, 'Mañana (10:00 - 11:30)');
         } else {
           selectedTime = '10:00 - 11:30';
+          selectedFranja = 'Mañana (10:00 - 11:30)';
           updateSummary();
         }
       }
@@ -307,7 +366,11 @@
       const timeSummary = document.getElementById('summary-time');
 
       if (typeSummary) {
-        typeSummary.textContent = APPOINTMENT_TYPES[currentTypeIndex].fullTitle;
+        if (currentTypeIndex === 1) {
+          typeSummary.textContent = fiestaSubtype === 'Madrina' ? 'Madrina & Gala (Fiesta)' : 'Fiesta e Invitada';
+        } else {
+          typeSummary.textContent = APPOINTMENT_TYPES[currentTypeIndex].fullTitle;
+        }
       }
 
       if (dateSummary && selectedDate) {
@@ -321,72 +384,205 @@
       }
     }
 
-    // ENVÍO DE FORMULARIO CON VALIDACIÓN
-    function handleAppointmentSubmit(event) {
+    // GESTIÓN DE MENSAJES DE ERROR
+    function showBookingError(message) {
+      const errorEl = document.getElementById('booking-error-alert');
+      if (errorEl) {
+        errorEl.textContent = message;
+        errorEl.style.display = 'flex';
+        errorEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      } else {
+        alert(message);
+      }
+    }
+
+    function hideBookingError() {
+      const errorEl = document.getElementById('booking-error-alert');
+      if (errorEl) {
+        errorEl.style.display = 'none';
+        errorEl.textContent = '';
+      }
+    }
+
+    // ENVÍO DE FORMULARIO CON LLAMADA A LA API DE CITAS
+    async function handleAppointmentSubmit(event) {
       event.preventDefault();
+      hideBookingError();
       
       const nameInput = document.getElementById('client-name');
       const phoneInput = document.getElementById('client-phone');
       const emailInput = document.getElementById('client-email');
-      const termsInput = document.getElementById('terms-check');
+      const eventDateInput = document.getElementById('client-event-date');
       const notesInput = document.getElementById('client-notes');
+      const termsInput = document.getElementById('terms-check');
+      const submitBtn = document.getElementById('submit-btn');
 
       // Validar campos obligatorios
-      if (!nameInput.value.trim()) {
-        alert('Por favor, introduce tu nombre y apellidos.');
-        nameInput.focus();
+      if (!nameInput || !nameInput.value.trim()) {
+        showBookingError('Por favor, introduce tu nombre y apellidos.');
+        if (nameInput) nameInput.focus();
         return;
       }
 
-      if (!phoneInput.value.trim()) {
-        alert('Por favor, indícanos un teléfono de contacto.');
-        phoneInput.focus();
+      if (!phoneInput || !phoneInput.value.trim()) {
+        showBookingError('Por favor, indícanos un teléfono de contacto.');
+        if (phoneInput) phoneInput.focus();
         return;
       }
 
-      if (!emailInput.value.trim() || !emailInput.checkValidity()) {
-        alert('Por favor, introduce una dirección de correo electrónico válida.');
-        emailInput.focus();
+      if (!emailInput || !emailInput.value.trim() || !emailInput.checkValidity()) {
+        showBookingError('Por favor, introduce una dirección de correo electrónico válida.');
+        if (emailInput) emailInput.focus();
         return;
       }
 
-      if (!termsInput.checked) {
-        alert('Debes aceptar los términos y condiciones del atelier para solicitar la cita.');
-        termsInput.focus();
+      if (!termsInput || !termsInput.checked) {
+        showBookingError('Debes aceptar los términos y condiciones del atelier para solicitar la cita.');
+        if (termsInput) termsInput.focus();
         return;
       }
 
-      // Preparar pantalla de confirmación
-      document.getElementById('res-type').textContent = APPOINTMENT_TYPES[currentTypeIndex].fullTitle;
-      
-      const dayName = DAYS_ES[selectedDate.getDay()];
-      const monthName = MONTH_NAMES[selectedDate.getMonth()];
-      document.getElementById('res-date').textContent = `${dayName}, ${selectedDate.getDate()} de ${monthName} de ${selectedDate.getFullYear()}`;
-      document.getElementById('res-time').textContent = `${selectedTime} h (90 min de exclusividad)`;
-      document.getElementById('res-name').textContent = nameInput.value.trim();
-      document.getElementById('res-phone').textContent = phoneInput.value.trim();
+      // Preparar campos para el payload de la API
+      const year = selectedDate.getFullYear();
+      const month = String(selectedDate.getMonth() + 1).padStart(2, '0');
+      const day = String(selectedDate.getDate()).padStart(2, '0');
+      const fechaFormatted = `${year}-${month}-${day}`;
 
-      // Generar código aleatorio
-      const randomRef = 'REF: MD-' + currentYear + '-' + Math.floor(1000 + Math.random() * 9000);
-      document.getElementById('confirm-ref-code').textContent = randomRef;
+      let tipoCitaApi = APPOINTMENT_TYPES[currentTypeIndex].title;
+      if (currentTypeIndex === 0) {
+        tipoCitaApi = 'Novia a medida';
+      } else if (currentTypeIndex === 1) {
+        tipoCitaApi = fiestaSubtype; // 'Madrina' o 'Fiesta'
+      } else if (currentTypeIndex === 2) {
+        tipoCitaApi = 'Comunión a medida';
+      }
 
-      // Alternar vistas
-      document.getElementById('appointment-form').style.display = 'none';
-      const confirmScreen = document.getElementById('confirmation-screen');
-      confirmScreen.style.display = 'block';
+      const payload = {
+        tipo_cita: tipoCitaApi,
+        fecha: fechaFormatted,
+        franja_horaria: selectedFranja,
+        nombre_apellidos: nameInput.value.trim(),
+        telefono_contacto: phoneInput.value.trim(),
+        mail: emailInput.value.trim(),
+        fecha_estimada: (eventDateInput && eventDateInput.value.trim()) ? eventDateInput.value.trim() : null,
+        detalles: (notesInput && notesInput.value.trim()) ? notesInput.value.trim() : null
+      };
 
-      // Scroll suave hacia la confirmación
-      confirmScreen.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      console.info(`[Atelier Citas] Enviando solicitud POST a: ${API_CITAS_URL}`, payload);
+
+      // Estado visual de envío en el botón
+      const originalBtnContent = submitBtn ? submitBtn.innerHTML : '';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<span>Tramitando cita en el Atelier...</span>';
+      }
+
+      try {
+        const response = await fetch(API_CITAS_URL, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify(payload)
+        });
+
+        // 201 Created o respuesta satisfactoria
+        if (response.status === 201 || response.ok) {
+          const result = await response.json();
+          console.info('[Atelier Citas] Cita solicitada correctamente (201):', result);
+
+          const appointment = result.data || {};
+          const appointmentId = appointment.id || result.id;
+
+          // Rellenar pantalla de confirmación con los datos devueltos
+          const refCodeEl = document.getElementById('confirm-ref-code');
+          if (refCodeEl) {
+            refCodeEl.textContent = appointmentId ? `REF: ${appointmentId}` : `REF: MD-${currentYear}-${Math.floor(1000 + Math.random() * 9000)}`;
+          }
+
+          const resTypeEl = document.getElementById('res-type');
+          if (resTypeEl) {
+            if (appointment.type) {
+              resTypeEl.textContent = appointment.type.toLowerCase().includes('medida')
+                ? appointment.type
+                : appointment.type + ' a Medida';
+            } else {
+              resTypeEl.textContent = APPOINTMENT_TYPES[currentTypeIndex].fullTitle;
+            }
+          }
+
+          const resDateEl = document.getElementById('res-date');
+          if (resDateEl) {
+            const dayName = DAYS_ES[selectedDate.getDay()];
+            const monthName = MONTH_NAMES[selectedDate.getMonth()];
+            resDateEl.textContent = `${dayName}, ${selectedDate.getDate()} de ${monthName} de ${selectedDate.getFullYear()}`;
+          }
+
+          const resTimeEl = document.getElementById('res-time');
+          if (resTimeEl) {
+            resTimeEl.textContent = appointment.time_slot ? `${appointment.time_slot} (Exclusividad atelier)` : `${selectedTime} h (90 min de exclusividad)`;
+          }
+
+          const resNameEl = document.getElementById('res-name');
+          if (resNameEl) {
+            resNameEl.textContent = appointment.name || payload.nombre_apellidos;
+          }
+
+          const resPhoneEl = document.getElementById('res-phone');
+          if (resPhoneEl) {
+            resPhoneEl.textContent = appointment.phone || payload.telefono_contacto;
+          }
+
+          const resEmailEl = document.getElementById('res-email');
+          if (resEmailEl) {
+            resEmailEl.textContent = appointment.email || appointment.mail || payload.mail;
+          }
+
+          // Alternar vistas
+          document.getElementById('appointment-form').style.display = 'none';
+          const confirmScreen = document.getElementById('confirmation-screen');
+          confirmScreen.style.display = 'block';
+
+          // Scroll suave hacia la confirmación
+          confirmScreen.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+          let errorMsg = 'No ha sido posible registrar la cita previa.';
+          try {
+            const errData = await response.json();
+            if (errData && errData.message) {
+              errorMsg = errData.message;
+            }
+          } catch (_) {}
+          console.error(`[Atelier Citas] Error HTTP ${response.status}:`, errorMsg);
+          showBookingError(`${errorMsg} Por favor, inténtalo de nuevo o contáctanos directamente por teléfono.`);
+        }
+      } catch (err) {
+        console.error('[Atelier Citas] Excepción al procesar cita:', err);
+        showBookingError('No pudimos conectar con el servicio de citas (' + (err.message || 'error de conexión') + '). Por favor, comprueba tu conexión o llámanos al +34 629 675 583.');
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalBtnContent;
+        }
+      }
     }
 
     function resetBookingForm() {
+      hideBookingError();
       document.getElementById('appointment-form').reset();
       document.getElementById('appointment-form').style.display = 'block';
       document.getElementById('confirmation-screen').style.display = 'none';
       selectedDate = getFirstAvailableDate();
       setAppointmentType(0);
+      setFiestaSubtype('Madrina');
+      const slot1Btn = document.getElementById('slot-1');
+      if (slot1Btn) {
+        selectTimeSlot('10:00 - 11:30', slot1Btn, 'Mañana (10:00 - 11:30)');
+      }
       renderCalendar();
       updateTimeSlotsAvailability();
+      updateTypeDetailContent();
       updateSummary();
       document.getElementById('booking-form').scrollIntoView({ behavior: 'smooth' });
     }

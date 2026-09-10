@@ -2,6 +2,7 @@
 import { ref, computed, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
 import { getDressById } from '../data/dresses'
+import { BACKOFFICE_URI } from '../config/env'
 
 const route = useRoute()
 
@@ -28,6 +29,8 @@ const APPOINTMENT_TYPES = [
     description: 'Creaciones delicadas para niñas confeccionadas en linos rústicos, sedas naturales y encajes de valenciennes. Un trato dulce y sosegado para la protagonista.'
   }
 ]
+
+const fiestaSubtype = ref('Madrina')
 
 const TIME_SLOTS = [
   { slot: '10:00 - 11:30', period: 'Mañana · 1er Turno', isMorning: true },
@@ -64,6 +67,22 @@ const currentMonth = ref(initialDate.getMonth())
 const currentYear = ref(initialDate.getFullYear())
 
 const currentType = computed(() => APPOINTMENT_TYPES[currentTypeIndex.value])
+
+const currentTypeFullTitle = computed(() => {
+  if (currentType.value.id === 'fiesta') {
+    return fiestaSubtype.value === 'Madrina' ? 'Vestido de Madrina & Gala a Medida' : 'Vestido de Fiesta e Invitada de Gala'
+  }
+  return currentType.value.fullTitle
+})
+
+const currentTypeDescription = computed(() => {
+  if (currentType.value.id === 'fiesta') {
+    return fiestaSubtype.value === 'Madrina'
+      ? 'Asesoramiento personalizado para madrinas e invitadas de honor. Elección de cortes favorecedores, pedrerías artesanales y tejidos fluidos con patronaje a medida.'
+      : 'Creaciones exclusivas de alta costura para invitadas distinguidas y eventos de gala, confeccionadas artesanalmente en nuestro taller de Madrid.'
+  }
+  return currentType.value.description
+})
 
 // Formulario
 const formData = ref({
@@ -200,14 +219,79 @@ const formattedSelectedDate = computed(() => {
   return `${dayName}, ${dayNum} de ${monthName} de ${year}`
 })
 
-function handleSubmit() {
-  isSubmitted.value = true
+const isSubmitting = ref(false)
+const submitError = ref('')
+const appointmentData = ref(null)
+
+async function handleSubmit() {
+  submitError.value = ''
+  isSubmitting.value = true
+
+  const d = selectedDate.value
+  const fecha = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`
+  const slotObj = TIME_SLOTS.find(s => s.slot === selectedTime.value)
+  const periodo = slotObj ? (slotObj.isMorning ? 'Mañana' : 'Tarde') : 'Mañana'
+  const franja = `${periodo} (${selectedTime.value})`
+
+  let tipoCitaApi = currentType.value.title
+  if (currentType.value.id === 'novia') {
+    tipoCitaApi = 'Novia a medida'
+  } else if (currentType.value.id === 'fiesta') {
+    tipoCitaApi = fiestaSubtype.value // 'Madrina' o 'Fiesta'
+  } else if (currentType.value.id === 'comunion') {
+    tipoCitaApi = 'Comunión a medida'
+  }
+
+  const payload = {
+    tipo_cita: tipoCitaApi,
+    fecha: fecha,
+    franja_horaria: franja,
+    nombre_apellidos: formData.value.fullName.trim(),
+    telefono_contacto: formData.value.phone.trim(),
+    mail: formData.value.email.trim(),
+    fecha_estimada: formData.value.eventDate || null,
+    detalles: formData.value.comments ? formData.value.comments.trim() : null
+  }
+
+  const url = `${BACKOFFICE_URI}/v1/citas`
+  console.info(`[CitaView] Enviando POST a ${url}:`, payload)
+
+  try {
+    const res = await fetch(url, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(payload)
+    })
+
+    if (res.status === 201 || res.ok) {
+      const json = await res.json()
+      appointmentData.value = json.data || json
+      isSubmitted.value = true
+    } else {
+      let msg = 'No se ha podido procesar la cita previa.'
+      try {
+        const errJson = await res.json()
+        if (errJson && errJson.message) msg = errJson.message
+      } catch (_) {}
+      submitError.value = `${msg} Por favor, inténtalo de nuevo o llámanos por teléfono.`
+    }
+  } catch (err) {
+    submitError.value = `Error de conexión con el servicio de citas: ${err.message}`
+  } finally {
+    isSubmitting.value = false
+  }
 }
 
 function resetBooking() {
   isSubmitted.value = false
+  submitError.value = ''
+  appointmentData.value = null
   selectedDate.value = getInitialAvailableDate()
   currentTypeIndex.value = 0
+  fiestaSubtype.value = 'Madrina'
   selectedTime.value = '10:00 - 11:30'
   formData.value = {
     fullName: '',
@@ -254,10 +338,12 @@ function resetBooking() {
                 Hemos bloqueado provisionalmente tu encuentro el <strong>{{ formattedSelectedDate }}</strong> a las <strong>{{ selectedTime }}</strong>. Te hemos enviado un email de confirmación a <em>{{ formData.email }}</em> con los detalles del atelier y recomendaciones para tu visita.
               </p>
               <div class="confirmation-summary-box">
-                <div><strong>Tipo de Cita:</strong> {{ currentType.fullTitle }}</div>
+                <div v-if="appointmentData && appointmentData.id"><strong>Referencia de Cita:</strong> {{ appointmentData.id }}</div>
+                <div><strong>Tipo de Cita:</strong> {{ (appointmentData && appointmentData.type ? (appointmentData.type + ' a Medida') : currentTypeFullTitle) }}</div>
                 <div><strong>Fecha:</strong> {{ formattedSelectedDate }}</div>
-                <div><strong>Horario:</strong> {{ selectedTime }} ({{ currentType.duration }})</div>
-                <div v-if="formData.dressRef"><strong>Referencia:</strong> {{ formData.dressRef }}</div>
+                <div><strong>Horario:</strong> {{ (appointmentData && appointmentData.time_slot) || selectedTime }} ({{ currentType.duration }})</div>
+                <div><strong>Email:</strong> {{ (appointmentData && (appointmentData.email || appointmentData.mail)) || formData.email }}</div>
+                <div v-if="formData.dressRef"><strong>Referencia Vestido:</strong> {{ formData.dressRef }}</div>
                 <div><strong>Ubicación:</strong> C/ de Goya, 69 · Barrio Salamanca, Madrid</div>
               </div>
               <button class="btn-reset" @click="resetBooking">
@@ -289,12 +375,40 @@ function resetBooking() {
                     </button>
                   </div>
 
+                  <!-- Subapartado específico para Fiesta / Madrina -->
+                  <div v-if="currentType.id === 'fiesta'" class="fiesta-subtype-container">
+                    <div class="fiesta-subtype-header">
+                      <span class="fiesta-subtype-title">¿Cuál es tu papel en el evento?</span>
+                      <span class="fiesta-subtype-hint">Modalidad en Fiesta</span>
+                    </div>
+                    <div class="fiesta-subtype-grid">
+                      <button 
+                        type="button" 
+                        class="fiesta-subtype-btn" 
+                        :class="{ 'active': fiestaSubtype === 'Madrina' }"
+                        @click="fiestaSubtype = 'Madrina'"
+                      >
+                        <span class="sub-btn-title">Madrina de Boda</span>
+                        <span class="sub-btn-desc">Vestido o traje a medida para madrina</span>
+                      </button>
+                      <button 
+                        type="button" 
+                        class="fiesta-subtype-btn" 
+                        :class="{ 'active': fiestaSubtype === 'Fiesta' }"
+                        @click="fiestaSubtype = 'Fiesta'"
+                      >
+                        <span class="sub-btn-title">Invitada de Honor / Gala</span>
+                        <span class="sub-btn-desc">Diseño exclusivo para fiesta y eventos</span>
+                      </button>
+                    </div>
+                  </div>
+
                   <div class="type-detail-card">
                     <div class="type-card-top">
-                      <h4 class="type-card-title">{{ currentType.fullTitle }}</h4>
+                      <h4 class="type-card-title">{{ currentTypeFullTitle }}</h4>
                       <span class="type-duration-pill">{{ currentType.duration }}</span>
                     </div>
-                    <p class="type-card-desc">{{ currentType.description }}</p>
+                    <p class="type-card-desc">{{ currentTypeDescription }}</p>
                   </div>
                 </div>
               </div>
@@ -464,9 +578,13 @@ function resetBooking() {
                   </div>
                 </div>
 
-                <button type="submit" class="btn-submit-booking">
-                  <span>Confirmar Solicitud de Cita</span>
-                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <div v-if="submitError" class="booking-error-alert" style="margin-bottom: 1rem; color: #842029; background: #fff0f0; border: 1px solid #f5c2c7; padding: 0.85rem 1rem; border-radius: 4px; font-size: 0.88rem;">
+                  ⚠️ {{ submitError }}
+                </div>
+
+                <button type="submit" class="btn-submit-booking" :disabled="isSubmitting" :style="{ opacity: isSubmitting ? 0.7 : 1, cursor: isSubmitting ? 'not-allowed' : 'pointer' }">
+                  <span>{{ isSubmitting ? 'Tramitando cita en el atelier...' : 'Confirmar Solicitud de Cita' }}</span>
+                  <svg v-if="!isSubmitting" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                     <line x1="5" y1="12" x2="19" y2="12"></line>
                     <polyline points="12 5 19 12 12 19"></polyline>
                   </svg>
@@ -631,6 +749,86 @@ function resetBooking() {
   background: var(--fg);
   color: #ffffff;
   border-color: var(--fg);
+}
+
+.fiesta-subtype-container {
+  background: #faf8f5;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 1.15rem 1.25rem;
+  margin-bottom: 1rem;
+}
+
+.fiesta-subtype-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+}
+
+.fiesta-subtype-title {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--fg);
+}
+
+.fiesta-subtype-hint {
+  font-size: 0.73rem;
+  color: var(--muted);
+  font-family: var(--font-mono);
+}
+
+.fiesta-subtype-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+}
+
+@media (max-width: 520px) {
+  .fiesta-subtype-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.fiesta-subtype-btn {
+  background: #ffffff;
+  border: 1.5px solid var(--border);
+  border-radius: 4px;
+  padding: 0.75rem 1rem;
+  text-align: left;
+  cursor: pointer;
+  transition: var(--transition-base);
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.fiesta-subtype-btn:hover {
+  border-color: var(--accent);
+}
+
+.fiesta-subtype-btn.active {
+  border-color: var(--accent);
+  box-shadow: 0 2px 8px rgba(120, 50, 40, 0.12);
+}
+
+.fiesta-subtype-btn.active .sub-btn-title {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+.sub-btn-title {
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: var(--fg);
+}
+
+.sub-btn-desc {
+  font-size: 0.75rem;
+  color: var(--muted);
+  line-height: 1.35;
 }
 
 .type-detail-card {
