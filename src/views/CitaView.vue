@@ -452,15 +452,6 @@ function resetBooking() {
                     >
                   </div>
 
-                  <div class="form-group full-width">
-                    <label for="dressRef">Vestido o Colección de Referencia (Opcional)</label>
-                    <input 
-                      id="dressRef" 
-                      v-model="formData.dressRef" 
-                      type="text" 
-                      placeholder="Ej: Vestido Altea (REF. MD-01)"
-                    >
-                  </div>
 
                   <div class="form-group full-width">
                     <label for="comments">¿Algo que te gustaría contarnos antes de la cita?</label>
